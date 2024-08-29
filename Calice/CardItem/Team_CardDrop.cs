@@ -65,7 +65,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				GameObject mycardpanel = GameObject.Find("mycardPanel");
 				this.transform.GetChild(1).transform.SetParent(mycardpanel.transform);
 				//mycardpanel.GetComponent<mycard>().align();
-				Debug.Log("È¤½ÃÀÌ°Å");
+				Debug.Log("í˜¹ì‹œì´ê±°");
 
 
 
@@ -98,7 +98,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 	}
 
 	public void OnDrop(PointerEventData eventData)
-	{//³»°¡ Å¬¸¯À» ¶¾ °÷
+	{//ë‚´ê°€ í´ë¦­ì„ ë—€ ê³³
 		DebugX.Log("onDrop" + this.gameObject.name);
 		GameObject mycardpanel = GameObject.Find("mycardPanel");
 		if (eventData.pointerDrag != null)
@@ -111,7 +111,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				eventData.pointerDrag.GetComponent<RectTransform>().position = rect.position;
 
 
-				mycardpanel.GetComponent<mycard>().myhandcard.Remove(this.transform.GetChild(1).gameObject); //³» µ¦ÀÇ list¿¡¼­ ºüÁö±â
+				mycardpanel.GetComponent<mycard>().myhandcard.Remove(this.transform.GetChild(1).gameObject); //ë‚´ ë±ì˜ listì—ì„œ ë¹ ì§€ê¸°
 
 			}
 			else
@@ -123,17 +123,17 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 		}
 		else
 		{
-			DebugX.Log("Ä«µå¾øµé¶§");
+			DebugX.Log("ì¹´ë“œì—†ë“¤ë•Œ");
 		}
 
 		if (this.transform.childCount > 2)
 		{
 			if (Cardrule(eventData))
 			{
-				DebugX.Log("À§");
-				//Á¶ÇÕÄ«µå ±×¾È¿¡¼­ ¹Ù²Ü ¶§
-				Transform changeCard = transform.GetChild(1);  //³»°¡ Àâ°í ¿òÁ÷ÀÎ Ä«µå
-				Transform precard = transform.GetChild(2).GetComponent<Card>().previousRect; //¿ø·¡ÀÖ´ø Ä«µåÀÇ ÀÌÀü Àå¼Ò
+				DebugX.Log("ìœ„");
+				//ì¡°í•©ì¹´ë“œ ê·¸ì•ˆì—ì„œ ë°”ê¿€ ë•Œ
+				Transform changeCard = transform.GetChild(1);  //ë‚´ê°€ ì¡ê³  ì›€ì§ì¸ ì¹´ë“œ
+				Transform precard = transform.GetChild(2).GetComponent<Card>().previousRect; //ì›ë˜ìˆë˜ ì¹´ë“œì˜ ì´ì „ ì¥ì†Œ
 
 
 
@@ -160,7 +160,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 			}
 			else
 			{
-				DebugX.Log("¾Æ·¡");
+				DebugX.Log("ì•„ë˜");
 				Transform changeCard = transform.GetChild(0);
 				Transform precard = transform.GetChild(1).GetComponent<Card>().previousRect;
 
@@ -169,7 +169,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				changeCard.localPosition = Vector3.zero;
 				if (changeCard.parent.name == "mycardPanel")
 				{
-					DebugX.Log("¹Ù²Ù±â");
+					DebugX.Log("ë°”ê¾¸ê¸°");
 					changeCard.parent.gameObject.GetComponent<mycard>().myhandcard.Add(changeCard.gameObject);
 					mycardpanel.GetComponent<mycard>().myhandcard.Remove(this.transform.GetChild(1).gameObject);
 				}
@@ -189,11 +189,11 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 			Debug.Log("no");
 		}
 		*/
-		//Ä«µå½½·Ô ºÎ¸ğÀÇ ÂÊÀ¸·Î °¡¼­ Á¶°ÇÀÌ ÃæÁ· µÇ¾î µ¥¹ÌÁö¸¦ ³ÖÀ» ¼ö ÀÖ´ÂÁö¿¡ ´ëÇØ È®ÀÎ
+		//ì¹´ë“œìŠ¬ë¡¯ ë¶€ëª¨ì˜ ìª½ìœ¼ë¡œ ê°€ì„œ ì¡°ê±´ì´ ì¶©ì¡± ë˜ì–´ ë°ë¯¸ì§€ë¥¼ ë„£ì„ ìˆ˜ ìˆëŠ”ì§€ì— ëŒ€í•´ í™•ì¸
 
 
 
-		mycardpanel.GetComponent<mycard>().align();//Á¤·Ä
+		mycardpanel.GetComponent<mycard>().align();//ì •ë ¬
 
 
 		/*
@@ -387,11 +387,11 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				}
 				accumulatenum -= (int)eventData.pointerDrag.transform.GetComponent<Card>().number;
 
-				Destroy(eventData.pointerDrag.gameObject);//¼ıÀÚÄ«µå»èÁ¦
+				Destroy(eventData.pointerDrag.gameObject);//ìˆ«ìì¹´ë“œì‚­ì œ
 				if (accumulatenum > 0)
 				{
 					rulecheck = false;
-					//½½·ÔÀÌ 1°³ÀÌ±â ¶§¹®¿¡ rulecheck°¡ trueµÇ¸é ¹Ù·Î Á¶°ÇÀÌ ¼º¸³µÇ¾î¼­ ³ª´²ÁÖ¾î¾ßÇÔ
+					//ìŠ¬ë¡¯ì´ 1ê°œì´ê¸° ë•Œë¬¸ì— rulecheckê°€ trueë˜ë©´ ë°”ë¡œ ì¡°ê±´ì´ ì„±ë¦½ë˜ì–´ì„œ ë‚˜ëˆ ì£¼ì–´ì•¼í•¨
 				}
 				else
 				{
@@ -399,18 +399,18 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 					rulecheck = true;
 				}
 				slottext();
-				//Ä«µå¼ıÀÚ´Â ¾îÂîµÇ¾úµç µé¾î°¡¾ßÇÏ´Ï±î ¹«Á¶°Ç true
+				//ì¹´ë“œìˆ«ìëŠ” ì–´ì°Œë˜ì—ˆë“  ë“¤ì–´ê°€ì•¼í•˜ë‹ˆê¹Œ ë¬´ì¡°ê±´ true
 				return true;
 
 			case rule.equal:
-				if (rulenumber == 0)    //·ê ³Ñ¹ö°¡ ¾øÀ»¶§
+				if (rulenumber == 0)    //ë£° ë„˜ë²„ê°€ ì—†ì„ë•Œ
 				{
-					if (EqualNumberCheck((int)eventData.pointerDrag.transform.GetComponent<Card>().number))      //°°Àº ¼ıÀÚ¶ó¸é
+					if (EqualNumberCheck((int)eventData.pointerDrag.transform.GetComponent<Card>().number))      //ê°™ì€ ìˆ«ìë¼ë©´
 					{
 						rulecheck = true;
 						return true;
 					}
-					else    //Á¶°ÇÀÌ ¾È¸ÂÀ½ ¹İÈ¯
+					else    //ì¡°ê±´ì´ ì•ˆë§ìŒ ë°˜í™˜
 					{
 						FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 						if (!rulecheck)
@@ -420,7 +420,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 						return false;
 					}
 				}
-				else    //ÀÖÀ» ¶§
+				else    //ìˆì„ ë•Œ
 				{
 					if ((Cardinfo.number)rulenumber == eventData.pointerDrag.transform.GetComponent<Card>().number || eventData.pointerDrag.transform.GetComponent<Card>().shape == Cardinfo.shape.JOKER)
 					{
@@ -483,7 +483,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 					return false;
 				}
 
-			case rule.odd: //È¦¼ö
+			case rule.odd: //í™€ìˆ˜
 				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 				{
 					eventData.pointerDrag.transform.GetComponent<Card>().number = (Cardinfo.number)9;
@@ -528,12 +528,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				}
 
 			case rule.notequal:
-				if (NotEqualNumberCheck((int)eventData.pointerDrag.transform.GetComponent<Card>().number))      //°°Àº ¼ıÀÚ°¡ ¾ø´Ù¸é
+				if (NotEqualNumberCheck((int)eventData.pointerDrag.transform.GetComponent<Card>().number))      //ê°™ì€ ìˆ«ìê°€ ì—†ë‹¤ë©´
 				{
 					rulecheck = true;
 					return true;
 				}
-				else    //Á¶°ÇÀÌ ¾È¸ÂÀ½ ¹İÈ¯
+				else    //ì¡°ê±´ì´ ì•ˆë§ìŒ ë°˜í™˜
 				{
 					FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 					if (rulecheck != true)
@@ -542,11 +542,11 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 					}
 					return false;
 				}
-			case rule.plus:      //¼ıÀÚÄ«µåÀÇ ÇÕÀÌ nÀÌ»ó µÇµµ·Ï ³Ö±â (¿©·¯½½·Ô)
-				if (!rulecheck)     //ºó ½½·Ô¿¡ Ä«µå¸¦ ³ÖÀ» °æ¿ì
+			case rule.plus:      //ìˆ«ìì¹´ë“œì˜ í•©ì´ nì´ìƒ ë˜ë„ë¡ ë„£ê¸° (ì—¬ëŸ¬ìŠ¬ë¡¯)
+				if (!rulecheck)     //ë¹ˆ ìŠ¬ë¡¯ì— ì¹´ë“œë¥¼ ë„£ì„ ê²½ìš°
 				{
 					check = 0;
-					//¸¶Áö¸· ½½·ÔÀÎÁö Ã¼Å©
+					//ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¸ì§€ ì²´í¬
 					foreach (var slot in combin.cardslot)
 					{
 						if (slot.GetComponent<CardDrop>().rulecheck)
@@ -554,16 +554,16 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							check++;
 						}
 					}
-					DebugX.Log("¸¶Áö¸· ½½·Ô Ã¼Å©" + check);
+					DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯ ì²´í¬" + check);
 
-					//³Ö´Â Ä«µå°¡ ¸¶Áö¸· ½½·ÔÀÏ ¶§
+					//ë„£ëŠ” ì¹´ë“œê°€ ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¼ ë•Œ
 					if (combin.cardslotcount - 1 == check)
 					{
-						DebugX.Log("¸¶Áö¸· ½½·Ô");
+						DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯");
 						sum = 0;
 						joker = 0;
 
-						//°è»ê
+						//ê³„ì‚°
 						foreach (var slot in combin.cardnum)
 						{
 							if (slot != 14)
@@ -572,12 +572,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							}
 							else
 							{
-								DebugX.Log("Á¶Ä¿ ÀÖÀ½");
+								DebugX.Log("ì¡°ì»¤ ìˆìŒ");
 								joker += 10;
 							}
 						}
 
-						//¸¶Áö¸·¿¡ ³Ö´Â Ä«µåµµ °è»ê
+						//ë§ˆì§€ë§‰ì— ë„£ëŠ” ì¹´ë“œë„ ê³„ì‚°
 						if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 						{
 							joker += 10;
@@ -591,11 +591,11 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 
 						if (sum >= accumulatenum - joker)
 						{
-							DebugX.Log("·ê ¼º°ø" + sum);
+							DebugX.Log("ë£° ì„±ê³µ" + sum);
 						}
 						else
 						{
-							DebugX.Log("·ê ½ÇÆĞ" + sum);
+							DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 							FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 							rulecheck = false;
 							return false;
@@ -606,12 +606,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				rulecheck = true;
 				return true;
 
-			case rule.plusset:      //¼ıÀÚÄ«µåÀÇ ÇÕÀÌ nÀÌ µÇµµ·Ï ³Ö±â (¿©·¯½½·Ô)
+			case rule.plusset:      //ìˆ«ìì¹´ë“œì˜ í•©ì´ nì´ ë˜ë„ë¡ ë„£ê¸° (ì—¬ëŸ¬ìŠ¬ë¡¯)
 
-				if (!rulecheck)     //ºó ½½·Ô¿¡ Ä«µå¸¦ ³ÖÀ» °æ¿ì
+				if (!rulecheck)     //ë¹ˆ ìŠ¬ë¡¯ì— ì¹´ë“œë¥¼ ë„£ì„ ê²½ìš°
 				{
 					check = 0;
-					//¸¶Áö¸· ½½·ÔÀÎÁö Ã¼Å©
+					//ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¸ì§€ ì²´í¬
 					foreach (var slot in combin.cardslot)
 					{
 						if (slot.GetComponent<CardDrop>().rulecheck)
@@ -619,16 +619,16 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							check++;
 						}
 					}
-					DebugX.Log("¸¶Áö¸· ½½·Ô Ã¼Å©" + check);
+					DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯ ì²´í¬" + check);
 
-					//³Ö´Â Ä«µå°¡ ¸¶Áö¸· ½½·ÔÀÏ ¶§
+					//ë„£ëŠ” ì¹´ë“œê°€ ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¼ ë•Œ
 					if (combin.cardslotcount - 1 == check)
 					{
-						DebugX.Log("¸¶Áö¸· ½½·Ô");
+						DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯");
 						sum = 0;
 						joker = 0;
 
-						//°è»ê
+						//ê³„ì‚°
 						foreach (var slot in combin.cardnum)
 						{
 							if (slot != 14)
@@ -637,12 +637,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							}
 							else
 							{
-								DebugX.Log("Á¶Ä¿ ÀÖÀ½");
+								DebugX.Log("ì¡°ì»¤ ìˆìŒ");
 								joker += 10;
 							}
 						}
 
-						//¸¶Áö¸·¿¡ ³Ö´Â Ä«µåµµ °è»ê
+						//ë§ˆì§€ë§‰ì— ë„£ëŠ” ì¹´ë“œë„ ê³„ì‚°
 						if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 						{
 							joker += 10;
@@ -655,30 +655,30 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 
 
 						if (joker == 0)
-						{   //Á¶Ä¿°¡ ¾øÀ» °æ¿ì
+						{   //ì¡°ì»¤ê°€ ì—†ì„ ê²½ìš°
 							if (sum == accumulatenum)
 							{
-								DebugX.Log("·ê ¼º°ø" + sum);
+								DebugX.Log("ë£° ì„±ê³µ" + sum);
 							}
 							else
 							{
-								DebugX.Log("·ê ½ÇÆĞ" + sum);
+								DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 								FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 								rulecheck = false;
 								return false;
 							}
 						}
 						else
-						{   //Á¶Ä¿°¡ ÀÖÀ»°æ¿ì
-							if (sum < accumulatenum)    //ÇÕÀÌ Á¶°Çº¸´Ù Å©¸é ¾ÈµÊ. Á¶Ä¿°¡ ¸¶ÀÌ³Ê½º°¡ µÉ ¼ø ¾øÀ¸´Ï±î
+						{   //ì¡°ì»¤ê°€ ìˆì„ê²½ìš°
+							if (sum < accumulatenum)    //í•©ì´ ì¡°ê±´ë³´ë‹¤ í¬ë©´ ì•ˆë¨. ì¡°ì»¤ê°€ ë§ˆì´ë„ˆìŠ¤ê°€ ë  ìˆœ ì—†ìœ¼ë‹ˆê¹Œ
 							{
 								if (sum >= accumulatenum - joker)
 								{
-									DebugX.Log("·ê ¼º°ø" + sum);
+									DebugX.Log("ë£° ì„±ê³µ" + sum);
 								}
 								else
 								{
-									DebugX.Log("·ê ½ÇÆĞ" + sum);
+									DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 									FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 									rulecheck = false;
 									return false;
@@ -686,7 +686,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							}
 							else
 							{
-								DebugX.Log("·ê ½ÇÆĞ" + sum);
+								DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 								FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 								rulecheck = false;
 								return false;
@@ -697,12 +697,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				}
 				rulecheck = true;
 				return true;
-			case rule.minus_2:      //¼ıÀÚÄ«µåÀÇ Â÷°¡ nÀÌÇÏ µÇµµ·Ï ³Ö±â (2½½·Ô)
-				if (!rulecheck)     //ºó ½½·Ô¿¡ Ä«µå¸¦ ³ÖÀ» °æ¿ì
+			case rule.minus_2:      //ìˆ«ìì¹´ë“œì˜ ì°¨ê°€ nì´í•˜ ë˜ë„ë¡ ë„£ê¸° (2ìŠ¬ë¡¯)
+				if (!rulecheck)     //ë¹ˆ ìŠ¬ë¡¯ì— ì¹´ë“œë¥¼ ë„£ì„ ê²½ìš°
 				{
 					check = 0;
 
-					//¸¶Áö¸· ½½·ÔÀÎÁö Ã¼Å©
+					//ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¸ì§€ ì²´í¬
 					foreach (var slot in combin.cardslot)
 					{
 						if (slot.GetComponent<CardDrop>().rulecheck)
@@ -710,16 +710,16 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							check++;
 						}
 					}
-					DebugX.Log("¸¶Áö¸· ½½·Ô Ã¼Å©" + check);
+					DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯ ì²´í¬" + check);
 
-					//³Ö´Â Ä«µå°¡ ¸¶Áö¸· ½½·ÔÀÏ ¶§
+					//ë„£ëŠ” ì¹´ë“œê°€ ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¼ ë•Œ
 					if (combin.cardslotcount - 1 == check)
 					{
-						DebugX.Log("¸¶Áö¸· ½½·Ô");
+						DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯");
 						joker = 0;
 						sum = 0;
 
-						//°è»ê
+						//ê³„ì‚°
 						foreach (var slot in combin.cardnum)
 						{
 							if (slot != 14)
@@ -728,12 +728,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							}
 							else
 							{
-								DebugX.Log("Á¶Ä¿ ÀÖÀ½");
+								DebugX.Log("ì¡°ì»¤ ìˆìŒ");
 								joker += 10;
 							}
 						}
 
-						//¸¶Áö¸·¿¡ ³Ö´Â Ä«µåµµ °è»ê
+						//ë§ˆì§€ë§‰ì— ë„£ëŠ” ì¹´ë“œë„ ê³„ì‚°
 						if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 						{
 							joker += 10;
@@ -747,11 +747,11 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 
 						if (sum <= accumulatenum + joker)
 						{
-							DebugX.Log("·ê ¼º°ø" + sum);
+							DebugX.Log("ë£° ì„±ê³µ" + sum);
 						}
 						else
 						{
-							DebugX.Log("·ê ½ÇÆĞ" + sum);
+							DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 							FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 							rulecheck = false;
 							return false;
@@ -762,12 +762,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				rulecheck = true;
 				return true;
 
-			case rule.minusset_2:      //¼ıÀÚÄ«µåÀÇ ÇÕÀÌ nÀÌ µÇµµ·Ï ³Ö±â (2½½·Ô)
+			case rule.minusset_2:      //ìˆ«ìì¹´ë“œì˜ í•©ì´ nì´ ë˜ë„ë¡ ë„£ê¸° (2ìŠ¬ë¡¯)
 				check = 0;
 
-				if (!rulecheck)     //ºó ½½·Ô¿¡ Ä«µå¸¦ ³ÖÀ» °æ¿ì
+				if (!rulecheck)     //ë¹ˆ ìŠ¬ë¡¯ì— ì¹´ë“œë¥¼ ë„£ì„ ê²½ìš°
 				{
-					//¸¶Áö¸· ½½·ÔÀÎÁö Ã¼Å©
+					//ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¸ì§€ ì²´í¬
 					foreach (var slot in combin.cardslot)
 					{
 						if (slot.GetComponent<CardDrop>().rulecheck)
@@ -775,16 +775,16 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							check++;
 						}
 					}
-					DebugX.Log("¸¶Áö¸· ½½·Ô Ã¼Å©" + check);
+					DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯ ì²´í¬" + check);
 
-					//³Ö´Â Ä«µå°¡ ¸¶Áö¸· ½½·ÔÀÏ ¶§
+					//ë„£ëŠ” ì¹´ë“œê°€ ë§ˆì§€ë§‰ ìŠ¬ë¡¯ì¼ ë•Œ
 					if (combin.cardslotcount - 1 == check)
 					{
-						DebugX.Log("¸¶Áö¸· ½½·Ô");
+						DebugX.Log("ë§ˆì§€ë§‰ ìŠ¬ë¡¯");
 						sum = 0;
 						joker = 0;
 
-						//°è»ê
+						//ê³„ì‚°
 						foreach (var slot in combin.cardnum)
 						{
 							if (slot != 14)
@@ -793,12 +793,12 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 							}
 							else
 							{
-								DebugX.Log("Á¶Ä¿ ÀÖÀ½");
+								DebugX.Log("ì¡°ì»¤ ìˆìŒ");
 								joker += 10;
 							}
 						}
 
-						//¸¶Áö¸·¿¡ ³Ö´Â Ä«µåµµ °è»ê
+						//ë§ˆì§€ë§‰ì— ë„£ëŠ” ì¹´ë“œë„ ê³„ì‚°
 						if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 						{
 							joker += 10;
@@ -811,29 +811,29 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 
 
 						if (joker == 0)
-						{   //Á¶Ä¿°¡ ¾øÀ» °æ¿ì
+						{   //ì¡°ì»¤ê°€ ì—†ì„ ê²½ìš°
 							if (sum == accumulatenum)
 							{
-								DebugX.Log("·ê ¼º°ø" + sum);
+								DebugX.Log("ë£° ì„±ê³µ" + sum);
 							}
 							else
 							{
-								DebugX.Log("·ê ½ÇÆĞ" + sum);
+								DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 								FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 								rulecheck = false;
 								return false;
 							}
 						}
 						else
-						{   //Á¶Ä¿°¡ ÀÖÀ»°æ¿ì
+						{   //ì¡°ì»¤ê°€ ìˆì„ê²½ìš°
 
 							if (sum < accumulatenum + joker)
 							{
-								DebugX.Log("·ê ¼º°ø" + sum);
+								DebugX.Log("ë£° ì„±ê³µ" + sum);
 							}
 							else
 							{
-								DebugX.Log("·ê ½ÇÆĞ" + sum);
+								DebugX.Log("ë£° ì‹¤íŒ¨" + sum);
 								FindObjectOfType<SetVolume>().PlaySE("warning_sound");
 								rulecheck = false;
 								return false;
@@ -846,8 +846,8 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				rulecheck = true;
 				return true;
 
-			case rule.downodd: //ÀÌÇÏ È¦¼ö
-				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)     //Á¶Ä¿ÀÏ °æ¿ì
+			case rule.downodd: //ì´í•˜ í™€ìˆ˜
+				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)     //ì¡°ì»¤ì¼ ê²½ìš°
 				{
 					eventData.pointerDrag.transform.GetComponent<Card>().number = (Cardinfo.number)rulenumber;
 					rulecheck = true;
@@ -877,7 +877,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				}
 
 
-			case rule.downeven: //ÀÌÇÏ Â¦¼ö
+			case rule.downeven: //ì´í•˜ ì§ìˆ˜
 				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 				{
 					eventData.pointerDrag.transform.GetComponent<Card>().number = (Cardinfo.number)rulenumber;
@@ -905,8 +905,8 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 					rulecheck = false;
 					return false;
 				}
-			case rule.upodd: //ÀÌ»ó È¦¼ö
-				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)     //Á¶Ä¿ÀÏ °æ¿ì
+			case rule.upodd: //ì´ìƒ í™€ìˆ˜
+				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)     //ì¡°ì»¤ì¼ ê²½ìš°
 				{
 					eventData.pointerDrag.transform.GetComponent<Card>().number = (Cardinfo.number)rulenumber;
 					rulecheck = true;
@@ -934,7 +934,7 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				}
 
 
-			case rule.upeven:   //ÀÌ»ó Â¦¼ö
+			case rule.upeven:   //ì´ìƒ ì§ìˆ˜
 				if (eventData.pointerDrag.transform.GetComponent<Card>().shape == (Cardinfo.shape)Cardinfo.shape.JOKER)
 				{
 					eventData.pointerDrag.transform.GetComponent<Card>().number = (Cardinfo.number)rulenumber;
@@ -995,8 +995,8 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				rulecheck = true;
 				return true;
 		}
-		//¾îÂ÷ÇÇ À§¿¡¼­ ´Ù°É¸²
-		//norule¸¸ ¿©±â¼­ Æ®·ç³ª¿È
+		//ì–´ì°¨í”¼ ìœ„ì—ì„œ ë‹¤ê±¸ë¦¼
+		//noruleë§Œ ì—¬ê¸°ì„œ íŠ¸ë£¨ë‚˜ì˜´
 		rulecheck = true;
 		return true;
 	}
@@ -1005,21 +1005,21 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 	{
 		NotEqualNumberRefresh();
 
-		if (NotEqualrulenumbers.Count == 0) //±İÁöµÈ ¼ö ¾øÀ» ¶§
+		if (NotEqualrulenumbers.Count == 0) //ê¸ˆì§€ëœ ìˆ˜ ì—†ì„ ë•Œ
 		{
 			return true;
 		}
 
 		for (int i = 0; i < NotEqualrulenumbers.Count; i++)
 		{
-			//·ê¿¡ °É¸°´Ù¸é
+			//ë£°ì— ê±¸ë¦°ë‹¤ë©´
 			if (NotEqualrulenumbers[i] == num)
 			{
-				DebugX.Log("°°Àº¼ıÀÚ ÀÔ´Ï´Ù.");
+				DebugX.Log("ê°™ì€ìˆ«ì ì…ë‹ˆë‹¤.");
 				return false;
 			}
 		}
-		DebugX.Log("°°Àº¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù.");
+		DebugX.Log("ê°™ì€ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤.");
 		return true;
 	}
 
@@ -1043,16 +1043,16 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 		{
 			return true;
 		}
-		else if (Equalrulenumbers.Count == 1)   //½½·ÔÀ» ÇÏ³ª ½èÀ»¶§
+		else if (Equalrulenumbers.Count == 1)   //ìŠ¬ë¡¯ì„ í•˜ë‚˜ ì¼ì„ë•Œ
 		{
-			if (Equalrulenumbers[0] == 14)  //Á¶Ä¿ÀÏ °æ¿ì
+			if (Equalrulenumbers[0] == 14)  //ì¡°ì»¤ì¼ ê²½ìš°
 			{
 				return true;
 			}
 		}
-		else if (Equalrulenumbers.Count == 2)   //½½·Ô µÎ°³¸¦ ½èÀ»¶§
+		else if (Equalrulenumbers.Count == 2)   //ìŠ¬ë¡¯ ë‘ê°œë¥¼ ì¼ì„ë•Œ
 		{
-			if (Equalrulenumbers[0] == 14 && Equalrulenumbers[1] == 14)  //µÑ ´Ù Á¶Ä¿ÀÏ °æ¿ì
+			if (Equalrulenumbers[0] == 14 && Equalrulenumbers[1] == 14)  //ë‘˜ ë‹¤ ì¡°ì»¤ì¼ ê²½ìš°
 			{
 				return true;
 			}
@@ -1060,14 +1060,14 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 
 		for (int i = 0; i < Equalrulenumbers.Count; i++)
 		{
-			//·ê¿¡ °É¸°´Ù¸é
+			//ë£°ì— ê±¸ë¦°ë‹¤ë©´
 			if (Equalrulenumbers[i] == num || num == 14)
 			{
-				DebugX.Log("°°Àº¼ıÀÚ ÀÔ´Ï´Ù.");
+				DebugX.Log("ê°™ì€ìˆ«ì ì…ë‹ˆë‹¤.");
 				return true;
 			}
 		}
-		DebugX.Log("°°Àº¼ıÀÚ°¡ ¾Æ´Õ´Ï´Ù.");
+		DebugX.Log("ê°™ì€ìˆ«ìê°€ ì•„ë‹™ë‹ˆë‹¤.");
 		return false;
 
 	}
@@ -1094,55 +1094,55 @@ public class CardDrop : dropcardrule, IPointerEnterHandler, IDropHandler, IPoint
 				case rule.norule_up:
 					break;
 				case rule.up:
-					text.text = rulenumber.ToString() + "ÀÌ»ó\n" + "¼ıÀÚ";
+					text.text = rulenumber.ToString() + "ì´ìƒ\n" + "ìˆ«ì";
 					break;
 				case rule.down:
-					text.text = rulenumber.ToString() + "ÀÌÇÏ\n" + "¼ıÀÚ";
+					text.text = rulenumber.ToString() + "ì´í•˜\n" + "ìˆ«ì";
 					break;
 				case rule.only:
 					if (rulenumber == 0)
-						text.text = "Á¶Ä¿";
+						text.text = "ì¡°ì»¤";
 					else
-						text.text = "¿ÀÁ÷ ¼ıÀÚ" + rulenumber.ToString();
+						text.text = "ì˜¤ì§ ìˆ«ì" + rulenumber.ToString();
 
 					break;
 				case rule.between:
-					text.text = rulenumbers[0] + "ÀÌ»ó\n" + rulenumbers[1] + "ÀÌÇÏ ¼ıÀÚ";
+					text.text = rulenumbers[0] + "ì´ìƒ\n" + rulenumbers[1] + "ì´í•˜ ìˆ«ì";
 					break;
 				case rule.accumulate:
-					text.text = "³²Àº ¼ıÀÚ\n" + accumulatenum.ToString();
+					text.text = "ë‚¨ì€ ìˆ«ì\n" + accumulatenum.ToString();
 					break;
 				case rule.equal:
 					break;
 				case rule.bothside:
-					text.text = rulenumbers[0] + "ÀÌÇÏ\n" + rulenumbers[1] + "ÀÌ»ó ¼ıÀÚ";
+					text.text = rulenumbers[0] + "ì´í•˜\n" + rulenumbers[1] + "ì´ìƒ ìˆ«ì";
 					break;
 				case rule.plusonly:
-					text.text = "¼ıÀÚ " + rulenumbers[0] + " ¶Ç´Â ¼ıÀÚ " + rulenumbers[1];
+					text.text = "ìˆ«ì " + rulenumbers[0] + " ë˜ëŠ” ìˆ«ì " + rulenumbers[1];
 					break;
 				case rule.odd:
 					if (rulenumber != 0)
-						text.text = rulenumber + "\nÈ¦¼ö";
+						text.text = rulenumber + "\ní™€ìˆ˜";
 					else
-						text.text = "È¦¼ö";
+						text.text = "í™€ìˆ˜";
 					break;
 				case rule.even:
-					text.text = "Â¦¼ö";
+					text.text = "ì§ìˆ˜";
 					break;
 				case rule.downodd:
-					text.text = rulenumber + "ÀÌÇÏ\nÈ¦¼ö";
+					text.text = rulenumber + "ì´í•˜\ní™€ìˆ˜";
 					break;
 				case rule.downeven:
-					text.text = rulenumber + "ÀÌÇÏ\nÂ¦¼ö";
+					text.text = rulenumber + "ì´í•˜\nì§ìˆ˜";
 					break;
 				case rule.upodd:
-					text.text = rulenumber + "ÀÌ»ó\nÈ¦¼ö";
+					text.text = rulenumber + "ì´ìƒ\ní™€ìˆ˜";
 					break;
 				case rule.upeven:
-					text.text = rulenumber + "ÀÌ»ó\nÂ¦¼ö";
+					text.text = rulenumber + "ì´ìƒ\nì§ìˆ˜";
 					break;
 				case rule.down_one:
-					text.text = rulenumber.ToString() + "ÀÌÇÏ\n" + "¼ıÀÚ";
+					text.text = rulenumber.ToString() + "ì´í•˜\n" + "ìˆ«ì";
 					break;
 			}
 		}
