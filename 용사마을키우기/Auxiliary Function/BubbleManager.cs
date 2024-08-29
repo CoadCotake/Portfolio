@@ -82,16 +82,6 @@ public class BubbleManager : MonoBehaviour
         m_Bm = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //CreateBubble(TestObject, "몬스터1", "안녕 너의 이름은 뭐니 나는 김영인이ㅏㄹ고 하는드ㅁㅇㄴㄹㄴㅁㄻㄴㅇ ㄹㅇㄴㅁㄹㄴㅁㄹㅇㄴㅁㄹㄴㅇㅁㄹㄴㅁㄹㄴㅁ ㄻㄴㄹ ㄴㅁㄻㄴㄹㄴㄹㅇㄴㅁㄹ ㅇㄴㅁㄹ ㄴㅁ ㅁㅇㄻㄴㄹ ㅁㄴㅇㄹ ㅁㄴㅇㄹ ㄴㅁ ㄻㄴㅇㄹ ㅇㅁㄴㄹ ?","몬스터");
-        //CreateBubble(TestObject2, "대장장이", "안녕 너의 이름은 뭐니 나는 김영인이ㅏㄹ고 하는드ㅔㄴㅁㅇㅁㄴㅇㄴㅁㅇㄴㅁㅇㄴㅁㅇㅁㄴㅇㅁㄴㅇㅁㄴㅇㅁㄴㄴㅇ2?");
-        //CreateBubble(TestObject3, "용사", "안녕 너의 이름은 뭐니 나는 김영인이ㅏㄹ고 하는드ㅔ3?","사람");
-        //CreateBubble(TestObject4, "몬스터2", "안녕 너의1?","몬스터");
-    }
-
-
     public GameObject CreateBubble(GameObject Target, string name = null, string text = null,string Offset_name=null)
     {
         _ins = Instantiate(Prefab_Bubble, canvus.transform);
