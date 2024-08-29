@@ -5,25 +5,25 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Assertions.Must;
 
-// ¸¸¾à ¾ÆÀÌÅÛ ¾ò´Â °Í ¶Ç´Â ´Ù¸¥ ÀÌº¥Æ®µéÀÌ ÀÖÀ¸¸é Ãß»ó Å¬·¡½º·Î ¸¸µé¾î¹ö¸®±â
+// ë§Œì•½ ì•„ì´í…œ ì–»ëŠ” ê²ƒ ë˜ëŠ” ë‹¤ë¥¸ ì´ë²¤íŠ¸ë“¤ì´ ìˆìœ¼ë©´ ì¶”ìƒ í´ë˜ìŠ¤ë¡œ ë§Œë“¤ì–´ë²„ë¦¬ê¸°
 public class SelectSystem : MonoBehaviour
 {
-    [SerializeField] private int branch;                              //¿¢¼¿·Î ÀúÀåµÈ ´ëÈ­¹® ºĞ±â ´ã±â
-    [SerializeField] private SelectDB dialogDB;                          //¿¢¼¿·ÎµÈ ´ëÈ­¹® ½ºÅ©¸³Æ® ´ã±â
-    [SerializeField] private SelectSpeaker speaker;                      //´ëÈ­¿¡ Âü¿©ÇÏ´Â Ä³¸¯ÅÍµéÀÇ UI ¹è¿­
-    [SerializeField] ItemBtn_Event itembtn_event;                       // ¾ÆÀÌÅÛ ¼±ÅÃ ÀÌº¥Æ® °ü·Ã ½ºÅ©¸³Æ®
-    //»ç¿ëµÇ´Â ¿ÀºêÁ§Æ®°¡ popupPanel, getDamagePanel, getGoldPanel, gameOverPanel ³¡??
+    [SerializeField] private int branch;                              //ì—‘ì…€ë¡œ ì €ì¥ëœ ëŒ€í™”ë¬¸ ë¶„ê¸° ë‹´ê¸°
+    [SerializeField] private SelectDB dialogDB;                          //ì—‘ì…€ë¡œëœ ëŒ€í™”ë¬¸ ìŠ¤í¬ë¦½íŠ¸ ë‹´ê¸°
+    [SerializeField] private SelectSpeaker speaker;                      //ëŒ€í™”ì— ì°¸ì—¬í•˜ëŠ” ìºë¦­í„°ë“¤ì˜ UI ë°°ì—´
+    [SerializeField] ItemBtn_Event itembtn_event;                       // ì•„ì´í…œ ì„ íƒ ì´ë²¤íŠ¸ ê´€ë ¨ ìŠ¤í¬ë¦½íŠ¸
+    //ì‚¬ìš©ë˜ëŠ” ì˜¤ë¸Œì íŠ¸ê°€ popupPanel, getDamagePanel, getGoldPanel, gameOverPanel ë??
     public GameObject popupPanel, getDamagePanel, getItemPanel, getGoldPanel, rewardPanel, takeawayItemPanel, havenoItemPanel, takeawayComcardPanel, magicItemPanel, gameOverPanel;
     
-    public RewardItem rewardItem;                                       //º¸»ó¾ÆÀÌÅÛ ½ºÅ©¸³Æ®
-    public Button[] btn;                                             //¹öÆ° ´ã´Â ¹è¿­
-    public SelectData dialogs;                                           //ÇöÀç ºĞ±âÀÇ ´ë»ç ¸ñ·Ï ¹è¿­
-    public bool IsSelected;                                            //·çÆ®¸¦ ¼±ÅÃÇß³Ä ¾ÈÇß³Ä
-    public string lostItemname;                                     // –P±ä or ¼Ò½ÇÇÑ ¾ÆÀÌÅÛ ÀÌ¸§
+    public RewardItem rewardItem;                                       //ë³´ìƒì•„ì´í…œ ìŠ¤í¬ë¦½íŠ¸
+    public Button[] btn;                                             //ë²„íŠ¼ ë‹´ëŠ” ë°°ì—´
+    public SelectData dialogs;                                           //í˜„ì¬ ë¶„ê¸°ì˜ ëŒ€ì‚¬ ëª©ë¡ ë°°ì—´
+    public bool IsSelected;                                            //ë£¨íŠ¸ë¥¼ ì„ íƒí–ˆëƒ ì•ˆí–ˆëƒ
+    public string lostItemname;                                     // Â–Pê¸´ or ì†Œì‹¤í•œ ì•„ì´í…œ ì´ë¦„
     public string changeItemname; 
-    public int lostItemNum;                                     // –P±ä or ¼Ò½ÇÇÑ ¾ÆÀÌÅÛ ÀÌ¸§
+    public int lostItemNum;                                     // Â–Pê¸´ or ì†Œì‹¤í•œ ì•„ì´í…œ ì´ë¦„
     public int changeItemNum;
-    public List<int> btnVal;                                        // ¼¼°ÔÀÇ ¼±ÅÃÁöÀÇ Á¤º¸¸¦ ´ã´Â º¯¼ö -> ¸®½ºÆ® ¼ÅÇÃÀ» ÀÌ¿ëÇÏ¿© ·£´ı ±¸Çö
+    public List<int> btnVal;                                        // ì„¸ê²Œì˜ ì„ íƒì§€ì˜ ì •ë³´ë¥¼ ë‹´ëŠ” ë³€ìˆ˜ -> ë¦¬ìŠ¤íŠ¸ ì…”í”Œì„ ì´ìš©í•˜ì—¬ ëœë¤ êµ¬í˜„
 
     public  void StartSelectSystem()
     {
@@ -36,7 +36,7 @@ public class SelectSystem : MonoBehaviour
 
     }
 
-    // ¿¢¼¿¿¡¼­ ¼±ÅÃÁö Á¤º¸ °¡Á®¿À±â
+    // ì—‘ì…€ì—ì„œ ì„ íƒì§€ ì •ë³´ ê°€ì ¸ì˜¤ê¸°
     public void SetData()
     {
         for (int i = 0; i < dialogDB.Select.Count; i++)
@@ -72,20 +72,20 @@ public class SelectSystem : MonoBehaviour
         }
     }
 
-    // ´ÙÀ½ ¼±ÅÃÁö ½ÃÀÛ    
+    // ë‹¤ìŒ ì„ íƒì§€ ì‹œì‘    
     public void SetDialog()
     {
-        //ÇöÀç È­ÀÚÀÇ ÀÌ¹ÌÁö ¼³Á¤
+        //í˜„ì¬ í™”ìì˜ ì´ë¯¸ì§€ ì„¤ì •
         speaker.image.sprite = speaker.imageNum[dialogs.imageNum];
-        //ÇöÀç È­ÀÚÀÇ ÀÌ¸§ ÅØ½ºÆ® È®ÀÎ
+        //í˜„ì¬ í™”ìì˜ ì´ë¦„ í…ìŠ¤íŠ¸ í™•ì¸
         //speaker.textName.text = dialogs.name;
         speaker.textName.textNum = branch - 1;
         speaker.textDialog.textNum = branch - 1;
 
-        //ÇöÀç È­ÀÚÀÇ ´ë»ç ÅØ½ºÆ® ¼³Á¤
-        if (branch == 11)       //¹İÀÀÇü ÅØ½ºÆ® - Ä«µå »¯±ä ÀÌº¥Æ®
+        //í˜„ì¬ í™”ìì˜ ëŒ€ì‚¬ í…ìŠ¤íŠ¸ ì„¤ì •
+        if (branch == 11)       //ë°˜ì‘í˜• í…ìŠ¤íŠ¸ - ì¹´ë“œ ëºê¸´ ì´ë²¤íŠ¸
         {
-            //speaker.textDialog.text = "Ä«µå º´»ç¿¡°Ô" + "<b> <size=35> '" + GameManager.instance.comcardDB.comcard[EventManager.instance.LostCard].name + "</size></b>" + "'  Ä«µå¸¦ »©¾Ò°å´Ù.";
+            //speaker.textDialog.text = "ì¹´ë“œ ë³‘ì‚¬ì—ê²Œ" + "<b> <size=35> '" + GameManager.instance.comcardDB.comcard[EventManager.instance.LostCard].name + "</size></b>" + "'  ì¹´ë“œë¥¼ ë¹¼ì•˜ê²¼ë‹¤.";
             //\n*+GameManager.instance.comcardDB.comcard[].explain
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Card[EventManager.instance.LostCard].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextEn.Add(TextTranslateManager.instance.textDB.Card[EventManager.instance.LostCard].EnName);
@@ -95,13 +95,13 @@ public class SelectSystem : MonoBehaviour
             if (!GameManager.instance.IsItemNull)
             {
                 //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-                //speaker.textDialog.text = "¾Ù¸®½º´Â ³î¶ó¼­ " + "<b> <size=35>" + lostItemname + "</size></b>" + "À» ¶³¾îÆ®·È´Ù.\n¶³¾îÁø ¹°°ÇÀÌ °íÀå³µ´Ù.";
+                //speaker.textDialog.text = "ì•¨ë¦¬ìŠ¤ëŠ” ë†€ë¼ì„œ " + "<b> <size=35>" + lostItemname + "</size></b>" + "ì„ ë–¨ì–´íŠ¸ë ¸ë‹¤.\në–¨ì–´ì§„ ë¬¼ê±´ì´ ê³ ì¥ë‚¬ë‹¤.";
                 speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
                 speaker.textDialog.plusTexts.plusMiddleTextEn.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].EnName);
             }
             else
             {
-                //speaker.textDialog.text = "<b> <size=35>" + "¾Ù¸®½º´Â ³î¶ú´Ù. ±ôÂ¦ÀÌ¾ß!" + "</size></b>" + "\n";
+                //speaker.textDialog.text = "<b> <size=35>" + "ì•¨ë¦¬ìŠ¤ëŠ” ë†€ëë‹¤. ê¹œì§ì´ì•¼!" + "</size></b>" + "\n";
                 speaker.textDialog.textNum = 46;
 
                 GameManager.instance.IsItemNull = false;
@@ -111,7 +111,7 @@ public class SelectSystem : MonoBehaviour
         {
             //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
             //changeItemname = ES3.Load<string>("ChangeItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            //speaker.textDialog.text = "\"Æã!\"" + "\n" + "\" " + lostItemname + "ÀÌ(°¡) " + changeItemname + "(À¸)·Î ¹Ù²î¾ú¾î.\"" + "\n" + "Åä³¢°¡ " + changeItemname + "À»(¸¦) ³»¹Ğ¾ú´Ù.";
+            //speaker.textDialog.text = "\"í‘!\"" + "\n" + "\" " + lostItemname + "ì´(ê°€) " + changeItemname + "(ìœ¼)ë¡œ ë°”ë€Œì—ˆì–´.\"" + "\n" + "í† ë¼ê°€ " + changeItemname + "ì„(ë¥¼) ë‚´ë°€ì—ˆë‹¤.";
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("ChangeItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("ChangeItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
@@ -123,7 +123,7 @@ public class SelectSystem : MonoBehaviour
         else if (branch == 28)
         {
             //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            //speaker.textDialog.text = "\"Æã!\"" + "\n" + "\"¿¡±¸±¸... ½ÇÆĞÇØ¼­ " + lostItemname + "ÀÌ(°¡) ºÎ½¤Á³³×...\"" + "\n" + lostItemname + "ÀÌ(°¡) ºÎ½¤Á³´Ù.";            
+            //speaker.textDialog.text = "\"í‘!\"" + "\n" + "\"ì—êµ¬êµ¬... ì‹¤íŒ¨í•´ì„œ " + lostItemname + "ì´(ê°€) ë¶€ìˆ´ì¡Œë„¤...\"" + "\n" + lostItemname + "ì´(ê°€) ë¶€ìˆ´ì¡Œë‹¤.";            
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Pas[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
 
@@ -134,7 +134,7 @@ public class SelectSystem : MonoBehaviour
         {
             //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
             //changeItemname = ES3.Load<string>("ChangeItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            //speaker.textDialog.text = "\"Æã!\"" + "\n" + "\" " + lostItemname + "ÀÌ(°¡) " + changeItemname + "(À¸)·Î ¹Ù²î¾ú¾î.\"" + "\n" + "Åä³¢°¡ " + changeItemname + "À»(¸¦) ³»¹Ğ¾ú´Ù.";
+            //speaker.textDialog.text = "\"í‘!\"" + "\n" + "\" " + lostItemname + "ì´(ê°€) " + changeItemname + "(ìœ¼)ë¡œ ë°”ë€Œì—ˆì–´.\"" + "\n" + "í† ë¼ê°€ " + changeItemname + "ì„(ë¥¼) ë‚´ë°€ì—ˆë‹¤.";
 
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("ChangeItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
@@ -148,7 +148,7 @@ public class SelectSystem : MonoBehaviour
         else if(branch == 31)
         {
             //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            //speaker.textDialog.text = "\"Æã!\"" + "\n" + "\"¿¡±¸±¸... ½ÇÆĞÇØ¼­ " + lostItemname + "ÀÌ(°¡) ºÎ½¤Á³³×...\"" + "\n" + lostItemname + "ÀÌ(°¡) Âõ¾îÁ³´Ù.";
+            //speaker.textDialog.text = "\"í‘!\"" + "\n" + "\"ì—êµ¬êµ¬... ì‹¤íŒ¨í•´ì„œ " + lostItemname + "ì´(ê°€) ë¶€ìˆ´ì¡Œë„¤...\"" + "\n" + lostItemname + "ì´(ê°€) ì°¢ì–´ì¡Œë‹¤.";
 
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].KrName);
@@ -156,9 +156,9 @@ public class SelectSystem : MonoBehaviour
             speaker.textDialog.plusTexts.plusMiddleTextEn.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].EnName);
             speaker.textDialog.plusTexts.plusMiddleTextEn.Add(TextTranslateManager.instance.textDB.Card[ES3.Load<int>("LostItemNum", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3")].EnName);
         }
-        else if (branch == 35)   //¹İÀÀÇü ÅØ½ºÆ® - Æ÷¼Ç ±¸¸Å
+        else if (branch == 35)   //ë°˜ì‘í˜• í…ìŠ¤íŠ¸ - í¬ì…˜ êµ¬ë§¤
         {
-            //speaker.textDialog.text = "°¨»çÇÕ´Ï´Ù. °í°´´Ô\"" + "\n" + "Àå»ç²Û¿¡°Ô¼­" + "<b> <size=35>" + EventManager.instance.ItemName + "</size></b>" + "À»(¸¦) »ò´Ù.";
+            //speaker.textDialog.text = "ê°ì‚¬í•©ë‹ˆë‹¤. ê³ ê°ë‹˜\"" + "\n" + "ì¥ì‚¬ê¾¼ì—ê²Œì„œ" + "<b> <size=35>" + EventManager.instance.ItemName + "</size></b>" + "ì„(ë¥¼) ìƒ€ë‹¤.";
             switch (EventManager.instance.itemNum.Count)
             {
                 case 2:
@@ -176,16 +176,16 @@ public class SelectSystem : MonoBehaviour
             }
 
         }
-        else if (branch == 36)   //¹İÀÀÇü ÅØ½ºÆ® - Àå»ç²Û¿¡°Ô ÀüÀç»ê ´Ù ÅĞ¸° ÀÌº¥Æ® (50°ñµå ÀÌÇÏÀÏ °æ¿ì)
+        else if (branch == 36)   //ë°˜ì‘í˜• í…ìŠ¤íŠ¸ - ì¥ì‚¬ê¾¼ì—ê²Œ ì „ì¬ì‚° ë‹¤ í„¸ë¦° ì´ë²¤íŠ¸ (50ê³¨ë“œ ì´í•˜ì¼ ê²½ìš°)
         {
-            //speaker.textDialog.text = "\"¹¹! ¾È»ê´Ù°í? ±×·³ ±¸°æÇÑ °ªÀ» ³»!\"" + "\n" + "Àå»ç²ÛÀÌ ¾ïÁö¸¦ ºÎ¸®¸ç" + "<b> <size=35> '" + EventManager.instance.LostGold + "</size></b>" + "'  °ñµå¸¦ °¡Á®°¬´Ù.";
+            //speaker.textDialog.text = "\"ë­! ì•ˆì‚°ë‹¤ê³ ? ê·¸ëŸ¼ êµ¬ê²½í•œ ê°’ì„ ë‚´!\"" + "\n" + "ì¥ì‚¬ê¾¼ì´ ì–µì§€ë¥¼ ë¶€ë¦¬ë©°" + "<b> <size=35> '" + EventManager.instance.LostGold + "</size></b>" + "'  ê³¨ë“œë¥¼ ê°€ì ¸ê°”ë‹¤.";
             speaker.textDialog.plusTexts.plusMiddleTextKr.Add(EventManager.instance.LostGold.ToString());
             speaker.textDialog.plusTexts.plusMiddleTextEn.Add(EventManager.instance.LostGold.ToString());
         }
-        else if (branch == 46)   //¹İÀÀÇü ÅØ½ºÆ® - »óÀÎ¿¡°Ô ¹«¾ğ°¡¸¦ ÆÈ°í °ñµå¸¦ ¹ŞÀ½
+        else if (branch == 46)   //ë°˜ì‘í˜• í…ìŠ¤íŠ¸ - ìƒì¸ì—ê²Œ ë¬´ì–¸ê°€ë¥¼ íŒ”ê³  ê³¨ë“œë¥¼ ë°›ìŒ
         {
             //lostItemname = ES3.Load<string>("LostItemName", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            //speaker.textDialog.text = "<b> <size=35>" + lostItemname + "</size></b>" + "\"À» ÆÈ°Ú³ª? ³» ºñ½Ñ °ª¿¡ »çÁö.\"" + "\n" + "´ÙÀÌ¾Æ »óÀÎÀÌ" + "<b> <size=35>" + lostItemname + "</size></b>" + "À» ¹Ş°í" + "<b> <size=35> '" + EventManager.instance.LostGold + "</size></b>" + "'  °ñµå¸¦ ÁÖ¾ú´Ù.";
+            //speaker.textDialog.text = "<b> <size=35>" + lostItemname + "</size></b>" + "\"ì„ íŒ”ê² ë‚˜? ë‚´ ë¹„ì‹¼ ê°’ì— ì‚¬ì§€.\"" + "\n" + "ë‹¤ì´ì•„ ìƒì¸ì´" + "<b> <size=35>" + lostItemname + "</size></b>" + "ì„ ë°›ê³ " + "<b> <size=35> '" + EventManager.instance.LostGold + "</size></b>" + "'  ê³¨ë“œë¥¼ ì£¼ì—ˆë‹¤.";
 
             if (EventManager.instance.Trade_item == true)
             {
@@ -227,13 +227,13 @@ public class SelectSystem : MonoBehaviour
             btn[button].interactable = false;
         }
 
-        //¹öÆ° °¹¼ö ¼³Á¤ & ¹öÆ° ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+        //ë²„íŠ¼ ê°¯ìˆ˜ ì„¤ì • & ë²„íŠ¼ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
         if (dialogs.btnCount == 1)
         {
             btn[0].gameObject.SetActive(true);
             btn[1].gameObject.SetActive(false);
             btn[2].gameObject.SetActive(false);
-            //¹öÆ°ÀÇ ÀÚ½Ä ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+            //ë²„íŠ¼ì˜ ìì‹ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
             //btn[0].GetComponentInChildren<Text>().text = dialogs.buttonText[0];
             btn[0].GetComponentInChildren<TextTranslate>().textNum = branch - 1;
             btn[0].GetComponentInChildren<TextTranslate>().TranslateText();
@@ -243,7 +243,7 @@ public class SelectSystem : MonoBehaviour
             btn[0].gameObject.SetActive(true);
             btn[1].gameObject.SetActive(true);
             btn[2].gameObject.SetActive(false);
-            //¹öÆ°ÀÇ ÀÚ½Ä ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+            //ë²„íŠ¼ì˜ ìì‹ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
             //btn[0].GetComponentInChildren<Text>().text = dialogs.buttonText[0];
             //btn[1].GetComponentInChildren<Text>().text = dialogs.buttonText[1];
             btn[0].GetComponentInChildren<TextTranslate>().textNum = branch - 1;
@@ -256,7 +256,7 @@ public class SelectSystem : MonoBehaviour
             btn[0].gameObject.SetActive(true);
             btn[1].gameObject.SetActive(true);
             btn[2].gameObject.SetActive(true);
-            //¹öÆ°ÀÇ ÀÚ½Ä ÅØ½ºÆ® ¾÷µ¥ÀÌÆ®
+            //ë²„íŠ¼ì˜ ìì‹ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸
             //btn[0].GetComponentInChildren<Text>().text = dialogs.buttonText[0];
             //btn[1].GetComponentInChildren<Text>().text = dialogs.buttonText[1];
             //btn[2].GetComponentInChildren<Text>().text = dialogs.buttonText[2];
@@ -273,7 +273,7 @@ public class SelectSystem : MonoBehaviour
         EventManager.instance.ExclusionButton.Clear();
     }
 
-    // ¸®½ºÆ® ¼ÅÇÃ
+    // ë¦¬ìŠ¤íŠ¸ ì…”í”Œ
     public static void ShuffleList<T>(List<T> list)
     {
         int random1; int random2;
@@ -288,8 +288,8 @@ public class SelectSystem : MonoBehaviour
         }
     }
 
-    // ¹öÆ° ¼±ÅÃ ÀÌº¥Æ® -> ÀÌº¥Æ®¿¡¼­ »ç¿ëµÉ ÇÔ¼ö°¡ Ãß°¡µÉ ¶§¸¶´Ù ¿©±â´Ù°¡ case·Î Ãß°¡ÇØ¾ßÇÔ
-    public void ClickDataUpdate(int btnNum, int branch, string val)  //¹öÆ°, ¿¢¼¿ ºê·£Ä¡, ÀÌº¥Æ® ÀÌ¸§
+    // ë²„íŠ¼ ì„ íƒ ì´ë²¤íŠ¸ -> ì´ë²¤íŠ¸ì—ì„œ ì‚¬ìš©ë  í•¨ìˆ˜ê°€ ì¶”ê°€ë  ë•Œë§ˆë‹¤ ì—¬ê¸°ë‹¤ê°€ caseë¡œ ì¶”ê°€í•´ì•¼í•¨
+    public void ClickDataUpdate(int btnNum, int branch, string val)  //ë²„íŠ¼, ì—‘ì…€ ë¸Œëœì¹˜, ì´ë²¤íŠ¸ ì´ë¦„
     {
         switch (val)
         {
@@ -512,7 +512,7 @@ public class SelectSystem : MonoBehaviour
                 if (btnNum == 2)
                     btn[btnNum].onClick.AddListener(() => TraderItem());
                 break;
-            case ("Back")://¸ÊÀ¸·Î°¡±â
+            case ("Back")://ë§µìœ¼ë¡œê°€ê¸°
                 btn[btnNum].onClick.AddListener(Back);
                 break;
         }
@@ -530,7 +530,7 @@ public class SelectSystem : MonoBehaviour
 
         int num = 0;
 
-        // Ä«µå°ÔÀÓ ½ºÅ×ÀÌÁö ¿¹¿ÜÃ³¸®
+        // ì¹´ë“œê²Œì„ ìŠ¤í…Œì´ì§€ ì˜ˆì™¸ì²˜ë¦¬
         if (branch != 37)
         {
             num = Random.Range(50, 101); 
@@ -540,7 +540,7 @@ public class SelectSystem : MonoBehaviour
             num = 100;
         }
 
-        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = num + "°ñµå¸¦ È¹µæÇÏ¿´´Ù.";
+        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = num + "ê³¨ë“œë¥¼ íšë“í•˜ì˜€ë‹¤.";
         TextTranslate goldText = getGoldPanel.transform.GetChild(1).GetComponent<TextTranslate>();
         goldText.textNum = 59;
         goldText.plusTexts.plusFrontTextKr = num.ToString();
@@ -552,7 +552,7 @@ public class SelectSystem : MonoBehaviour
 
         IsSelected = true;
         FindObjectOfType<TopUI>().UpdateTopUI();
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -571,7 +571,7 @@ public class SelectSystem : MonoBehaviour
         Player.instance.PlayerPayGold(100,true);
         popupPanel.SetActive(true);
         //getGoldPanel.SetActive(true);
-        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = 100 + "°ñµå¸¦ ÀÒ¾ú´Ù.";
+        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = 100 + "ê³¨ë“œë¥¼ ìƒì—ˆë‹¤.";
         int num = 100;
         TextTranslate goldText = getGoldPanel.transform.GetChild(1).GetComponent<TextTranslate>();
         goldText.textNum = 60;
@@ -581,11 +581,11 @@ public class SelectSystem : MonoBehaviour
         getGoldPanel.SetActive(true);
 
         nextBranch = 12;
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
         FindObjectOfType<TopUI>().UpdateTopUI();
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -603,7 +603,7 @@ public class SelectSystem : MonoBehaviour
         GameManager.instance.PlayerHp = GameManager.instance.PlayerMaxHp;
         IsSelected = true;
         FindObjectOfType<TopUI>().UpdateTopUI();
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -613,7 +613,7 @@ public class SelectSystem : MonoBehaviour
 
     public void GetDamage(int val)
     {
-        val = 5; // ¸ğµç ÀÌº¥Æ® ÀÔ´Â µ¥¹ÌÁö 5·Î °íÁ¤
+        val = 5; // ëª¨ë“  ì´ë²¤íŠ¸ ì…ëŠ” ë°ë¯¸ì§€ 5ë¡œ ê³ ì •
 
         if (SetVolume.instance)
         {
@@ -625,13 +625,13 @@ public class SelectSystem : MonoBehaviour
 
         popupPanel.SetActive(true);
         //getDamagePanel.SetActive(true);
-        //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text = val+" µ¥¹ÌÁö¸¦ ÀÔ¾ú´Ù!";
+        //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text = val+" ë°ë¯¸ì§€ë¥¼ ì…ì—ˆë‹¤!";
         //GameManager.instance.SavePlayerData();
 
         if (Player.instance.PlayerHp <= 0)
         {
             gameOverPanel.SetActive(true);
-            //gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = val + " µ¥¹ÌÁö¸¦ ÀÔ¾ú´Ù! \n ¾Ù¸®½º´Â Á¤½ÅÀ» ÀÒ¾ú´Ù...";
+            //gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = val + " ë°ë¯¸ì§€ë¥¼ ì…ì—ˆë‹¤! \n ì•¨ë¦¬ìŠ¤ëŠ” ì •ì‹ ì„ ìƒì—ˆë‹¤...";
             TextTranslate gameOverText = gameOverPanel.transform.GetChild(1).GetComponent<TextTranslate>();
             gameOverText.plusTexts.plusFrontTextKr = val.ToString();
             gameOverText.plusTexts.plusFrontTextEn = val.ToString();
@@ -651,14 +651,14 @@ public class SelectSystem : MonoBehaviour
         else
         {
             getDamagePanel.SetActive(true);
-            //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text = val + " µ¥¹ÌÁö¸¦ ÀÔ¾ú´Ù!";
+            //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text = val + " ë°ë¯¸ì§€ë¥¼ ì…ì—ˆë‹¤!";
             TextTranslate getDamageText = getDamagePanel.transform.GetChild(1).GetComponent<TextTranslate>();
             getDamageText.plusTexts.plusFrontTextKr = val.ToString();
             getDamageText.plusTexts.plusFrontTextEn = val.ToString();
             getDamageText.TranslateText();
         }
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -678,7 +678,7 @@ public class SelectSystem : MonoBehaviour
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -697,7 +697,7 @@ public class SelectSystem : MonoBehaviour
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -712,7 +712,7 @@ public class SelectSystem : MonoBehaviour
 
         itembtn_event.ChooseItem();
         FindObjectOfType<TopUI>().UpdateTopUI();
-        //µ¥ÀÌÅÍ ÀúÀå
+        //ë°ì´í„° ì €ì¥
         GameManager.instance.SavePlayerData();
         GameManager.instance.SavePlayerItemData();
         GameManager.instance.SaveLastItemData();
@@ -721,7 +721,7 @@ public class SelectSystem : MonoBehaviour
         IsSelected = true;
 
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -744,7 +744,7 @@ public class SelectSystem : MonoBehaviour
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -764,7 +764,7 @@ public class SelectSystem : MonoBehaviour
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -785,7 +785,7 @@ public class SelectSystem : MonoBehaviour
         GameManager.instance.NextMap();
     }
 
-    ///////////////////////////////////////////ÀÌº¥Æ®///////////////////////////////////////////
+    ///////////////////////////////////////////ì´ë²¤íŠ¸///////////////////////////////////////////
     public void GiveItem()
     {
         int nextBranch = 15;
@@ -804,7 +804,7 @@ public class SelectSystem : MonoBehaviour
         if (branch == 1)
         {
             int rand = Random.Range(0, 100);
-            // µ¥¹ÌÁö ÀÔ´Â ºĞ±â
+            // ë°ë¯¸ì§€ ì…ëŠ” ë¶„ê¸°
             if (rand < 30)
             {
                 int damgeRange = Random.Range(7, 13);
@@ -818,11 +818,11 @@ public class SelectSystem : MonoBehaviour
             }
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -845,7 +845,7 @@ public class SelectSystem : MonoBehaviour
             {
                 nextBranch = 3;
             }
-            else if (50 < rand && rand < 100)   // µ¥¹ÌÁö ÀÔ´Â ºĞ±â
+            else if (50 < rand && rand < 100)   // ë°ë¯¸ì§€ ì…ëŠ” ë¶„ê¸°
             {
                 int damgeRange = Random.Range(7, 13);
                 GetDamage(damgeRange);
@@ -854,11 +854,11 @@ public class SelectSystem : MonoBehaviour
             }
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -891,11 +891,11 @@ public class SelectSystem : MonoBehaviour
                 nextBranch = 9;
             }
         }
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -911,11 +911,11 @@ public class SelectSystem : MonoBehaviour
 
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
         nextBranch = 15;
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -940,11 +940,11 @@ public class SelectSystem : MonoBehaviour
                 takeawayComcardPanel.SetActive(true);*/
 
         nextBranch = 11;
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
 
         IsSelected = true;
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -960,14 +960,14 @@ public class SelectSystem : MonoBehaviour
 
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
 
-        if (GameManager.instance.PlayerItemList.Count != 0)     //¾ÆÀÌÅÛÀÌ ÀÖÀ»°æ¿ì
+        if (GameManager.instance.PlayerItemList.Count != 0)     //ì•„ì´í…œì´ ìˆì„ê²½ìš°
         {
             int rand = Random.Range(0, GameManager.instance.PlayerItemList.Count);
             //lostItemname = GameObject.Find("TopUI").transform.Find("Items_pas").transform.Find("item" + rand).GetComponent<TopUI_Item>().itemName;
             lostItemNum = GameObject.Find("TopUI").transform.Find("Items_pas").transform.Find("item" + rand).GetComponent<TopUI_Item>().itemNum;
-            // ¼Ò½ÇÇÑ ¾ÆÀÌÅÛ ÀÌ¸§ ÀúÀå
+            // ì†Œì‹¤í•œ ì•„ì´í…œ ì´ë¦„ ì €ì¥
             //ES3.Save<string>("LostItemName", "'" + lostItemname + "'", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
-            Debug.LogError("¼Ò½ÇµÊ!" + lostItemname);
+            Debug.LogError("ì†Œì‹¤ë¨!" + lostItemname);
             ES3.Save<int>("LostItemNum", lostItemNum, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");
 
             GameManager.instance.LastItemList.Add(GameManager.instance.PlayerItemList[rand]);
@@ -987,16 +987,16 @@ public class SelectSystem : MonoBehaviour
         if (branch == 11)
         {
             nextBranch = 11;
-            ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+            ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         }
         if (branch == 13)
         {
             nextBranch = 14;
-            ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+            ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         }
 
         IsSelected = true;
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1017,11 +1017,11 @@ public class SelectSystem : MonoBehaviour
             nextBranch = 18;
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1041,11 +1041,11 @@ public class SelectSystem : MonoBehaviour
             nextBranch = 20;
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
 
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1067,20 +1067,20 @@ public class SelectSystem : MonoBehaviour
             nextBranch = 22;
 
             popupPanel.SetActive(true);
-            // ÄÉÀÌÅ© ¸Ô°í ÃÖ´ë Ã¼·Â »ó½Â
-            if (!TopUI.instance.FindItemNum(32)) // °ñ¹« ¾ÆÀÌÅÛ ¼ÒÁö½Ã µû·Î Ã³¸®
+            // ì¼€ì´í¬ ë¨¹ê³  ìµœëŒ€ ì²´ë ¥ ìƒìŠ¹
+            if (!TopUI.instance.FindItemNum(32)) // ê³¨ë¬´ ì•„ì´í…œ ì†Œì§€ì‹œ ë”°ë¡œ ì²˜ë¦¬
             {
                 Player.instance.PlayerMaxHP(5);
                 //popupPanel.SetActive(true);
                 //getGoldPanel.SetActive(true);
-                //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "ÃÖ´ëÃ¼·ÂÀÌ 5 Áõ°¡Çß´Ù!";
+                //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "ìµœëŒ€ì²´ë ¥ì´ 5 ì¦ê°€í–ˆë‹¤!";
             }
             else
             {
                 //Player.instance.HealHP(5);
                 //popupPanel.SetActive(true);
                 //getGoldPanel.SetActive(true);
-                //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "ÃÖ´ëÃ¼·ÂÀÌ 5 Áõ°¡Çß´Ù!";
+                //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "ìµœëŒ€ì²´ë ¥ì´ 5 ì¦ê°€í–ˆë‹¤!";
             }
 
             TextTranslate goldText = getGoldPanel.transform.GetChild(1).GetComponent<TextTranslate>();
@@ -1090,15 +1090,15 @@ public class SelectSystem : MonoBehaviour
         else
         {
             nextBranch = 23;
-            // ÄÉÀÌÅ© ¸Ô°í µ¥¹ÌÁö ¹ŞÀ½
+            // ì¼€ì´í¬ ë¨¹ê³  ë°ë¯¸ì§€ ë°›ìŒ
             GetDamage(5);
             FindObjectOfType<TopUI>().UpdateTopUI();
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1115,10 +1115,10 @@ public class SelectSystem : MonoBehaviour
 
         GetCombieCard();
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1136,12 +1136,12 @@ public class SelectSystem : MonoBehaviour
 
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
 
-        // ¾ÆÀÌÅÛ ÁÖ±â
+        // ì•„ì´í…œ ì£¼ê¸°
         StartCoroutine(TopUI.instance.DiscardItemPanel());
-        // ¼±ÅÃ ±îÁö ´ë±â
+        // ì„ íƒ ê¹Œì§€ ëŒ€ê¸°
         yield return new WaitUntil(() => FindObjectOfType<ItemBtn_Event>().isGive);
 
-        // °á°ú¿¡ µû¶ó¼­ ºê·£Ä¡ °¥¸²
+        // ê²°ê³¼ì— ë”°ë¼ì„œ ë¸Œëœì¹˜ ê°ˆë¦¼
         if (FindObjectOfType<ItemBtn_Event>().isSuccess)
         {
             nextBranch = 27;
@@ -1150,10 +1150,10 @@ public class SelectSystem : MonoBehaviour
         {
             nextBranch = 28;
         }
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1174,7 +1174,7 @@ public class SelectSystem : MonoBehaviour
         }
 
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
-        // Á¶ÇÕÄ«µå ÆĞ³Î ¿­±â
+        // ì¡°í•©ì¹´ë“œ íŒ¨ë„ ì—´ê¸°
         if (!EndlessManager.instance.isEndless)
         {
             GameObject.Find("RewardCanvas").transform.Find("MagicGiveCombiePanel").gameObject.SetActive(true);
@@ -1184,10 +1184,10 @@ public class SelectSystem : MonoBehaviour
             GameObject.Find("RewardCanvas_endless").transform.Find("MagicGiveCombiePanel").gameObject.SetActive(true);
         }
 
-        // ¼±ÅÃ ±îÁö ´ë±â
+        // ì„ íƒ ê¹Œì§€ ëŒ€ê¸°
         yield return new WaitUntil(() => FindObjectOfType<RestBtn>().isGive);
 
-        // °á°ú¿¡ µû¶ó¼­ ºê·£Ä¡ °¥¸²
+        // ê²°ê³¼ì— ë”°ë¼ì„œ ë¸Œëœì¹˜ ê°ˆë¦¼
         if (FindObjectOfType<ItemBtn_Event>().isSuccess)
         {
             nextBranch = 30;
@@ -1196,10 +1196,10 @@ public class SelectSystem : MonoBehaviour
         {
             nextBranch = 31;
         }
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1218,10 +1218,10 @@ public class SelectSystem : MonoBehaviour
 
         nextBranch = 33;
 
-        int num = Random.Range(50, 201);        //-100 °ñµå +150~300°ñµå = 50~200
+        int num = Random.Range(50, 201);        //-100 ê³¨ë“œ +150~300ê³¨ë“œ = 50~200
         popupPanel.SetActive(true);
         //getGoldPanel.SetActive(true);
-        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = num+100 + "°ñµå¸¦ Å‰µæÇÏ¿´´Ù."; 
+        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = num+100 + "ê³¨ë“œë¥¼ Â‰ë“í•˜ì˜€ë‹¤."; 
         
         TextTranslate goldText = getGoldPanel.transform.GetChild(1).GetComponent<TextTranslate>();
         goldText.textNum = 59;
@@ -1231,10 +1231,10 @@ public class SelectSystem : MonoBehaviour
 
         Player.instance.PlayerGetGold(num);
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1260,10 +1260,10 @@ public class SelectSystem : MonoBehaviour
         yield return new WaitUntil(() => EventManager.instance.Act);
         FindObjectOfType<TopUI>().UpdateTopUI();
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1293,10 +1293,10 @@ public class SelectSystem : MonoBehaviour
         yield return new WaitUntil(() => EventManager.instance.Act);
         FindObjectOfType<TopUI>().UpdateTopUI();
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1325,15 +1325,15 @@ public class SelectSystem : MonoBehaviour
 
         FindObjectOfType<TopUI>().UpdateTopUI();
 
-        //ÆË¾÷ ¶ç¿ï°Å¸é »ç¿ë
+        //íŒì—… ë„ìš¸ê±°ë©´ ì‚¬ìš©
         /*     popupPanel.SetActive(true);
              getGoldPanel.SetActive(true);
-         getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = EventManager.instance.LostGold + "°ñµå¸¦ °¡Á®°¬´Ù.";*/
+         getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = EventManager.instance.LostGold + "ê³¨ë“œë¥¼ ê°€ì ¸ê°”ë‹¤.";*/
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1349,26 +1349,26 @@ public class SelectSystem : MonoBehaviour
 
         EventManager.instance.CardGameNum = val;
 
-        if (val == 1)       //°ñµå
+        if (val == 1)       //ê³¨ë“œ
         {
             GetGold();
             nextBranch = 38;
         }
-        else if (val == 2)  //Æ÷¼Ç
+        else if (val == 2)  //í¬ì…˜
         {
             GetItem_Act();
             nextBranch = 39;
         }
-        else if (val == 3)  //Á¶Ä¿
+        else if (val == 3)  //ì¡°ì»¤
         {
             GetJokerCard();
             nextBranch = 40;
         }
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1387,7 +1387,7 @@ public class SelectSystem : MonoBehaviour
         Player.instance.HealHP(20); 
         popupPanel.SetActive(true);
         //getGoldPanel.SetActive(true);
-        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "20 Ã¼·ÂÀ» È¸º¹Çß´Ù!";
+        //getGoldPanel.transform.GetChild(1).GetComponent<Text>().text = "20 ì²´ë ¥ì„ íšŒë³µí–ˆë‹¤!";
         int num = 20;
 
         TextTranslate goldText = getGoldPanel.transform.GetChild(1).GetComponent<TextTranslate>();
@@ -1398,10 +1398,10 @@ public class SelectSystem : MonoBehaviour
 
         FindObjectOfType<TopUI>().UpdateTopUI();
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1421,12 +1421,12 @@ public class SelectSystem : MonoBehaviour
         GetDamage(5);
         FindObjectOfType<TopUI>().UpdateTopUI();
 
-        //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text ="5 µ¥¹ÌÁö¸¦ ÀÔ¾ú´Ù.";
+        //getDamagePanel.transform.GetChild(1).GetComponent<Text>().text ="5 ë°ë¯¸ì§€ë¥¼ ì…ì—ˆë‹¤.";
 
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1449,7 +1449,7 @@ public class SelectSystem : MonoBehaviour
         
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
 
-        // Á¶ÇÕÄ«µå ÆĞ³Î ¿­±â
+        // ì¡°í•©ì¹´ë“œ íŒ¨ë„ ì—´ê¸°
         if (!EndlessManager.instance.isEndless)
         {
             GameObject.Find("RewardCanvas").transform.Find("MagicGiveCombiePanel").gameObject.SetActive(true);
@@ -1459,14 +1459,14 @@ public class SelectSystem : MonoBehaviour
             GameObject.Find("RewardCanvas_endless").transform.Find("MagicGiveCombiePanel").gameObject.SetActive(true);
         }
 
-        // ¼±ÅÃ ±îÁö ´ë±â
+        // ì„ íƒ ê¹Œì§€ ëŒ€ê¸°
         yield return new WaitUntil(() => FindObjectOfType<RestBtn>().isGive);
         nextBranch = 46;
         EventManager.instance.Trade_item = false;
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1481,17 +1481,17 @@ public class SelectSystem : MonoBehaviour
             SetVolume.instance.PlaySE("btn_click");
         }        
         int nextBranch = ES3.Load<int>("NextBrach", "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3", 0);
-        //TopUI.instance.itemDiscardPanel.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "¾ÆÀÌÅÛ ÆÇ¸Å";
+        //TopUI.instance.itemDiscardPanel.transform.GetChild(2).transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "ì•„ì´í…œ íŒë§¤";
         StartCoroutine(TopUI.instance.DiscardItemPanel(63));        
 
         yield return new WaitUntil(() => FindObjectOfType<ItemBtn_Event>().isGive);
 
         nextBranch = 46;
         EventManager.instance.Trade_item = true;
-        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ´ÙÀ½ -µÚ¿¡¿Ã ºê·£Ä¡ ÀúÀå -> ContinuitySelectTest¿¡¼­ ¾²±âÀ§ÇÔ
+        ES3.Save<int>("NextBrach", nextBranch, "./SaveData/SaveFile" + GameManager.instance.nowSlot + ".es3");  // ë‹¤ìŒ -ë’¤ì—ì˜¬ ë¸Œëœì¹˜ ì €ì¥ -> ContinuitySelectTestì—ì„œ ì“°ê¸°ìœ„í•¨
         IsSelected = true;
 
-        //¹öÆ° ¸®½º³Ê »èÁ¦
+        //ë²„íŠ¼ ë¦¬ìŠ¤ë„ˆ ì‚­ì œ
         btn[0].onClick.RemoveAllListeners();
         btn[1].onClick.RemoveAllListeners();
         btn[2].onClick.RemoveAllListeners();
@@ -1499,28 +1499,28 @@ public class SelectSystem : MonoBehaviour
         yield return null;
     }
 }
-//È­ÀÚ Á¤º¸
+//í™”ì ì •ë³´
 [System.Serializable]
 public struct SelectSpeaker
 {
-    public Image image;                             //Ä³¸¯ÅÍ ÀÌ¹ÌÁö
-    public Sprite[] imageNum;                   //Ä³¸¯ÅÍ ÀÌ¹ÌÁö ½ºÇÁ¶óÀÌÆ® ´ãÀº ¹è¿­
-    public Image imageDialog;                   //´ëÈ­Ã¢ Iamge UI
+    public Image image;                             //ìºë¦­í„° ì´ë¯¸ì§€
+    public Sprite[] imageNum;                   //ìºë¦­í„° ì´ë¯¸ì§€ ìŠ¤í”„ë¼ì´íŠ¸ ë‹´ì€ ë°°ì—´
+    public Image imageDialog;                   //ëŒ€í™”ì°½ Iamge UI
     //public TextMeshProUGUI textName;
     //public TextMeshProUGUI textDialog;
-    public TextTranslate textName;            //ÇöÀç ´ë»çÁßÀÎ Ä³¸¯ÅÍ ÀÌ¸§ Ãâ·Â Text UI
-    public TextTranslate textDialog;          //ÇöÀç ´ë»ç Ãâ·Â Text UI
+    public TextTranslate textName;            //í˜„ì¬ ëŒ€ì‚¬ì¤‘ì¸ ìºë¦­í„° ì´ë¦„ ì¶œë ¥ Text UI
+    public TextTranslate textDialog;          //í˜„ì¬ ëŒ€ì‚¬ ì¶œë ¥ Text UI
     public GameObject Panel;
 }
-//´ëÈ­Á¤º¸
+//ëŒ€í™”ì •ë³´
 [System.Serializable]
 public struct SelectData
 {
-    public int imageNum;            //Ä³¸¯ÅÍ ÀÌ¹ÌÁö ½ºÇÁ¶óÀÌÆ® ¹øÈ£
-    public string name;             //Ä³¸¯ÅÍ ÀÌ¸§
+    public int imageNum;            //ìºë¦­í„° ì´ë¯¸ì§€ ìŠ¤í”„ë¼ì´íŠ¸ ë²ˆí˜¸
+    public string name;             //ìºë¦­í„° ì´ë¦„
     [TextArea(3, 5)]
-    public string dialogue;         //´ë»ç
-    public int btnCount;            //¹öÆ° °¹ ¼ö
-    public string[] buttonText;     //¹öÆ° ÅØ½ºÆ® 
+    public string dialogue;         //ëŒ€ì‚¬
+    public int btnCount;            //ë²„íŠ¼ ê°¯ ìˆ˜
+    public string[] buttonText;     //ë²„íŠ¼ í…ìŠ¤íŠ¸ 
 }
 
