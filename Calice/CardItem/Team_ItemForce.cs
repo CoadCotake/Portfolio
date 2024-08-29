@@ -16,7 +16,7 @@ public class ItemForce : MonoBehaviour
     public bool RandomPlusone = false;
 
     public GameObject RewardGold;
-    float insnum;//ÀÓ½Ã º¯¼ö°ª
+    float insnum;//ì„ì‹œ ë³€ìˆ˜ê°’
 
     public void Awake_itemForce()
     {
@@ -43,7 +43,7 @@ public class ItemForce : MonoBehaviour
 
     public void ItemForceOn(int itemNum)
     {
-        if(!topUi)      //¿¹¿ÜÃ³¸®
+        if(!topUi)      //ì˜ˆì™¸ì²˜ë¦¬
             topUi = FindObjectOfType<TopUI>();
 
         DebugX.Log("Itemforce ON : " + itemNum);
@@ -92,7 +92,7 @@ public class ItemForce : MonoBehaviour
 
     public void BuffItem(int power, int shield, int buff)
     {
-        if(GameManager.instance.PlayerItemList.FindIndex(item => item == 32) <= 0)//Ã¼·Â°íÁ¤¾ÆÀÌÅÛ
+        if(GameManager.instance.PlayerItemList.FindIndex(item => item == 32) <= 0)//ì²´ë ¥ê³ ì •ì•„ì´í…œ
         {
             if (buff != 0)
             {
@@ -123,7 +123,7 @@ public class ItemForce : MonoBehaviour
         }
 
         if (SceneManager.GetActiveScene().name.Contains("Battle") || SceneManager.GetActiveScene().name.Contains("Map"))
-        // ±¸È£ - ¸Ê Ã³À½ ½ÃÀÛÇÒ ¶§ ¹öÇÁ ¾ÆÀÌÅÛ Àû¿ëµÇ¾ß´ë¼­ ¸Ê Ãß°¡ÇØµÒ
+        // êµ¬í˜¸ - ë§µ ì²˜ìŒ ì‹œì‘í•  ë•Œ ë²„í”„ ì•„ì´í…œ ì ìš©ë˜ì•¼ëŒ€ì„œ ë§µ ì¶”ê°€í•´ë‘ 
         {
             if (power != 0)
             {
@@ -157,10 +157,10 @@ public class ItemForce : MonoBehaviour
     int dieCount = 0;
     public void SystemItem(int itemNum)
     {
-        //¸ğµç°÷¿¡¼­ »ç¿ëµÇ¾î¾ßÇÏ´Â ¾ÆÀÌÅÛ
+        //ëª¨ë“ ê³³ì—ì„œ ì‚¬ìš©ë˜ì–´ì•¼í•˜ëŠ” ì•„ì´í…œ
         switch (itemNum)
         {
-            case 34:    //10¸íÀÇ ÀûÀ» Ã³Ä¡ ÇÒ ¶§¸¶´Ù ÇÇÇØ·®ÀÌ 1 Áõ°¡ÇÑ´Ù.(ÃÖ´ë Áõ°¡·® 10)
+            case 34:    //10ëª…ì˜ ì ì„ ì²˜ì¹˜ í•  ë•Œë§ˆë‹¤ í”¼í•´ëŸ‰ì´ 1 ì¦ê°€í•œë‹¤.(ìµœëŒ€ ì¦ê°€ëŸ‰ 10)
                 GameManager.instance.Item34 = true;
 
                 if (dieCount == 0)
@@ -171,7 +171,7 @@ public class ItemForce : MonoBehaviour
                     {
                         GameManager.instance.Item34_N = Collection.instance.ItemDB.Entities[itemNum].system;
                     }
-                    GameManager.instance.Item34_N *= Collection.instance.ItemDB.Entities[itemNum].power;    //ÆÄ¿ö¿¡ ÀûÈù ¼öÄ¡ = ÇÇÇØ·®
+                    GameManager.instance.Item34_N *= Collection.instance.ItemDB.Entities[itemNum].power;    //íŒŒì›Œì— ì íŒ ìˆ˜ì¹˜ = í”¼í•´ëŸ‰
                     Player.instance.power += GameManager.instance.Item34_N;
                 }
                 else
@@ -187,39 +187,39 @@ public class ItemForce : MonoBehaviour
                         {
                             GameManager.instance.Item34_N = Collection.instance.ItemDB.Entities[itemNum].system;
                         }
-                        GameManager.instance.Item34_N *= Collection.instance.ItemDB.Entities[itemNum].power;    //ÆÄ¿ö¿¡ ÀûÈù ¼öÄ¡ = ÇÇÇØ·®
+                        GameManager.instance.Item34_N *= Collection.instance.ItemDB.Entities[itemNum].power;    //íŒŒì›Œì— ì íŒ ìˆ˜ì¹˜ = í”¼í•´ëŸ‰
                         Player.instance.power += GameManager.instance.Item34_N;
                     }
                 }
-                DebugX.Log("Ã³Ä¡¼ö" + GameManager.instance.Item34_K + "Áõ°¡" + GameManager.instance.Item34_N + "ÇöÀçÆÄ¿ö"+ Player.instance.power);
+                DebugX.Log("ì²˜ì¹˜ìˆ˜" + GameManager.instance.Item34_K + "ì¦ê°€" + GameManager.instance.Item34_N + "í˜„ì¬íŒŒì›Œ"+ Player.instance.power);
                 break;
-            case 36:    //º¸À¯ÇÑ Á¶ÇÕÄ«µåÀÇ 10ºĞÀÇ 1¸¸Å­ ÇÇÇØ·®ÀÌ Áõ°¡ÇÑ´Ù.
-                Player.instance.Item36 = (int)GameManager.instance.MyCombiCard.Count / Collection.instance.ItemDB.Entities[itemNum].system;   //ÇÇÇØ·® °è»ê, ½Ã½ºÅÛ ÀûÈù¼öÄ¡ = xºĞÀÇ 1 (xºÎºĞ)
-                Player.instance.power += Player.instance.Item36;    //ÇÇÇØ·® Áõ°¡
-                DebugX.Log("ÇÇÇØ·®" + Player.instance.Item36 + "ÇöÀçÆÄ¿ö" + Player.instance.power);
+            case 36:    //ë³´ìœ í•œ ì¡°í•©ì¹´ë“œì˜ 10ë¶„ì˜ 1ë§Œí¼ í”¼í•´ëŸ‰ì´ ì¦ê°€í•œë‹¤.
+                Player.instance.Item36 = (int)GameManager.instance.MyCombiCard.Count / Collection.instance.ItemDB.Entities[itemNum].system;   //í”¼í•´ëŸ‰ ê³„ì‚°, ì‹œìŠ¤í…œ ì íŒìˆ˜ì¹˜ = xë¶„ì˜ 1 (xë¶€ë¶„)
+                Player.instance.power += Player.instance.Item36;    //í”¼í•´ëŸ‰ ì¦ê°€
+                DebugX.Log("í”¼í•´ëŸ‰" + Player.instance.Item36 + "í˜„ì¬íŒŒì›Œ" + Player.instance.power);
                 break;
-            case 37:    //º¸À¯ÇÑ °ñµåÀÇ 100ºĞÀÇ 1¸¸Å­ ÇÇÇØ·®ÀÌ Áõ°¡ÇÑ´Ù.(ÃÖ´ë Áõ°¡·® 3)
+            case 37:    //ë³´ìœ í•œ ê³¨ë“œì˜ 100ë¶„ì˜ 1ë§Œí¼ í”¼í•´ëŸ‰ì´ ì¦ê°€í•œë‹¤.(ìµœëŒ€ ì¦ê°€ëŸ‰ 3)
                 
                 if(Player.instance.Item37!=-1)
                 {
-                    Player.instance.power -= Player.instance.Item37;     //ÇÇÇØ·® Áõ°¡ ÇØÁ¦
+                    Player.instance.power -= Player.instance.Item37;     //í”¼í•´ëŸ‰ ì¦ê°€ í•´ì œ
                 }
 
 
-                Player.instance.Item37 = (int)Player.instance.PlayerGold / Collection.instance.ItemDB.Entities[itemNum].system;    //¾ÆÀÌÅÛ È¿°ú ÇÇÇØ·® Àû¿ë, ½Ã½ºÅÛ¿¡ ÀûÈù ¼öÄ¡ = xºĞÀÇ 1 (xºÎºĞ)
+                Player.instance.Item37 = (int)Player.instance.PlayerGold / Collection.instance.ItemDB.Entities[itemNum].system;    //ì•„ì´í…œ íš¨ê³¼ í”¼í•´ëŸ‰ ì ìš©, ì‹œìŠ¤í…œì— ì íŒ ìˆ˜ì¹˜ = xë¶„ì˜ 1 (xë¶€ë¶„)
 
-                if (Player.instance.Item37 > Collection.instance.ItemDB.Entities[itemNum].power)       //ÃÖ´ëÁõ°¡·® È®ÀÎ, ÆÄ¿ö¿¡ ÀûÈù ¼öÄ¡ =ÃÖ´ë Áõ°¡·®
+                if (Player.instance.Item37 > Collection.instance.ItemDB.Entities[itemNum].power)       //ìµœëŒ€ì¦ê°€ëŸ‰ í™•ì¸, íŒŒì›Œì— ì íŒ ìˆ˜ì¹˜ =ìµœëŒ€ ì¦ê°€ëŸ‰
                 {
                     Player.instance.Item37 = Collection.instance.ItemDB.Entities[itemNum].power;
                 }
 
-                Player.instance.power += Player.instance.Item37;     //ÇÇÇØ·® Áõ°¡ Àû¿ë
+                Player.instance.power += Player.instance.Item37;     //í”¼í•´ëŸ‰ ì¦ê°€ ì ìš©
                 break;
-            case 48:    //¾ÆÀÌÅÛ È¹µæ ½Ã n°ñµå¸¦ È¹µæÇÑ´Ù.
+            case 48:    //ì•„ì´í…œ íšë“ ì‹œ nê³¨ë“œë¥¼ íšë“í•œë‹¤.
                 Player.instance.Item48 = true;
                 Player.instance.Item48_ = Collection.instance.ItemDB.Entities[itemNum].system;
                 break;
-            case 49:    //¾ÆÀÌÅÛÀ» ±³Ã¼ ÇÑ È½¼ö¸¸Å­ °ø°İ·ÂÀÌ Áõ°¡ÇÑ´Ù. ÃÖ´ë 3
+            case 49:    //ì•„ì´í…œì„ êµì²´ í•œ íšŸìˆ˜ë§Œí¼ ê³µê²©ë ¥ì´ ì¦ê°€í•œë‹¤. ìµœëŒ€ 3
                 Player.instance.Item49 = true;
                 if (GameManager.instance.ItemChangeCount < 3)
                 {
@@ -227,19 +227,19 @@ public class ItemForce : MonoBehaviour
                 }
                 else
                 {
-                    Player.instance.power += Collection.instance.ItemDB.Entities[itemNum].system; //½Ã½ºÅÛ ¼öÄ¡ = ÃÖ´ë Áõ°¡·®
+                    Player.instance.power += Collection.instance.ItemDB.Entities[itemNum].system; //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ìµœëŒ€ ì¦ê°€ëŸ‰
                 }
-                DebugX.Log("ÇÇÇØ·®" + Player.instance.Item49 + "ÇöÀçÆÄ¿ö" + Player.instance.power);
+                DebugX.Log("í”¼í•´ëŸ‰" + Player.instance.Item49 + "í˜„ì¬íŒŒì›Œ" + Player.instance.power);
                 break;
         }
 
-        //Æ¯Á¤ °ø°£¿¡¼­ »ç¿ëµÇ´Â ¾ÆÀÌÅÛ
+        //íŠ¹ì • ê³µê°„ì—ì„œ ì‚¬ìš©ë˜ëŠ” ì•„ì´í…œ
         if ((SceneManager.GetActiveScene().name.Contains("Battle") && Player.instance.isBattle==true))
         {
             switch (itemNum)
             {
                 case 4:
-                    Player.instance.Item_PlusNumCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; //¼ıÀÚÄ«µå µå·Î¿ì 1 Áõ°¡
+                    Player.instance.Item_PlusNumCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; //ìˆ«ìì¹´ë“œ ë“œë¡œìš° 1 ì¦ê°€
                     break;
                 case 5:
                     mycardpanel.GetComponent<mycard>().NormalAttackzone.SetActive(true);
@@ -273,7 +273,7 @@ public class ItemForce : MonoBehaviour
                     GameManager.instance.PlayerHp = Player.instance.PlayerHp;
                     break;
                 case 10:
-                    //3¹øÂ° Á¶ÇÕÄ«µå °ø°İ¸¶´Ù µ¥¹ÌÁö 1.5¹è
+                    //3ë²ˆì§¸ ì¡°í•©ì¹´ë“œ ê³µê²©ë§ˆë‹¤ ë°ë¯¸ì§€ 1.5ë°°
                     Player.instance.Item10 = true;
                     break;
                 case 11:
@@ -291,10 +291,10 @@ public class ItemForce : MonoBehaviour
                     Player.instance.minimumGold -= 10;
                     break;
                 case 16:
-                    Player.instance.Item_PlusComCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; // Á¶ÇÕÄ«µå µå·Î¿ì 1Áõ°¡
+                    Player.instance.Item_PlusComCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; // ì¡°í•©ì¹´ë“œ ë“œë¡œìš° 1ì¦ê°€
                     break;
                 case 18:
-                    Player.instance.Item_PlusNumCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; //¼ıÀÚÄ«µå µå·Î¿ì 1 Áõ°¡
+                    Player.instance.Item_PlusNumCardDrop += Collection.instance.ItemDB.Entities[itemNum].system; //ìˆ«ìì¹´ë“œ ë“œë¡œìš° 1 ì¦ê°€
                     break;
                 case 19:
                     Player.instance.PlayerGetArmor(Collection.instance.ItemDB.Entities[itemNum].system, false);
@@ -311,7 +311,7 @@ public class ItemForce : MonoBehaviour
                 case 22:
                     GamePlayBtn.instance.Item22 = true;
                     break;
-                case 23://ÇÇ°İ ´çÇÑ ¸¸Å­ ´ÙÀ½ ÅÏ¿¡ Á¶ÇÕÄ«µå¸¦ Ãß°¡·Î »Ì´Â´Ù.
+                case 23://í”¼ê²© ë‹¹í•œ ë§Œí¼ ë‹¤ìŒ í„´ì— ì¡°í•©ì¹´ë“œë¥¼ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     GamePlayBtn.instance.Item23 = true;
                     break;
                 case 24:
@@ -323,7 +323,7 @@ public class ItemForce : MonoBehaviour
                 case 29:
                     Player.instance.Item29 = true;
                     break;
-                case 30: //Á¶ÇÕÄ«µå¸¦ 5Àå »ç¿ë ÇÒ ¶§¸¶´Ù Á¶ÇÕÄ«µå¸¦ 1Àå »Ì´Â´Ù.
+                case 30: //ì¡°í•©ì¹´ë“œë¥¼ 5ì¥ ì‚¬ìš© í•  ë•Œë§ˆë‹¤ ì¡°í•©ì¹´ë“œë¥¼ 1ì¥ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item30 = Collection.instance.ItemDB.Entities[itemNum].system;
                     break;
                 case 31:
@@ -346,80 +346,80 @@ public class ItemForce : MonoBehaviour
                 case 33:
                     GameObject.Find("CardCanvas").GetComponent<GamePlayBtn>().hpdrawbutton.SetActive(true);
                     break;
-                case 35:    //ÀüÅõ ½ÃÀÛ ½Ã ¹«ÀÛÀ§ Àû ÇÏ³ª¿¡°Ô ¸¶ºñ»óÅÂ¸¦ 1ÅÏ ºÎ¿©ÇÑ´Ù.
-                    StartCoroutine(State("¸¶ºñ", Collection.instance.ItemDB.Entities[itemNum].system));
+                case 35:    //ì „íˆ¬ ì‹œì‘ ì‹œ ë¬´ì‘ìœ„ ì  í•˜ë‚˜ì—ê²Œ ë§ˆë¹„ìƒíƒœë¥¼ 1í„´ ë¶€ì—¬í•œë‹¤.
+                    StartCoroutine(State("ë§ˆë¹„", Collection.instance.ItemDB.Entities[itemNum].system));
                     break;
-                case 38:    //ÀüÅõ ½ÃÀÛ ½Ã 5ÀÇ ÇÇÇØ¸¦ ÀÔ°í ÀüÅõµ¿¾È ÇÇÇØ·®ÀÌ 3Áõ°¡ÇÑ´Ù.
+                case 38:    //ì „íˆ¬ ì‹œì‘ ì‹œ 5ì˜ í”¼í•´ë¥¼ ì…ê³  ì „íˆ¬ë™ì•ˆ í”¼í•´ëŸ‰ì´ 3ì¦ê°€í•œë‹¤.
                     /*if (Player.instance.PlayerHp >= Collection.instance.ItemDB.Entities[itemNum].system)
                     {
-                        Player.instance.PlayerDamaged(Collection.instance.ItemDB.Entities[itemNum].system);      //½ÃÀÛ½Ã µ¥¹ÌÁö ÀÔ±â, ½Ã½ºÅÛ ¼öÄ¡ = ÇÇÇØÀÔÀ» ¼öÄ¡
+                        Player.instance.PlayerDamaged(Collection.instance.ItemDB.Entities[itemNum].system);      //ì‹œì‘ì‹œ ë°ë¯¸ì§€ ì…ê¸°, ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = í”¼í•´ì…ì„ ìˆ˜ì¹˜
                     }
                     else
                     {
-                        Player.instance.PlayerDamaged(Player.instance.PlayerHp-1);  //ÇÇ 1·Î »ì¾Æ³²µµ·Ï
+                        Player.instance.PlayerDamaged(Player.instance.PlayerHp-1);  //í”¼ 1ë¡œ ì‚´ì•„ë‚¨ë„ë¡
                     }*/
-                    Player.instance.PlayerDamaged(Collection.instance.ItemDB.Entities[itemNum].system);      //½ÃÀÛ½Ã µ¥¹ÌÁö ÀÔ±â, ½Ã½ºÅÛ ¼öÄ¡ = ÇÇÇØÀÔÀ» ¼öÄ¡ (Hpº¸´Ù µ¥¹ÌÁö°¡ Å©¸é »ç¸ÁÇÔ)
-                    Player.instance.power += Collection.instance.ItemDB.Entities[itemNum].power;    //ÇÇÇØ·® Áõ°¡, ÆÄ¿ö¼öÄ¡ = Áõ°¡½ÃÅ³ ÇÇÇØ·®
+                    Player.instance.PlayerDamaged(Collection.instance.ItemDB.Entities[itemNum].system);      //ì‹œì‘ì‹œ ë°ë¯¸ì§€ ì…ê¸°, ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = í”¼í•´ì…ì„ ìˆ˜ì¹˜ (Hpë³´ë‹¤ ë°ë¯¸ì§€ê°€ í¬ë©´ ì‚¬ë§í•¨)
+                    Player.instance.power += Collection.instance.ItemDB.Entities[itemNum].power;    //í”¼í•´ëŸ‰ ì¦ê°€, íŒŒì›Œìˆ˜ì¹˜ = ì¦ê°€ì‹œí‚¬ í”¼í•´ëŸ‰
                     break;
-                case 39:    //ÇÇ°İ ´çÇÑ È½¼öÀÇ ¹İ¸¸Å­ ´ÙÀ½ ÅÏ¿¡ ¼ıÀÚ¸¦ Ãß°¡·Î »Ì´Â´Ù.
+                case 39:    //í”¼ê²© ë‹¹í•œ íšŸìˆ˜ì˜ ë°˜ë§Œí¼ ë‹¤ìŒ í„´ì— ìˆ«ìë¥¼ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item39 = true;
                     break;
-                case 40:    //ÀüÅõ Áß Ã³À½ ¹ŞÀº »óÅÂÀÌ»óÀ» ¹ŞÁö ¾Ê´Â´Ù.
+                case 40:    //ì „íˆ¬ ì¤‘ ì²˜ìŒ ë°›ì€ ìƒíƒœì´ìƒì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
                     Player.instance.Item40 = true;
                     break;
-                case 41:    //ÀûÀ» Ã³Ä¡ ÇÒ ¶§¸¶´Ù Ã¼·Â 3 È¸º¹ÇÑ´Ù.
-                    Player.instance.Item41= Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = È¸º¹ ¼öÄ¡
+                case 41:    //ì ì„ ì²˜ì¹˜ í•  ë•Œë§ˆë‹¤ ì²´ë ¥ 3 íšŒë³µí•œë‹¤.
+                    Player.instance.Item41= Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = íšŒë³µ ìˆ˜ì¹˜
                     break;
-                case 42:    //È¦¼ö ÅÏ¿¡¸¸ Á¶ÇÕÄ«µå¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
-                    Player.instance.Item42 = Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = Ä«µå °³¼ö
+                case 42:    //í™€ìˆ˜ í„´ì—ë§Œ ì¡°í•©ì¹´ë“œë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
+                    Player.instance.Item42 = Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ì¹´ë“œ ê°œìˆ˜
                     break;
-                case 43:    //Â¦¼ö ÅÏ¿¡¸¸ ¼ıÀÚ¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
-                    Player.instance.Item43 = Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = Ä«µå °³¼ö
+                case 43:    //ì§ìˆ˜ í„´ì—ë§Œ ìˆ«ìë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
+                    Player.instance.Item43 = Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ì¹´ë“œ ê°œìˆ˜
                     break;
-                case 45:    //Ã¼·ÂÀÌ ÃÖ´ë Ã¼·ÂÀÇ 50%ÀÌÇÏÀÏ °æ¿ì °ø°İ·ÂÀÌ 5Áõ°¡ÇÕ´Ï´Ù.
+                case 45:    //ì²´ë ¥ì´ ìµœëŒ€ ì²´ë ¥ì˜ 50%ì´í•˜ì¼ ê²½ìš° ê³µê²©ë ¥ì´ 5ì¦ê°€í•©ë‹ˆë‹¤.
                     Player.instance.Item45 = true;   //
-                    Player.instance.Item45_1 = Collection.instance.ItemDB.Entities[itemNum].power;   //°ø°İ·Â Áõ°¡ ¼öÄ¡
+                    Player.instance.Item45_1 = Collection.instance.ItemDB.Entities[itemNum].power;   //ê³µê²©ë ¥ ì¦ê°€ ìˆ˜ì¹˜
                     Player.instance.Item45_2 = Collection.instance.ItemDB.Entities[itemNum].system;   //
                     break;
-                case 46:    //ÀûÀ» Ã³Ä¡ÇÏ¸é 1~10»çÀÌÀÇ ¼ıÀÚ¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
-                    Player.instance.Item46= Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = Ãß°¡·Î »Ì´Â °³¼ö
+                case 46:    //ì ì„ ì²˜ì¹˜í•˜ë©´ 1~10ì‚¬ì´ì˜ ìˆ«ìë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
+                    Player.instance.Item46= Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ì¶”ê°€ë¡œ ë½‘ëŠ” ê°œìˆ˜
                     break;
-                case 47:    //7¹øÂ° »ç¿ëÇÏ´Â Á¶ÇÕÄ«µå°¡ °ø°İÄ«µåÀÌ¸é ÇÇÇØ·®ÀÌ 2¹è°¡ µÈ´Ù. °ø°İ ÈÄ ÇÇÇØ·®Àº ¿ø·¡´ë·Î µ¹¾Æ¿Â´Ù.
-                    Player.instance.Item47 = Collection.instance.ItemDB.Entities[itemNum].power;   //ÆÄ¿ö ¼öÄ¡ = ÇÇÇØ·® °³¼ö
-                    Player.instance.Item47_ = Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = n¹øÂ° »ç¿ë
+                case 47:    //7ë²ˆì§¸ ì‚¬ìš©í•˜ëŠ” ì¡°í•©ì¹´ë“œê°€ ê³µê²©ì¹´ë“œì´ë©´ í”¼í•´ëŸ‰ì´ 2ë°°ê°€ ëœë‹¤. ê³µê²© í›„ í”¼í•´ëŸ‰ì€ ì›ë˜ëŒ€ë¡œ ëŒì•„ì˜¨ë‹¤.
+                    Player.instance.Item47 = Collection.instance.ItemDB.Entities[itemNum].power;   //íŒŒì›Œ ìˆ˜ì¹˜ = í”¼í•´ëŸ‰ ê°œìˆ˜
+                    Player.instance.Item47_ = Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = në²ˆì§¸ ì‚¬ìš©
                     break;
-                case 50:    //10ÅÏ¸¶´Ù HP¸¦ 3 È¸º¹ÇÑ´Ù. ÅÏ ¼ö´Â ÀüÅõ ½ÃÀÛ½Ã ÃÊ±âÈ­µÈ´Ù.
-                    Player.instance.Item50 = Collection.instance.ItemDB.Entities[itemNum].buff;   //¹öÇÁ ¼öÄ¡ = È¸º¹ ¼öÄ¡
-                    Player.instance.Item50_ = Collection.instance.ItemDB.Entities[itemNum].system;   //½Ã½ºÅÛ ¼öÄ¡ = ÅÏ ¼öÄ¡
+                case 50:    //10í„´ë§ˆë‹¤ HPë¥¼ 3 íšŒë³µí•œë‹¤. í„´ ìˆ˜ëŠ” ì „íˆ¬ ì‹œì‘ì‹œ ì´ˆê¸°í™”ëœë‹¤.
+                    Player.instance.Item50 = Collection.instance.ItemDB.Entities[itemNum].buff;   //ë²„í”„ ìˆ˜ì¹˜ = íšŒë³µ ìˆ˜ì¹˜
+                    Player.instance.Item50_ = Collection.instance.ItemDB.Entities[itemNum].system;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = í„´ ìˆ˜ì¹˜
                     break;
-                case 51: //ÀüÅõ Áß È¦¼ö ÅÏ ÇÇÇØ·® 3Áõ°¡, Â¦¼ö ÅÏ ½¯µå 10È¹µæ
+                case 51: //ì „íˆ¬ ì¤‘ í™€ìˆ˜ í„´ í”¼í•´ëŸ‰ 3ì¦ê°€, ì§ìˆ˜ í„´ ì‰´ë“œ 10íšë“
                     Player.instance.Item51_power = Collection.instance.ItemDB.Entities[itemNum].power;
                     Player.instance.Item51_shield = Collection.instance.ItemDB.Entities[itemNum].shield;
                     break;
-                case 52: //°ø°İ ½Ã 10%È®·ü·Î ÇÇÇØ·®ÀÌ 2¹è°¡ µÈ´Ù.
+                case 52: //ê³µê²© ì‹œ 10%í™•ë¥ ë¡œ í”¼í•´ëŸ‰ì´ 2ë°°ê°€ ëœë‹¤.
                     Player.instance.Item52 = true;
                     break;
-                case 53: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô ¸¶ºñ¸¦ 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 53: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ë§ˆë¹„ë¥¼ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 54: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô µ¶¸¦ 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 54: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ë…ë¥¼ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 55: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô È­»óÀ» 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 55: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ í™”ìƒì„ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 56: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô ÃâÇ÷À» 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 56: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ì¶œí˜ˆì„ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 58: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Ã¼·ÂÀ» 3 È¸º¹ÇÑ´Ù.
+                case 58: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì²´ë ¥ì„ 3 íšŒë³µí•œë‹¤.
                     Player.instance.HealHP(Collection.instance.ItemDB.Entities[itemNum].buff,false,false,false);
                     Player.instance.FirstHeal = true;
                     break;
-                case 60: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû ¸ğµÎÀÇ ÃÖ´ë Ã¼·ÂÀ» 5%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 60: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ëª¨ë‘ì˜ ìµœëŒ€ ì²´ë ¥ì„ 5%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     StartCoroutine(ReduceHp(60));
                     break;
-                case 61: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû Áß ÇÏ³ªÀÇ Ã¼·ÂÀ» 10%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 61: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ì¤‘ í•˜ë‚˜ì˜ ì²´ë ¥ì„ 10%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     StartCoroutine(ReduceHp(61));
                     break;
             }
         }
-        else if (SceneManager.GetActiveScene().name.Contains("Shop")) // »óÁ¡Àü¿ë¾ÆÀÌÅÛ
+        else if (SceneManager.GetActiveScene().name.Contains("Shop")) // ìƒì ì „ìš©ì•„ì´í…œ
         {
             switch (itemNum)
             {
@@ -447,14 +447,14 @@ public class ItemForce : MonoBehaviour
                     break;
             }
         }
-        else if (SceneManager.GetActiveScene().name.Contains("Rest")) // ÈŞ½ÄÀü¿ë¾ÆÀÌÅÛ
+        else if (SceneManager.GetActiveScene().name.Contains("Rest")) // íœ´ì‹ì „ìš©ì•„ì´í…œ
         {
             switch (itemNum)
             {
-                case 44:    //ÈŞ½Ä¿¡¼­ È¸º¹·®ÀÌ 5 Áõ°¡ÇÕ´Ï´Ù.
+                case 44:    //íœ´ì‹ì—ì„œ íšŒë³µëŸ‰ì´ 5 ì¦ê°€í•©ë‹ˆë‹¤.
                     Player.instance.Item44 = Collection.instance.ItemDB.Entities[itemNum].system;
                     break;
-                case 59: //ÈŞ½Ä Áö¿ª ÀÔÀå ½Ã °ñµå¸¦ 10 ¼Ò¸ğÇÏ°í Ã¼·ÂÀ» 10 È¸º¹ÇÑ´Ù. (°ñµå°¡ 10 ¹Ì¸¸ÀÏ °æ¿ì È¸º¹ÇÏÁö ¾Ê´Â´Ù.)
+                case 59: //íœ´ì‹ ì§€ì—­ ì…ì¥ ì‹œ ê³¨ë“œë¥¼ 10 ì†Œëª¨í•˜ê³  ì²´ë ¥ì„ 10 íšŒë³µí•œë‹¤. (ê³¨ë“œê°€ 10 ë¯¸ë§Œì¼ ê²½ìš° íšŒë³µí•˜ì§€ ì•ŠëŠ”ë‹¤.)
                     if (Player.instance.PlayerGold >= Collection.instance.ItemDB.Entities[itemNum].system)
                     {
                         Player.instance.PlayerPayGold(Collection.instance.ItemDB.Entities[itemNum].system);
@@ -467,10 +467,10 @@ public class ItemForce : MonoBehaviour
         {
             switch (itemNum)
             {
-                case 25: //¹ÌÁö Áö¿ª ÁøÀÔ ½Ã Ã¼·ÂÀ» 5 È¸º¹ÇÑ´Ù.
+                case 25: //ë¯¸ì§€ ì§€ì—­ ì§„ì… ì‹œ ì²´ë ¥ì„ 5 íšŒë³µí•œë‹¤.
                     Player.instance.Item25 = true;
                     break;
-                case 26: //¹ÌÁö Áö¿ª¿¡¼­ ÀüÅõ°¡ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
+                case 26: //ë¯¸ì§€ ì§€ì—­ì—ì„œ ì „íˆ¬ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
                     Player.instance.Item26 = true;
                     break;
                 case 32:
@@ -489,7 +489,7 @@ public class ItemForce : MonoBehaviour
                     Player.instance.playerPlusHP = 0;
                     topUi.UpdateTopUI();
                     break;
-                case 57: //¹ÌÁö Áö¿ª ÁøÀÔ ½Ã °ñµå¸¦ 20 È¹µæÇÑ´Ù.
+                case 57: //ë¯¸ì§€ ì§€ì—­ ì§„ì… ì‹œ ê³¨ë“œë¥¼ 20 íšë“í•œë‹¤.
                     Player.instance.Item57 = true;
                     break;
             }
@@ -503,7 +503,7 @@ public class ItemForce : MonoBehaviour
             switch (itemNum)
             {
                 case 4:
-                    Player.instance.Item_PlusNumCardDrop -= Collection.instance.ItemDB.Entities[itemNum].system; //¼ıÀÚÄ«µå µå·Î¿ì Áõ°¡
+                    Player.instance.Item_PlusNumCardDrop -= Collection.instance.ItemDB.Entities[itemNum].system; //ìˆ«ìì¹´ë“œ ë“œë¡œìš° ì¦ê°€
                     break;
                 case 5:
                     mycardpanel.GetComponent<mycard>().NormalAttackzone.SetActive(false);
@@ -515,7 +515,7 @@ public class ItemForce : MonoBehaviour
                     Player.instance.Item_PlusComCardDrop -= Collection.instance.ItemDB.Entities[itemNum].system;
                     break;
                 case 18:
-                    Player.instance.Item_PlusNumCardDrop -= Collection.instance.ItemDB.Entities[itemNum].system; //¼ıÀÚÄ«µå µå·Î¿ì Áõ°¡
+                    Player.instance.Item_PlusNumCardDrop -= Collection.instance.ItemDB.Entities[itemNum].system; //ìˆ«ìì¹´ë“œ ë“œë¡œìš° ì¦ê°€
                     break;
                 case 19:
                     Player.instance.Item19 = false;
@@ -525,7 +525,7 @@ public class ItemForce : MonoBehaviour
                 case 22:
                     GamePlayBtn.instance.Item22 = false;
                     break;
-                case 23://ÇÇ°İ ´çÇÑ ¸¸Å­ ´ÙÀ½ ÅÏ¿¡ Á¶ÇÕÄ«µå¸¦ Ãß°¡·Î »Ì´Â´Ù.
+                case 23://í”¼ê²© ë‹¹í•œ ë§Œí¼ ë‹¤ìŒ í„´ì— ì¡°í•©ì¹´ë“œë¥¼ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     GamePlayBtn.instance.Item23 = false;
                     break;
                 case 24:
@@ -537,14 +537,14 @@ public class ItemForce : MonoBehaviour
                 case 29:
                     Player.instance.Item29 = false;
                     break;
-                case 30: //Á¶ÇÕÄ«µå¸¦ 5Àå »ç¿ë ÇÒ ¶§¸¶´Ù Á¶ÇÕÄ«µå¸¦ 1Àå »Ì´Â´Ù.
+                case 30: //ì¡°í•©ì¹´ë“œë¥¼ 5ì¥ ì‚¬ìš© í•  ë•Œë§ˆë‹¤ ì¡°í•©ì¹´ë“œë¥¼ 1ì¥ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item30 = 0;
                     break;
                 case 31:
                     //Player.instance.isStatePlusDmg = true;
                     Player.instance.statePlusDmg -= Collection.instance.ItemDB.Entities[itemNum].power;
                     break;
-                case 34:    //10¸íÀÇ ÀûÀ» Ã³Ä¡ ÇÒ ¶§¸¶´Ù ÇÇÇØ·®ÀÌ 1 Áõ°¡ÇÑ´Ù.(ÃÖ´ë Áõ°¡·® 10)
+                case 34:    //10ëª…ì˜ ì ì„ ì²˜ì¹˜ í•  ë•Œë§ˆë‹¤ í”¼í•´ëŸ‰ì´ 1 ì¦ê°€í•œë‹¤.(ìµœëŒ€ ì¦ê°€ëŸ‰ 10)
                     if (isLock)
                     {
                         GameManager.instance.Item34 = false;
@@ -557,36 +557,36 @@ public class ItemForce : MonoBehaviour
                         GameManager.instance.Item34 = false;
                     }
                     break;
-                case 36:    //º¸À¯ÇÑ Á¶ÇÕÄ«µåÀÇ 10ºĞÀÇ 1¸¸Å­ ÇÇÇØ·®ÀÌ Áõ°¡ÇÑ´Ù.
+                case 36:    //ë³´ìœ í•œ ì¡°í•©ì¹´ë“œì˜ 10ë¶„ì˜ 1ë§Œí¼ í”¼í•´ëŸ‰ì´ ì¦ê°€í•œë‹¤.
 
                     Player.instance.power -= Player.instance.Item36;
                     Player.instance.Item36 = -1;
 
                     break;
-                case 37:    //º¸À¯ÇÑ °ñµåÀÇ 100ºĞÀÇ 1¸¸Å­ ÇÇÇØ·®ÀÌ Áõ°¡ÇÑ´Ù.(ÃÖ´ë Áõ°¡·® 3)
+                case 37:    //ë³´ìœ í•œ ê³¨ë“œì˜ 100ë¶„ì˜ 1ë§Œí¼ í”¼í•´ëŸ‰ì´ ì¦ê°€í•œë‹¤.(ìµœëŒ€ ì¦ê°€ëŸ‰ 3)
                     Player.instance.power -= Player.instance.Item37;
                     Player.instance.Item37 = 0;
                     break;
-                case 38:    //ÀüÅõ ½ÃÀÛ ½Ã 5ÀÇ ÇÇÇØ¸¦ ÀÔ°í ÀüÅõµ¿¾È ÇÇÇØ·®ÀÌ 3Áõ°¡ÇÑ´Ù.
-                    Player.instance.power -= Collection.instance.ItemDB.Entities[itemNum].power;    //ÇÇÇØ·® Áõ°¡, ÆÄ¿ö¼öÄ¡ = Áõ°¡½ÃÅ³ ÇÇÇØ·®
+                case 38:    //ì „íˆ¬ ì‹œì‘ ì‹œ 5ì˜ í”¼í•´ë¥¼ ì…ê³  ì „íˆ¬ë™ì•ˆ í”¼í•´ëŸ‰ì´ 3ì¦ê°€í•œë‹¤.
+                    Player.instance.power -= Collection.instance.ItemDB.Entities[itemNum].power;    //í”¼í•´ëŸ‰ ì¦ê°€, íŒŒì›Œìˆ˜ì¹˜ = ì¦ê°€ì‹œí‚¬ í”¼í•´ëŸ‰
                     break;
-                case 39:    //ÇÇ°İ ´çÇÑ È½¼öÀÇ ¹İ¸¸Å­ ´ÙÀ½ ÅÏ¿¡ ¼ıÀÚ¸¦ Ãß°¡·Î »Ì´Â´Ù.
+                case 39:    //í”¼ê²© ë‹¹í•œ íšŸìˆ˜ì˜ ë°˜ë§Œí¼ ë‹¤ìŒ í„´ì— ìˆ«ìë¥¼ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item39 = false;
                     break;
-                case 40:    //ÀüÅõ Áß Ã³À½ ¹ŞÀº »óÅÂÀÌ»óÀ» ¹ŞÁö ¾Ê´Â´Ù.
+                case 40:    //ì „íˆ¬ ì¤‘ ì²˜ìŒ ë°›ì€ ìƒíƒœì´ìƒì„ ë°›ì§€ ì•ŠëŠ”ë‹¤.
                     Player.instance.Item40 = false;
                     break;
-                case 41:    //ÀûÀ» Ã³Ä¡ ÇÒ ¶§¸¶´Ù Ã¼·Â 3 È¸º¹ÇÑ´Ù.
+                case 41:    //ì ì„ ì²˜ì¹˜ í•  ë•Œë§ˆë‹¤ ì²´ë ¥ 3 íšŒë³µí•œë‹¤.
                     Player.instance.Item41 = 0;
                     break;
-                case 42:    //È¦¼ö ÅÏ¿¡¸¸ Á¶ÇÕÄ«µå¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
+                case 42:    //í™€ìˆ˜ í„´ì—ë§Œ ì¡°í•©ì¹´ë“œë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item42 = 0;
                     break;
-                case 43:    //Â¦¼ö ÅÏ¿¡¸¸ ¼ıÀÚ¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
+                case 43:    //ì§ìˆ˜ í„´ì—ë§Œ ìˆ«ìë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
                     Player.instance.Item43 = 0;
                     break;
-                case 45:    //Ã¼·ÂÀÌ ÃÖ´ë Ã¼·ÂÀÇ 50%ÀÌÇÏÀÏ °æ¿ì °ø°İ·ÂÀÌ 5Áõ°¡ÇÕ´Ï´Ù.
-                    if (Player.instance.PlayerHp <= Player.instance.PlayerMaxHp / (100 / Player.instance.Item45_2)) //ÇöÀç Ã¼·Â < Á¤ÇØÁø Ã¼·Â °è¼ö
+                case 45:    //ì²´ë ¥ì´ ìµœëŒ€ ì²´ë ¥ì˜ 50%ì´í•˜ì¼ ê²½ìš° ê³µê²©ë ¥ì´ 5ì¦ê°€í•©ë‹ˆë‹¤.
+                    if (Player.instance.PlayerHp <= Player.instance.PlayerMaxHp / (100 / Player.instance.Item45_2)) //í˜„ì¬ ì²´ë ¥ < ì •í•´ì§„ ì²´ë ¥ ê³„ìˆ˜
                     {
                         Player.instance.power -= Player.instance.Item45_1;
                     }
@@ -594,37 +594,37 @@ public class ItemForce : MonoBehaviour
                     Player.instance.Item45_1 = 0;
                     Player.instance.Item45_2 = 0;
                     break;
-                case 46:    //ÀûÀ» Ã³Ä¡ÇÏ¸é 1~10»çÀÌÀÇ ¼ıÀÚ¸¦ 1Àå Ãß°¡·Î »Ì´Â´Ù.
-                    Player.instance.Item46 = 0;   //½Ã½ºÅÛ ¼öÄ¡ = Ãß°¡·Î »Ì´Â °³¼ö
+                case 46:    //ì ì„ ì²˜ì¹˜í•˜ë©´ 1~10ì‚¬ì´ì˜ ìˆ«ìë¥¼ 1ì¥ ì¶”ê°€ë¡œ ë½‘ëŠ”ë‹¤.
+                    Player.instance.Item46 = 0;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ì¶”ê°€ë¡œ ë½‘ëŠ” ê°œìˆ˜
                     break;
-                case 47:    //7¹øÂ° »ç¿ëÇÏ´Â Á¶ÇÕÄ«µå°¡ °ø°İÄ«µåÀÌ¸é ÇÇÇØ·®ÀÌ 2¹è°¡ µÈ´Ù. °ø°İ ÈÄ ÇÇÇØ·®Àº ¿ø·¡´ë·Î µ¹¾Æ¿Â´Ù.
-                    Player.instance.Item47 = 0;   //ÆÄ¿ö ¼öÄ¡ = ÇÇÇØ·® °³¼ö
-                    Player.instance.Item47_ = 0;   //½Ã½ºÅÛ ¼öÄ¡ = n¹øÂ° »ç¿ë
+                case 47:    //7ë²ˆì§¸ ì‚¬ìš©í•˜ëŠ” ì¡°í•©ì¹´ë“œê°€ ê³µê²©ì¹´ë“œì´ë©´ í”¼í•´ëŸ‰ì´ 2ë°°ê°€ ëœë‹¤. ê³µê²© í›„ í”¼í•´ëŸ‰ì€ ì›ë˜ëŒ€ë¡œ ëŒì•„ì˜¨ë‹¤.
+                    Player.instance.Item47 = 0;   //íŒŒì›Œ ìˆ˜ì¹˜ = í”¼í•´ëŸ‰ ê°œìˆ˜
+                    Player.instance.Item47_ = 0;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = në²ˆì§¸ ì‚¬ìš©
                     break;
-                case 50:    //10ÅÏ¸¶´Ù HP¸¦ 3 È¸º¹ÇÑ´Ù. ÅÏ ¼ö´Â ÀüÅõ ½ÃÀÛ½Ã ÃÊ±âÈ­µÈ´Ù.
-                    Player.instance.Item50 = 0;   //¹öÇÁ ¼öÄ¡ = È¸º¹ ¼öÄ¡
-                    Player.instance.Item50_ = 0;   //½Ã½ºÅÛ ¼öÄ¡ = ÅÏ ¼öÄ¡
+                case 50:    //10í„´ë§ˆë‹¤ HPë¥¼ 3 íšŒë³µí•œë‹¤. í„´ ìˆ˜ëŠ” ì „íˆ¬ ì‹œì‘ì‹œ ì´ˆê¸°í™”ëœë‹¤.
+                    Player.instance.Item50 = 0;   //ë²„í”„ ìˆ˜ì¹˜ = íšŒë³µ ìˆ˜ì¹˜
+                    Player.instance.Item50_ = 0;   //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = í„´ ìˆ˜ì¹˜
                     break;
-                case 51: //ÀüÅõ Áß È¦¼ö ÅÏ ÇÇÇØ·® 3Áõ°¡, Â¦¼ö ÅÏ ½¯µå 10È¹µæ
+                case 51: //ì „íˆ¬ ì¤‘ í™€ìˆ˜ í„´ í”¼í•´ëŸ‰ 3ì¦ê°€, ì§ìˆ˜ í„´ ì‰´ë“œ 10íšë“
                     Player.instance.Item51_power = 0;
                     Player.instance.Item51_shield = 0;
                     break;
-                case 52: //°ø°İ ½Ã 10%È®·ü·Î ÇÇÇØ·®ÀÌ 2¹è°¡ µÈ´Ù.
+                case 52: //ê³µê²© ì‹œ 10%í™•ë¥ ë¡œ í”¼í•´ëŸ‰ì´ 2ë°°ê°€ ëœë‹¤.
                     Player.instance.Item52 = false;
                     break;
-                case 53: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô ¸¶ºñ¸¦ 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 53: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ë§ˆë¹„ë¥¼ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 54: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô µ¶¸¦ 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 54: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ë…ë¥¼ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 55: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô È­»óÀ» 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 55: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ í™”ìƒì„ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 56: //5È¸ ÇÇ°İ ½Ã °ø°İÇÑ Àû¿¡°Ô ÃâÇ÷À» 2ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 56: //5íšŒ í”¼ê²© ì‹œ ê³µê²©í•œ ì ì—ê²Œ ì¶œí˜ˆì„ 2í„´ ë¶€ì—¬í•œë‹¤.
                     break;
-                case 58: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Ã¼·ÂÀ» 3 È¸º¹ÇÑ´Ù.
+                case 58: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì²´ë ¥ì„ 3 íšŒë³µí•œë‹¤.
                     break;
-                case 60: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû ¸ğµÎÀÇ ÃÖ´ë Ã¼·ÂÀ» 5%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 60: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ëª¨ë‘ì˜ ìµœëŒ€ ì²´ë ¥ì„ 5%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     break;
-                case 61: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû Áß ÇÏ³ªÀÇ Ã¼·ÂÀ» 10%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 61: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ì¤‘ í•˜ë‚˜ì˜ ì²´ë ¥ì„ 10%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     break;
             }
         }
@@ -643,31 +643,31 @@ public class ItemForce : MonoBehaviour
             case 9:
                 break;
             case 10:
-                //3¹øÂ° Á¶ÇÕÄ«µå °ø°İ¸¶´Ù µ¥¹ÌÁö 1.5¹è
+                //3ë²ˆì§¸ ì¡°í•©ì¹´ë“œ ê³µê²©ë§ˆë‹¤ ë°ë¯¸ì§€ 1.5ë°°
                 Player.instance.Item10 = true;
                 break;
             case 11:                
                 Player.instance.returndamage -= Collection.instance.ItemDB.Entities[itemNum].system;
 
-                if (Player.instance.returndamage == 0 && Player.instance.returnpercentdamage == 0 && Player.instance.returndamage_buff == 0)   //¹İ»ç °ü·Ã ¾ÆÀÌÅÛ ±×¸®°í ¹öÇÁ°¡ ¾ø´Ù¸é
+                if (Player.instance.returndamage == 0 && Player.instance.returnpercentdamage == 0 && Player.instance.returndamage_buff == 0)   //ë°˜ì‚¬ ê´€ë ¨ ì•„ì´í…œ ê·¸ë¦¬ê³  ë²„í”„ê°€ ì—†ë‹¤ë©´
                 {
-                    Player.instance.boolreturnDamage = false;   //¹İ»ç ÇØÁ¦
+                    Player.instance.boolreturnDamage = false;   //ë°˜ì‚¬ í•´ì œ
                 }
                 break;
             case 12:                
                 Player.instance.returnpercentdamage -= Collection.instance.ItemDB.Entities[itemNum].system;
 
-                if (Player.instance.returndamage == 0 && Player.instance.returnpercentdamage == 0 && Player.instance.returndamage_buff == 0)   //¹İ»ç °ü·Ã ¾ÆÀÌÅÛ ±×¸®°í ¹öÇÁ°¡ ¾ø´Ù¸é
+                if (Player.instance.returndamage == 0 && Player.instance.returnpercentdamage == 0 && Player.instance.returndamage_buff == 0)   //ë°˜ì‚¬ ê´€ë ¨ ì•„ì´í…œ ê·¸ë¦¬ê³  ë²„í”„ê°€ ì—†ë‹¤ë©´
                 {
-                    Player.instance.boolreturnDamage = false;   //¹İ»ç ÇØÁ¦
+                    Player.instance.boolreturnDamage = false;   //ë°˜ì‚¬ í•´ì œ
                 }
                 break;
             case 14:
                 Player.instance.minimumGold += 10;
                 break;
-            case 25: //¹ÌÁö Áö¿ª ÁøÀÔ ½Ã Ã¼·ÂÀ» 5 È¸º¹ÇÑ´Ù.
+            case 25: //ë¯¸ì§€ ì§€ì—­ ì§„ì… ì‹œ ì²´ë ¥ì„ 5 íšŒë³µí•œë‹¤.
                 break;
-            case 26: //¹ÌÁö Áö¿ª¿¡¼­ ÀüÅõ°¡ ¹ß»ıÇÏÁö ¾Ê´Â´Ù.
+            case 26: //ë¯¸ì§€ ì§€ì—­ì—ì„œ ì „íˆ¬ê°€ ë°œìƒí•˜ì§€ ì•ŠëŠ”ë‹¤.
                 break;
             case 28:
                 Player.instance.Item28 = false;
@@ -682,11 +682,11 @@ public class ItemForce : MonoBehaviour
             case 33:
                 GameObject.Find("CardCanvas").GetComponent<GamePlayBtn>().hpdrawbutton.SetActive(false);
                 break;
-            case 48:    //¾ÆÀÌÅÛ È¹µæ ½Ã 50°ñµå¸¦ È¹µæÇÑ´Ù.
+            case 48:    //ì•„ì´í…œ íšë“ ì‹œ 50ê³¨ë“œë¥¼ íšë“í•œë‹¤.
                 Player.instance.Item48 = false;
                 Player.instance.Item48_ = 0;
                 break;
-            case 49:    //¾ÆÀÌÅÛÀ» ±³Ã¼ ÇÑ È½¼ö¸¸Å­ °ø°İ·ÂÀÌ Áõ°¡ÇÑ´Ù. ÃÖ´ë 3
+            case 49:    //ì•„ì´í…œì„ êµì²´ í•œ íšŸìˆ˜ë§Œí¼ ê³µê²©ë ¥ì´ ì¦ê°€í•œë‹¤. ìµœëŒ€ 3
                 Player.instance.Item49 = false;
                 if (GameManager.instance.ItemChangeCount < 3)
                 {
@@ -694,7 +694,7 @@ public class ItemForce : MonoBehaviour
                 }
                 else
                 {
-                    Player.instance.power -= Collection.instance.ItemDB.Entities[itemNum].system; //½Ã½ºÅÛ ¼öÄ¡ = ÃÖ´ë Áõ°¡·®
+                    Player.instance.power -= Collection.instance.ItemDB.Entities[itemNum].system; //ì‹œìŠ¤í…œ ìˆ˜ì¹˜ = ìµœëŒ€ ì¦ê°€ëŸ‰
                 }
                 GameManager.instance.ItemResetSave(49);
                 break;
@@ -739,8 +739,8 @@ public class ItemForce : MonoBehaviour
 
             switch (name)
             {
-                case "¸¶ºñ":
-                    Enemies[rand].GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", turn);
+                case "ë§ˆë¹„":
+                    Enemies[rand].GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", turn);
                     FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, Enemies[rand]);
                     EffectManager.instance.EnemyCommoneEffectOn(Enemies[rand].name, CommonEffectName.Paralysis, Enemies[rand].GetComponent<EnemyBase>().enemyposion.position);
                     break;
@@ -762,7 +762,7 @@ public class ItemForce : MonoBehaviour
         {
             switch(itemNum)
             {
-                case 60: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû ¸ğµÎÀÇ ÃÖ´ë Ã¼·ÂÀ» 5%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 60: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ëª¨ë‘ì˜ ìµœëŒ€ ì²´ë ¥ì„ 5%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     for(int num = 0; num < Enemies.Length; num++)
                     {
                         EnemyBase enemy = Enemies[num].GetComponent<EnemyBase>();
@@ -771,7 +771,7 @@ public class ItemForce : MonoBehaviour
                         enemy.EnemyHpBarShow();
                     }
                     break;
-                case 61: //ÀüÅõ Áö¿ª ÁøÀÔ ½Ã Àû Áß ÇÏ³ªÀÇ Ã¼·ÂÀ» 10%°¨¼ÒµÈ »óÅÂ·Î ÀüÅõÇÑ´Ù.
+                case 61: //ì „íˆ¬ ì§€ì—­ ì§„ì… ì‹œ ì  ì¤‘ í•˜ë‚˜ì˜ ì²´ë ¥ì„ 10%ê°ì†Œëœ ìƒíƒœë¡œ ì „íˆ¬í•œë‹¤.
                     int rand = Random.Range(0, Enemies.Length);
                     EnemyBase target = Enemies[rand].GetComponent<EnemyBase>();
                     int targetNewHp = (int)target.EnemyHp - (int)(target.EnemyMaxHp * 0.1f);
