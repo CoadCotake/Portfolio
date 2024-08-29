@@ -15,16 +15,16 @@ public class TextTranslate : MonoBehaviour
     private TextDB textDB;
     private ItemDB itemDB;
 
-    public bool AwakeCheck = false;    //±âÃÊ°ª ¼¼ÆÃÀÌ ³¡³µ´ÂÁö È®ÀÎ
+    public bool AwakeCheck = false;    //ê¸°ì´ˆê°’ ì„¸íŒ…ì´ ëë‚¬ëŠ”ì§€ í™•ì¸
 
-    [Header("[ÅøÆÁÀº Ã¼Å©ÇÏ±â]")]
+    [Header("[íˆ´íŒì€ ì²´í¬í•˜ê¸°]")]
     public bool ToolTip = false;
     public string SpaceText="";
 
-    [Header("[±Û²Ã ¼³Á¤ (µû·Î °Çµé±â X)]")]
+    [Header("[ê¸€ê¼´ ì„¤ì • (ë”°ë¡œ ê±´ë“¤ê¸° X)]")]
     [SerializeField] LanguageFont font;
     /// <summary>
-    /// -1 = ÀÏ¹İ ÆùÆ® , 0 = tmp ÀÏ¹İ ÆùÆ®, 1 = tmp ¾Æ¿ô¶óÀÎ ¾àÇÔ, 2 = tmp ¾Æ¿ô¶óÀÎ ½Ü
+    /// -1 = ì¼ë°˜ í°íŠ¸ , 0 = tmp ì¼ë°˜ í°íŠ¸, 1 = tmp ì•„ì›ƒë¼ì¸ ì•½í•¨, 2 = tmp ì•„ì›ƒë¼ì¸ ìŒ¤
     /// </summary>
     [SerializeField] int font_num;
    
@@ -87,7 +87,7 @@ public class TextTranslate : MonoBehaviour
         }
         else
         {
-            DebugX.LogError("ÆùÆ®¸¦ Ã£À» ¼ö ¾øÀ½"+this.gameObject.name);
+            DebugX.LogError("í°íŠ¸ë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŒ"+this.gameObject.name);
         }
     }
 
@@ -107,7 +107,7 @@ public class TextTranslate : MonoBehaviour
                 }
                 else
                 {
-                    DebugX.LogError("ÆùÆ®¸¦ ³ÖÀ» ¼ö ¾øÀ½" + this.gameObject.name);
+                    DebugX.LogError("í°íŠ¸ë¥¼ ë„£ì„ ìˆ˜ ì—†ìŒ" + this.gameObject.name);
                 }
                 break;
             default:
@@ -121,7 +121,7 @@ public class TextTranslate : MonoBehaviour
                 }
                 else
                 {
-                    DebugX.LogError("Ãß°¡ ÆùÆ®¸¦ ³ÖÀ» ¼ö ¾øÀ½" + this.gameObject.name);
+                    DebugX.LogError("ì¶”ê°€ í°íŠ¸ë¥¼ ë„£ì„ ìˆ˜ ì—†ìŒ" + this.gameObject.name);
                 }
                 break;
         }
@@ -767,7 +767,7 @@ public class TextTranslate : MonoBehaviour
         }
     }
 
-    [Header("[ÅØ½ºÆ® ¼¼ÆÃ]")]
+    [Header("[í…ìŠ¤íŠ¸ ì„¸íŒ…]")]
     public PlusTexts plusTexts;
     [System.Serializable]
     public struct PlusTexts
@@ -813,7 +813,7 @@ public class TextTranslate : MonoBehaviour
         DebuffEx
     }
 
-    [Header("[TextType.Event Àü¿ë]")]
+    [Header("[TextType.Event ì „ìš©]")]
     public EventTextType eventTextType;
     public enum EventTextType
     {
