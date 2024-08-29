@@ -34,26 +34,26 @@ public class combinationskill : MonoBehaviour
     public int plusdamage;
 
     public int mydecknumber;
-    float hitdamage;  //³ÖÀ» µ¥¹ÌÁö
+    float hitdamage;  //ë„£ì„ ë°ë¯¸ì§€
 
 
-    float randomx, randomy; //ÀÌÆåÆ® ·£´ı À§Ä¡
+    float randomx, randomy; //ì´í™íŠ¸ ëœë¤ ìœ„ì¹˜
 
     bool isShieldCrack = false;
 
-    public GameObject LastTarget; // Å¸°Ù
-    GameObject LastTarget_before=null; // ÀÌÀü Å¸°Ù °í¹«°ø Ä«µå º¯¼ö·Î »ç¿ëÇÔ
+    public GameObject LastTarget; // íƒ€ê²Ÿ
+    GameObject LastTarget_before=null; // ì´ì „ íƒ€ê²Ÿ ê³ ë¬´ê³µ ì¹´ë“œ ë³€ìˆ˜ë¡œ ì‚¬ìš©í•¨
     [SerializeField]GameObject[] Enemies;
     int random;
 
-    //Ä«µå º¯¼ö
+    //ì¹´ë“œ ë³€ìˆ˜
     bool card84 = false;
     GameObject card84_target = null;
     int card84_dmg=0;
 
     bool isUsed = false;
 
-    int insint; //ÀÎÆ®Çü ÀÓ½Ã º¯¼ö Ä³½Ì¿ë
+    int insint; //ì¸íŠ¸í˜• ì„ì‹œ ë³€ìˆ˜ ìºì‹±ìš©
     int jokercount;
     int equlnum;
 
@@ -88,7 +88,7 @@ public class combinationskill : MonoBehaviour
             previousCard();
     }
 
-    public void previousCard() //x¹öÆ°À» ´©¸¦ ¶§ Ä«µå ³ÖÀ» ½½·Ô¿¡ ¾ÆÁ÷ Ä«µå°¡ ³²¾ÆÀÖ´Ù¸é Ä«µå¹İÈ¯ÇÏ´Â ÇÔ¼ö
+    public void previousCard() //xë²„íŠ¼ì„ ëˆ„ë¥¼ ë•Œ ì¹´ë“œ ë„£ì„ ìŠ¬ë¡¯ì— ì•„ì§ ì¹´ë“œê°€ ë‚¨ì•„ìˆë‹¤ë©´ ì¹´ë“œë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
     {
         Transform T = this.transform;
         foreach (Transform tr in T)
@@ -99,30 +99,30 @@ public class combinationskill : MonoBehaviour
                 if (tr.childCount > 1)
                 {
                     GameObject a = tr.transform.GetChild(1).gameObject;
-                    //µé¾îÀÖ´ø ¼ıÀÚ Ä«µåµé µ¹·Áº¸³»±â
+                    //ë“¤ì–´ìˆë˜ ìˆ«ì ì¹´ë“œë“¤ ëŒë ¤ë³´ë‚´ê¸°
                     mycardpanel.GetComponent<mycard>().myhandcard.Add(tr.transform.GetChild(1).gameObject);
                     tr.transform.GetChild(1).SetParent(mycardpanel.transform);
 
                     DebugX.Log(a.ToString());
                     a.transform.localScale = new Vector2(1, 1);
-                    //Á¤·Ä
+                    //ì •ë ¬
                     mycardpanel.GetComponent<mycard>().align();
                 }
             }
         }
 
-        // »ç¿ëÇÏ·Á´ø Á¶ÇÕÄ«µå ¹İÈ¯
+        // ì‚¬ìš©í•˜ë ¤ë˜ ì¡°í•©ì¹´ë“œ ë°˜í™˜
         //previouscard = combinationpanel.GetComponent<combinationpanel>().thiscombinationcard;
         combinationpanel.GetComponent<combinationpanel>().combinationcarddeck.Add(previouscard);
         previouscard.SetActive(true);
         previouscard.transform.SetParent(combinationpanel.transform);
 
-        //Á¤·Ä
+        //ì •ë ¬
         combinationpanel.GetComponent<combinationpanel>().align();
 
-        if (cardslot[0].GetComponent<CardDrop>().rule==dropcardrule.rule.accumulate)    //¸¸¾à ÇÑ ½½·Ô¿¡ Ä«µå¸¦ ´Ù ³Ö´Â °Å¶ó¸é
+        if (cardslot[0].GetComponent<CardDrop>().rule==dropcardrule.rule.accumulate)    //ë§Œì•½ í•œ ìŠ¬ë¡¯ì— ì¹´ë“œë¥¼ ë‹¤ ë„£ëŠ” ê±°ë¼ë©´
         {
-            //»ç¶óÁø Ä«µåµéÀ» ´Ù½Ã µ¹·ÁÁØ´Ù.
+            //ì‚¬ë¼ì§„ ì¹´ë“œë“¤ì„ ë‹¤ì‹œ ëŒë ¤ì¤€ë‹¤.
             foreach (var card in cardslot[0].GetComponent<CardDrop>().UseCardList)
             {
                 mycard.instance.othercarddraw(card);
@@ -135,7 +135,7 @@ public class combinationskill : MonoBehaviour
         DebugX.Log(previouscard.name);
     }
 
-    public void ReturnCard() //Ä«µåÈ¿°ú¸¦ ¹ßµ¿ÇÏ°íµµ ´Ù½Ã ¼ÕÆĞ¿¡ µé¾î¿À´ÂÄ«µå
+    public void ReturnCard() //ì¹´ë“œíš¨ê³¼ë¥¼ ë°œë™í•˜ê³ ë„ ë‹¤ì‹œ ì†íŒ¨ì— ë“¤ì–´ì˜¤ëŠ”ì¹´ë“œ
     {
         DebugX.Log(childcombinationskill.ToString());
         Transform T = this.transform;
@@ -151,13 +151,13 @@ public class combinationskill : MonoBehaviour
             }
         }
 
-        // »ç¿ëÇÏ·Á´ø Á¶ÇÕÄ«µå ¹İÈ¯
+        // ì‚¬ìš©í•˜ë ¤ë˜ ì¡°í•©ì¹´ë“œ ë°˜í™˜
         //previouscard = combinationpanel.GetComponent<combinationpanel>().thiscombinationcard;
         combinationpanel.GetComponent<combinationpanel>().combinationcarddeck.Add(previouscard);
         previouscard.SetActive(true);
         previouscard.transform.SetParent(combinationpanel.transform);
 
-        //Á¤·Ä
+        //ì •ë ¬
         combinationpanel.GetComponent<combinationpanel>().align();
 
 
@@ -198,52 +198,52 @@ public class combinationskill : MonoBehaviour
             c++;
         }
 
-        #region Ä«µå È¿°ú
+        #region ì¹´ë“œ íš¨ê³¼
         if (check == cardslotcount)
         {
-            if (cardslot[0].GetComponent<CardDrop>().rule == dropcardrule.rule.equal)   //°°Àº ¼ıÀÚ³Ö´Â ½½·ÔÀÏ °æ¿ì - Á¶Ä¿Ã³¸®
+            if (cardslot[0].GetComponent<CardDrop>().rule == dropcardrule.rule.equal)   //ê°™ì€ ìˆ«ìë„£ëŠ” ìŠ¬ë¡¯ì¼ ê²½ìš° - ì¡°ì»¤ì²˜ë¦¬
             {
-                DebugX.Log("°°Àº ¼ıÀÚ ±ÔÄ¢ Á¶Ä¿Ã³¸®");
+                DebugX.Log("ê°™ì€ ìˆ«ì ê·œì¹™ ì¡°ì»¤ì²˜ë¦¬");
 
                 jokercount = 0;
                 equlnum = 0;
 
                 for (int Cd=0; Cd<cardnum.Length; Cd++)
                 {
-                    if (cardnum[Cd]==14)    //Á¶Ä¿ ÀÎ °æ¿ì
+                    if (cardnum[Cd]==14)    //ì¡°ì»¤ ì¸ ê²½ìš°
                     {
                         jokercount++;
                     }
                     else
                     {
-                        equlnum = cardnum[Cd];  //·ê ¼ıÀÚ ÀúÀå
+                        equlnum = cardnum[Cd];  //ë£° ìˆ«ì ì €ì¥
                     }
                 }
 
-                DebugX.Log("°°Àº ¼ıÀÚ ±ÔÄ¢ Á¶Ä¿°³¼ö"+ jokercount);
-                if (cardnum.Length == 3)        //½½·ÔÀÌ 3°³ÀÏ °æ¿ì
+                DebugX.Log("ê°™ì€ ìˆ«ì ê·œì¹™ ì¡°ì»¤ê°œìˆ˜"+ jokercount);
+                if (cardnum.Length == 3)        //ìŠ¬ë¡¯ì´ 3ê°œì¼ ê²½ìš°
                 {
-                    if (jokercount == 3)     //ÀüºÎ Á¶Ä¿ÀÏ °æ¿ì
+                    if (jokercount == 3)     //ì „ë¶€ ì¡°ì»¤ì¼ ê²½ìš°
                     {
                         cardnum[0] = 10;
                         cardnum[1] = 10;
                         cardnum[2] = 10;
                     }
-                    else  //ÀüºÎ Á¶Ä¿°¡ ¾Æ´Ò °æ¿ì
+                    else  //ì „ë¶€ ì¡°ì»¤ê°€ ì•„ë‹ ê²½ìš°
                     {
                         cardnum[0] = equlnum;
                         cardnum[1] = equlnum;
                         cardnum[2] = equlnum;
                     }
                 }
-                else if(cardnum.Length==2)      //2°³ÀÏ °æ¿ì
+                else if(cardnum.Length==2)      //2ê°œì¼ ê²½ìš°
                 {
-                    if (jokercount == 2)     //ÀüºÎ Á¶Ä¿ÀÏ °æ¿ì
+                    if (jokercount == 2)     //ì „ë¶€ ì¡°ì»¤ì¼ ê²½ìš°
                     {
                         cardnum[0] = 10;
                         cardnum[1] = 10;
                     }
-                    else  //ÀüºÎ Á¶Ä¿°¡ ¾Æ´Ò °æ¿ì
+                    else  //ì „ë¶€ ì¡°ì»¤ê°€ ì•„ë‹ ê²½ìš°
                     {
                         cardnum[0] = equlnum;
                         cardnum[1] = equlnum;
@@ -275,85 +275,85 @@ public class combinationskill : MonoBehaviour
             switch (damagerule)
             {
                 //cardnum[0] cardnum[1] cardnum[2]
-                //¸Ç ¿ŞÂÊºÎÅÍ 0 , 1 , 2 ¼ø¼­´ë·Î °è»ê 
-                //½½·Ô 1Ä­ÀÏ °æ¿ì cardnum[0]¸¸ »ç¿ë
-                //½½·Ô 2Ä­ÀÏ °æ¿ì cardnum[0], cardnum[1] »ç¿ë
-                //½½·Ô 3Ä­ÀÏ °æ¿ì cardnum[0], cardnum[1], cardnum[2] »ç¿ë
+                //ë§¨ ì™¼ìª½ë¶€í„° 0 , 1 , 2 ìˆœì„œëŒ€ë¡œ ê³„ì‚° 
+                //ìŠ¬ë¡¯ 1ì¹¸ì¼ ê²½ìš° cardnum[0]ë§Œ ì‚¬ìš©
+                //ìŠ¬ë¡¯ 2ì¹¸ì¼ ê²½ìš° cardnum[0], cardnum[1] ì‚¬ìš©
+                //ìŠ¬ë¡¯ 3ì¹¸ì¼ ê²½ìš° cardnum[0], cardnum[1], cardnum[2] ì‚¬ìš©
 
-                #region ÀÏ¹İ 0~
+                #region ì¼ë°˜ 0~
                 case 0:
                     hitdamage += damages;
                     break;
                 case 1:
-                    hitdamage += cardnum[0];             //Ã¹¹øÂ° ½½·Ô¿¡ Ä«µå ³ÖÀº °ª
+                    hitdamage += cardnum[0];             //ì²«ë²ˆì§¸ ìŠ¬ë¡¯ì— ì¹´ë“œ ë„£ì€ ê°’
 
                     break;
                 case 2:
                     foreach (var a in cardnum)
                     {
-                        hitdamage += a;                 //µé¾î°£ ¸ğµç Ä«µå ÇÕ»êÇü µ¥¹ÌÁö
+                        hitdamage += a;                 //ë“¤ì–´ê°„ ëª¨ë“  ì¹´ë“œ í•©ì‚°í˜• ë°ë¯¸ì§€
                     }
 
 
                     break;
                 case 3:
-                    hitdamage += cardnum[0] * 2;          //Ã¹¹øÂ° ½½·Ô¿¡ Ä«µå ³ÖÀº °ª 2¹è
+                    hitdamage += cardnum[0] * 2;          //ì²«ë²ˆì§¸ ìŠ¬ë¡¯ì— ì¹´ë“œ ë„£ì€ ê°’ 2ë°°
                     break;
 
                 case 4:
-                    hitdamage += cardnum[0] * cardnum[0];  //Ã¹¹øÂ° ½½·Ô¿¡ Ä«µå ³ÖÀº °ª Á¦°ö
+                    hitdamage += cardnum[0] * cardnum[0];  //ì²«ë²ˆì§¸ ìŠ¬ë¡¯ì— ì¹´ë“œ ë„£ì€ ê°’ ì œê³±
 
                     break;
                 case 5:
-                    hitdamage += cardnum[0] + damages;   //Ä«µå + Ãß°¡µ¥¹ÌÁö
+                    hitdamage += cardnum[0] + damages;   //ì¹´ë“œ + ì¶”ê°€ë°ë¯¸ì§€
                     break;
                 case 6:
-                    hitdamage += cardnum[0] * cardnum[1]; // µÎ ¼öÀÇ °ö
+                    hitdamage += cardnum[0] * cardnum[1]; // ë‘ ìˆ˜ì˜ ê³±
                     break;
 
                 case 8:
-                    hitdamage += cardnum[0] / 2.0f;        //³ÖÀº ¼öÀÇ Àı¹İ
+                    hitdamage += cardnum[0] / 2.0f;        //ë„£ì€ ìˆ˜ì˜ ì ˆë°˜
                     break;
                 case 9:
-                    hitdamage += cardnum[0] * 1.5f;     //³ÖÀº ¼öÀÇ 1.5¹è
+                    hitdamage += cardnum[0] * 1.5f;     //ë„£ì€ ìˆ˜ì˜ 1.5ë°°
                     break;
                 case 10:
-                    hitdamage += cardnum[0] * cardnum[1] / 2.0f; // µÎ ¼öÀÇ °ö / 2
+                    hitdamage += cardnum[0] * cardnum[1] / 2.0f; // ë‘ ìˆ˜ì˜ ê³± / 2
                     break;
                 case 11:
                     hitdamage += Mathf.Ceil((cardnum[0] * cardnum[1] * cardnum[2])/4f);
                     break;
 
                 case 12:
-                    hitdamage += cardnum[0] + cardnum[1];  // µÎ¼öÀÇ ÇÕ
+                    hitdamage += cardnum[0] + cardnum[1];  // ë‘ìˆ˜ì˜ í•©
                     break;
 
-                case 13:    //n¿¡¼­ ³ÖÀº ¼ıÀÚ¸¦ »«¸¸Å­ ÀûÀ» °ø°İÇÑ´Ù.
+                case 13:    //nì—ì„œ ë„£ì€ ìˆ«ìë¥¼ ëº€ë§Œí¼ ì ì„ ê³µê²©í•œë‹¤.
                     hitdamage = damages - cardnum[0];
                     break;
 
-                case 14:    //¼ıÀÚ¸¦ ³Ö¾î 10¿¡¼­ ¼ıÀÚ¸¦ »« ¼öÀÇ n¹è¸¸Å­ Àû ¸ğµÎ¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 14:    //ìˆ«ìë¥¼ ë„£ì–´ 10ì—ì„œ ìˆ«ìë¥¼ ëº€ ìˆ˜ì˜ në°°ë§Œí¼ ì  ëª¨ë‘ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     hitdamage = (10 - cardnum[0]) * damages;
                     break;
 
                 case 20:
-                    hitdamage += companel.previousDamage / 2.0f; //ÀÌÀüÅÏ ¹İÀı µ¥¹ÌÁö
+                    hitdamage += companel.previousDamage / 2.0f; //ì´ì „í„´ ë°˜ì ˆ ë°ë¯¸ì§€
                     DebugX.Log("hitdamage : " + hitdamage);
                     break;
                 case 21:
-                    hitdamage += companel.previousDamage; //ÀÌÀüÅÏ  µ¥¹ÌÁö
+                    hitdamage += companel.previousDamage; //ì´ì „í„´  ë°ë¯¸ì§€
                     DebugX.Log("hitdamage : " + hitdamage);
                     break;
 
-                case 22:    //¼ıÀÚ¸¦ ³Ö¾î n¿¡¼­ ¼ıÀÚ¸¦ ³ª´«¸¸Å­
+                case 22:    //ìˆ«ìë¥¼ ë„£ì–´ nì—ì„œ ìˆ«ìë¥¼ ë‚˜ëˆˆë§Œí¼
                     hitdamage = damages / cardnum[0];
                     break;
                 #endregion
 
-                #region Æ¯¼ö°ø°İ 100~
+                #region íŠ¹ìˆ˜ê³µê²© 100~
                 case 101:
                     hitdamage += damages;
-                    ReturnCard(); //´Ù½Ã ¼ÕÆĞ¿¡ µé¾î¿À±â
+                    ReturnCard(); //ë‹¤ì‹œ ì†íŒ¨ì— ë“¤ì–´ì˜¤ê¸°
                     break;
                 case 102:
                     if (Player.instance.PlayerGold > 0) hitdamage += Player.instance.PlayerGold / 5.0f;
@@ -364,7 +364,7 @@ public class combinationskill : MonoBehaviour
                     else hitdamage = 0;
                     break;
 
-                case 104: //Ã¼·Â5 ¼Ò¸ğ ¹× 100µ¥¹ÌÁö
+                case 104: //ì²´ë ¥5 ì†Œëª¨ ë° 100ë°ë¯¸ì§€
                     if (Player.instance.PlayerHp > 3)
                     {
                         Player.instance.PlayerHp -= 3;
@@ -381,41 +381,41 @@ public class combinationskill : MonoBehaviour
                     break;
 
                 case 105:
-                    isShieldCrack = true; //½¯µå ºÎ¼ú°ÇÁö
+                    isShieldCrack = true; //ì‰´ë“œ ë¶€ìˆ ê±´ì§€
                     break;
 
-                case 106: //°íÁ¤µ¥¸ÅÁö + ·£´ı È¦¼ö Ä«µå µæ
+                case 106: //ê³ ì •ë°ë§¤ì§€ + ëœë¤ í™€ìˆ˜ ì¹´ë“œ ë“
                     hitdamage += damages;
-                    int randomOdd = Random.Range(1, 6) * 2 - 1; //È¦¼ö ÃßÃâ
+                    int randomOdd = Random.Range(1, 6) * 2 - 1; //í™€ìˆ˜ ì¶”ì¶œ
                     cardpanel.othercarddraw(randomOdd);
                     break;
 
                 case 107:
                     hitdamage += damages;
-                    int randomEven = Random.Range(1, 6) * 2; //Â¦¼ö ÃßÃâ
+                    int randomEven = Random.Range(1, 6) * 2; //ì§ìˆ˜ ì¶”ì¶œ
                     cardpanel.othercarddraw(randomEven);
                     break;
-                case 108:   //¼ıÀÚ¸¦ ³Ö¾î º¸À¯ÇÑ ¾ÆÀÌÅÛÀÇ ¼ö¸¸Å­ n°ªÀ» È¹µæÇÑ´Ù. (µ¥¹ÌÁö, ¹æ¾î¸· Àû¿ë)
-                    DebugX.Log("º¸À¯ÇÑ ¾ÆÀÌÅÛ ¼ö ÆĞ½Ãºê: " + GameManager.instance.PlayerItemList.Count);
+                case 108:   //ìˆ«ìë¥¼ ë„£ì–´ ë³´ìœ í•œ ì•„ì´í…œì˜ ìˆ˜ë§Œí¼ nê°’ì„ íšë“í•œë‹¤. (ë°ë¯¸ì§€, ë°©ì–´ë§‰ ì ìš©)
+                    DebugX.Log("ë³´ìœ í•œ ì•„ì´í…œ ìˆ˜ íŒ¨ì‹œë¸Œ: " + GameManager.instance.PlayerItemList.Count);
                     hitdamage += GameManager.instance.PlayerItemList.Count;
                     break;
-                case 109:   //³ÖÀº ¼ıÀÚ¸¸Å­ ÀûÀ» °ø°İÇÑ´Ù. µÚ¿¡ ÀûÀÌ ÀÖÀ» °æ¿ì ³ÖÀº ¼ıÀÚÀÇ ¹İ¸¸Å­ µÚÀÇ ÀûÀ» °ø°İÇÑ´Ù.
+                case 109:   //ë„£ì€ ìˆ«ìë§Œí¼ ì ì„ ê³µê²©í•œë‹¤. ë’¤ì— ì ì´ ìˆì„ ê²½ìš° ë„£ì€ ìˆ«ìì˜ ë°˜ë§Œí¼ ë’¤ì˜ ì ì„ ê³µê²©í•œë‹¤.
                     hitdamage += cardnum[0];
                     card84 = true;
                     card84_dmg = cardnum[0] / 2;
                     break;
-                case 110:   //¼ıÀÚ 1À» ³Ö¾î 10%È®·ü·Î n¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 110:   //ìˆ«ì 1ì„ ë„£ì–´ 10%í™•ë¥ ë¡œ në§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     random = Random.Range(0, 10);
-                    DebugX.Log("0ÀÌ ³ª¿À¸é Ä«µå È¿°ú" + random);
+                    DebugX.Log("0ì´ ë‚˜ì˜¤ë©´ ì¹´ë“œ íš¨ê³¼" + random);
                     if (random == 0)
                     {
                         hitdamage += damages;
                     }
                     break;
-                case 111:   //¼ıÀÚ¸¦ ³Ö¾î º¸À¯ÇÑ ¾ÆÀÌÅÛÀÇ ¼öÀÇ n¹è¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 111:   //ìˆ«ìë¥¼ ë„£ì–´ ë³´ìœ í•œ ì•„ì´í…œì˜ ìˆ˜ì˜ në°°ë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     hitdamage += GameManager.instance.PlayerItemList.Count * damages;
                     break;
-                case 112:   //³ÖÀº ¼ıÀÚ¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù. »ç¿ëÇÑ ¼ıÀÚ Ä«µå´Â ¹İÈ¯µÈ´Ù.
+                case 112:   //ë„£ì€ ìˆ«ìë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤. ì‚¬ìš©í•œ ìˆ«ì ì¹´ë“œëŠ” ë°˜í™˜ëœë‹¤.
                     hitdamage += cardnum[0];
 
                     if (cardslot[0].GetComponent<CardDrop>().joker != 0)
@@ -426,7 +426,7 @@ public class combinationskill : MonoBehaviour
                     mycard.instance.othercarddraw(cardnum[0]);
                     mycard.instance.align();
                     break;
-                case 113:   //¼¼ ¼ıÀÚ¸¦ ³Ö¾î °¡Àå Å« ¼ö¿Í ÀÛÀº ¼öÀÇ °ö¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 113:   //ì„¸ ìˆ«ìë¥¼ ë„£ì–´ ê°€ì¥ í° ìˆ˜ì™€ ì‘ì€ ìˆ˜ì˜ ê³±ë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     int max;
                     int min;
                     max = cardnum[0];
@@ -446,10 +446,10 @@ public class combinationskill : MonoBehaviour
                     }
                     hitdamage += max * min;
                     break;
-                case 114:   //°ø¼®
+                case 114:   //ê³µì„
 
                     break;
-                case 115:   //º¸À¯ÇÑ °ñµåÀÇ 1/n¸¸Å­ º¸È£¸·À» È¹µæÇÑ´Ù. º¸À¯ °ñµå°¡ nº¸´Ù ÀûÀ» ½Ã 1ÀÇ º¸È£¸·À» È¹µæÇÑ´Ù.
+                case 115:   //ë³´ìœ í•œ ê³¨ë“œì˜ 1/në§Œí¼ ë³´í˜¸ë§‰ì„ íšë“í•œë‹¤. ë³´ìœ  ê³¨ë“œê°€ në³´ë‹¤ ì ì„ ì‹œ 1ì˜ ë³´í˜¸ë§‰ì„ íšë“í•œë‹¤.
                     if (Player.instance.PlayerGold < damages)
                     {
                         hitdamage += 1;
@@ -459,22 +459,22 @@ public class combinationskill : MonoBehaviour
                         hitdamage += (int)Player.instance.PlayerGold / damages;
                     }
                     break;
-                case 116:   //¼ıÀÚ¸¦ ³Ö¾î ¼Õ¿¡ º¸À¯ÇÑ Á¶ÇÕ Ä«µå ¼ö¸¸Å­ º¸È£¸·À» È¹µæÇÑ´Ù.
+                case 116:   //ìˆ«ìë¥¼ ë„£ì–´ ì†ì— ë³´ìœ í•œ ì¡°í•© ì¹´ë“œ ìˆ˜ë§Œí¼ ë³´í˜¸ë§‰ì„ íšë“í•œë‹¤.
                     hitdamage += combinationpanel.GetComponent<combinationpanel>().MyhandCount();
                     break;
-                case 117:   //¼ıÀÚ¸¦ ³Ö¾î ¼Õ¿¡ º¸À¯ÇÑ Á¶ÇÕ Ä«µå ¼öÀÇ n¹è¸¸Å­ º¸È£¸·À» È¹µæÇÑ´Ù.
+                case 117:   //ìˆ«ìë¥¼ ë„£ì–´ ì†ì— ë³´ìœ í•œ ì¡°í•© ì¹´ë“œ ìˆ˜ì˜ në°°ë§Œí¼ ë³´í˜¸ë§‰ì„ íšë“í•œë‹¤.
                     hitdamage += combinationpanel.GetComponent<combinationpanel>().MyhandCount() * damages;
                     break;
-                case 118:   //¼ıÀÚ¸¦ ³Ö¾î ¼Õ¿¡ º¸À¯ÇÑ °ø°İÄ«µå ¼ö¸¸Å­ ÇÇÇØ·® Áõ°¡¹öÇÁ¸¦ 1ÅÏ È¹µæÇÑ´Ù.
+                case 118:   //ìˆ«ìë¥¼ ë„£ì–´ ì†ì— ë³´ìœ í•œ ê³µê²©ì¹´ë“œ ìˆ˜ë§Œí¼ í”¼í•´ëŸ‰ ì¦ê°€ë²„í”„ë¥¼ 1í„´ íšë“í•œë‹¤.
                     Player.instance.Card107 = combinationpanel.GetComponent<combinationpanel>().Myhand_AttackCardCount();
-                    DebugX.Log("Áõ°¡°ª" + Player.instance.Card107);
-                    Player.instance.PlayerStateAdd("ÇÇÇØ·® Áõ°¡", Player.instance.Card107);
+                    DebugX.Log("ì¦ê°€ê°’" + Player.instance.Card107);
+                    Player.instance.PlayerStateAdd("í”¼í•´ëŸ‰ ì¦ê°€", Player.instance.Card107);
                     break;
-                case 119:   //7ÀÌ»óÀÇ ¼¼ ¼ıÀÚ¸¦ ³Ö¾î ÀûÀÇ º¸È£¸·À» »©¾Ò´Â´Ù.
+                case 119:   //7ì´ìƒì˜ ì„¸ ìˆ«ìë¥¼ ë„£ì–´ ì ì˜ ë³´í˜¸ë§‰ì„ ë¹¼ì•˜ëŠ”ë‹¤.
                     break;
                 #endregion
 
-                #region ÀüÃ¼°ø°İ 300~
+                #region ì „ì²´ê³µê²© 300~
                 case 301:
                     if (Player.instance.PlayerGold > 10) hitdamage += Player.instance.PlayerGold / 10.0f;
                     else hitdamage = 1;
@@ -489,24 +489,24 @@ public class combinationskill : MonoBehaviour
                     break;
 
                 case 304:
-                    //150À» ¸¶¸®´çÀ¸·Î ³ª´² ÀüÃ¼°ø°İ
+                    //150ì„ ë§ˆë¦¬ë‹¹ìœ¼ë¡œ ë‚˜ëˆ  ì „ì²´ê³µê²©
                     GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     hitdamage = 150 / Enemies.Length;
                     break;
 
-                case 305:   //³ÖÀº ¼ö¸¸Å­ Àû ¸ğµÎ¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 305:   //ë„£ì€ ìˆ˜ë§Œí¼ ì  ëª¨ë‘ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     hitdamage = cardnum[0];
                     break;
 
-                case 306:   //¼ıÀÚ¸¦ ³Ö¾î 10¿¡¼­ ¼ıÀÚ¸¦ »« ¼öÀÇ n¹è¸¸Å­ Àû ¸ğµÎ¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 306:   //ìˆ«ìë¥¼ ë„£ì–´ 10ì—ì„œ ìˆ«ìë¥¼ ëº€ ìˆ˜ì˜ në°°ë§Œí¼ ì  ëª¨ë‘ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     hitdamage = (10 - cardnum[0]) * damages;
                     break;
 
-                case 307:   //µÎ ¼ıÀÚ¸¦ ³Ö¾î µÎ ¼öÀÇ °ö¸¸Å­ Àû ÀüÃ¼¸¦ °ø°İÇÑ´Ù.
+                case 307:   //ë‘ ìˆ«ìë¥¼ ë„£ì–´ ë‘ ìˆ˜ì˜ ê³±ë§Œí¼ ì  ì „ì²´ë¥¼ ê³µê²©í•œë‹¤.
                     hitdamage = cardnum[0] * cardnum[1];
                     break;
 
-                case 308:   //n¸¸Å­ Àû ¸ğµÎ¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù.
+                case 308:   //në§Œí¼ ì  ëª¨ë‘ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤.
                     hitdamage = damages;
                     break;
 
@@ -516,12 +516,12 @@ public class combinationskill : MonoBehaviour
                     break;
                 #endregion
 
-                #region »óÅÂÀÌ»ó 800~
-                case 800: //»óÅÂÀÌ»ó °Å´Â ºÎºĞ
-                          //cardnum[0]ÀÌ ³ÖÀº Ä«µåÀÇ ¼ıÀÚÀÓ
+                #region ìƒíƒœì´ìƒ 800~
+                case 800: //ìƒíƒœì´ìƒ ê±°ëŠ” ë¶€ë¶„
+                          //cardnum[0]ì´ ë„£ì€ ì¹´ë“œì˜ ìˆ«ìì„
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("µ¶", damages);
-                    if (!LastTarget.GetComponent<EnemyBase>().poison)      //ÀûÀÌ µ¶ÀÌ ¾Æ´Ò ¶§
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë…", damages);
+                    if (!LastTarget.GetComponent<EnemyBase>().poison)      //ì ì´ ë…ì´ ì•„ë‹ ë•Œ
                     {
                         FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                     }
@@ -529,23 +529,23 @@ public class combinationskill : MonoBehaviour
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Poison, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     //FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                     break;
-                case 801: //»óÅÂÀÌ»ó °Å´Â ºÎºĞ
-                          //cardnum[0]ÀÌ ³ÖÀº Ä«µåÀÇ ¼ıÀÚÀÓ
+                case 801: //ìƒíƒœì´ìƒ ê±°ëŠ” ë¶€ë¶„
+                          //cardnum[0]ì´ ë„£ì€ ì¹´ë“œì˜ ìˆ«ìì„
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("È­»ó", damages);
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("í™”ìƒ", damages);
                     FindObjectOfType<StateEffect_e>().StateEffectOn(1, true, LastTarget);
                     break;
-                case 802: //»óÅÂÀÌ»ó °Å´Â ºÎºĞ
-                          //cardnum[0]ÀÌ ³ÖÀº Ä«µåÀÇ ¼ıÀÚÀÓ
+                case 802: //ìƒíƒœì´ìƒ ê±°ëŠ” ë¶€ë¶„
+                          //cardnum[0]ì´ ë„£ì€ ì¹´ë“œì˜ ìˆ«ìì„
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", damages);
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", damages);
                     FindObjectOfType<StateEffect_e>().StateEffectOn(2, true, LastTarget);
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Bleed, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
-                case 803: //»óÅÂÀÌ»ó °Å´Â ºÎºĞ
-                          //cardnum[0]ÀÌ ³ÖÀº Ä«µåÀÇ ¼ıÀÚÀÓ
+                case 803: //ìƒíƒœì´ìƒ ê±°ëŠ” ë¶€ë¶„
+                          //cardnum[0]ì´ ë„£ì€ ì¹´ë“œì˜ ìˆ«ìì„
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", damages);
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", damages);
                     FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, LastTarget);
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Paralysis, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
@@ -563,7 +563,7 @@ public class combinationskill : MonoBehaviour
 
                         EffectManager.instance.PlayerEffectOn("Invincible", Player.instance.transform.position);
 
-                        Player.instance.PlayerStateAdd("ÇÇ°İ¹«½Ã", Player.instance.BlockDamage);
+                        Player.instance.PlayerStateAdd("í”¼ê²©ë¬´ì‹œ", Player.instance.BlockDamage);
                     }
 
                     break;
@@ -572,62 +572,62 @@ public class combinationskill : MonoBehaviour
                     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
-                        target.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", 1);
+                        target.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", 1);
                         FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, target);
                         EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Paralysis, target.GetComponent<EnemyBase>().enemyposion.position);
                     }
                     break;
-                case 806: //º¸À¯ÇÑ °ñµåÀÇ 1/n¸¸Å­ Àû¿¡°Ô »óÅÂÀÌ»ó¸¦ ºÎ¿©ÇÑ´Ù. º¸À¯ °ñµå°¡ nº¸´Ù ÀûÀ» ½Ã 50%ÀÇ È®·ü·Î 1ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 806: //ë³´ìœ í•œ ê³¨ë“œì˜ 1/në§Œí¼ ì ì—ê²Œ ìƒíƒœì´ìƒë¥¼ ë¶€ì—¬í•œë‹¤. ë³´ìœ  ê³¨ë“œê°€ në³´ë‹¤ ì ì„ ì‹œ 50%ì˜ í™•ë¥ ë¡œ 1í„´ ë¶€ì—¬í•œë‹¤.
 
                     TargetEnemy();
                     if (Player.instance.PlayerGold < damages)
                     {
                         random = Random.Range(0, 2);
-                        DebugX.Log("È®·ü 0 ³ª¿À¸é Ä«µåÈ¿°ú ¹ßµ¿ " + random);
+                        DebugX.Log("í™•ë¥  0 ë‚˜ì˜¤ë©´ ì¹´ë“œíš¨ê³¼ ë°œë™ " + random);
                         if (random == 0)
                         {
-                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", 1);
+                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", 1);
                             FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, LastTarget);
                             EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Paralysis, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                         }
                     }
                     else
                     {
-                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", (int)Player.instance.PlayerGold / damages);
+                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", (int)Player.instance.PlayerGold / damages);
                         EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Paralysis, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                         FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, LastTarget);
                     }
                     break;
-                case 807: //º¸À¯ÇÑ °ñµåÀÇ 1/n¸¸Å­ Àû¿¡°Ô »óÅÂÀÌ»ó¸¦ ºÎ¿©ÇÑ´Ù. º¸À¯ °ñµå°¡ nº¸´Ù ÀûÀ» ½Ã 50%ÀÇ È®·ü·Î 1ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 807: //ë³´ìœ í•œ ê³¨ë“œì˜ 1/në§Œí¼ ì ì—ê²Œ ìƒíƒœì´ìƒë¥¼ ë¶€ì—¬í•œë‹¤. ë³´ìœ  ê³¨ë“œê°€ në³´ë‹¤ ì ì„ ì‹œ 50%ì˜ í™•ë¥ ë¡œ 1í„´ ë¶€ì—¬í•œë‹¤.
 
                     TargetEnemy();
                     if (Player.instance.PlayerGold < damages)
                     {
                         random = Random.Range(0, 2);
-                        DebugX.Log("È®·ü 0 ³ª¿À¸é Ä«µåÈ¿°ú ¹ßµ¿ " + random);
+                        DebugX.Log("í™•ë¥  0 ë‚˜ì˜¤ë©´ ì¹´ë“œíš¨ê³¼ ë°œë™ " + random);
                         if (random == 0)
                         {
-                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("È­»ó", 1);
+                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("í™”ìƒ", 1);
                             FindObjectOfType<StateEffect_e>().StateEffectOn(1, true, LastTarget);
                         }
                     }
                     else
                     {
-                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("È­»ó", (int)Player.instance.PlayerGold / damages);
+                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("í™”ìƒ", (int)Player.instance.PlayerGold / damages);
                         FindObjectOfType<StateEffect_e>().StateEffectOn(1, true, LastTarget);
                     }
                     break;
-                case 808: //º¸À¯ÇÑ °ñµåÀÇ 1/n¸¸Å­ Àû¿¡°Ô »óÅÂÀÌ»ó¸¦ ºÎ¿©ÇÑ´Ù. º¸À¯ °ñµå°¡ nº¸´Ù ÀûÀ» ½Ã 50%ÀÇ È®·ü·Î 1ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 808: //ë³´ìœ í•œ ê³¨ë“œì˜ 1/në§Œí¼ ì ì—ê²Œ ìƒíƒœì´ìƒë¥¼ ë¶€ì—¬í•œë‹¤. ë³´ìœ  ê³¨ë“œê°€ në³´ë‹¤ ì ì„ ì‹œ 50%ì˜ í™•ë¥ ë¡œ 1í„´ ë¶€ì—¬í•œë‹¤.
 
                     TargetEnemy();
                     if (Player.instance.PlayerGold < damages)
                     {
                         random = Random.Range(0, 2);
-                        DebugX.Log("È®·ü 0 ³ª¿À¸é Ä«µåÈ¿°ú ¹ßµ¿ " + random);
+                        DebugX.Log("í™•ë¥  0 ë‚˜ì˜¤ë©´ ì¹´ë“œíš¨ê³¼ ë°œë™ " + random);
                         if (random == 0)
                         {
-                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("µ¶", 1);
-                            if (!LastTarget.GetComponent<EnemyBase>().poison)      //ÀûÀÌ µ¶ÀÌ ¾Æ´Ò ¶§
+                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë…", 1);
+                            if (!LastTarget.GetComponent<EnemyBase>().poison)      //ì ì´ ë…ì´ ì•„ë‹ ë•Œ
                             {
                                 FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                             }
@@ -638,8 +638,8 @@ public class combinationskill : MonoBehaviour
                     }
                     else
                     {
-                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("µ¶", (int)Player.instance.PlayerGold / damages);
-                        if (!LastTarget.GetComponent<EnemyBase>().poison)      //ÀûÀÌ µ¶ÀÌ ¾Æ´Ò ¶§
+                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë…", (int)Player.instance.PlayerGold / damages);
+                        if (!LastTarget.GetComponent<EnemyBase>().poison)      //ì ì´ ë…ì´ ì•„ë‹ ë•Œ
                         {
                             FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                         }
@@ -648,40 +648,40 @@ public class combinationskill : MonoBehaviour
                         //FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                     }
                     break;
-                case 809: //º¸À¯ÇÑ °ñµåÀÇ 1/n¸¸Å­ Àû¿¡°Ô »óÅÂÀÌ»ó¸¦ ºÎ¿©ÇÑ´Ù. º¸À¯ °ñµå°¡ nº¸´Ù ÀûÀ» ½Ã 50%ÀÇ È®·ü·Î 1ÅÏ ºÎ¿©ÇÑ´Ù.
+                case 809: //ë³´ìœ í•œ ê³¨ë“œì˜ 1/në§Œí¼ ì ì—ê²Œ ìƒíƒœì´ìƒë¥¼ ë¶€ì—¬í•œë‹¤. ë³´ìœ  ê³¨ë“œê°€ në³´ë‹¤ ì ì„ ì‹œ 50%ì˜ í™•ë¥ ë¡œ 1í„´ ë¶€ì—¬í•œë‹¤.
 
                     TargetEnemy();
                     if (Player.instance.PlayerGold < damages)
                     {
                         random = Random.Range(0, 2);
-                        DebugX.Log("È®·ü 0 ³ª¿À¸é Ä«µåÈ¿°ú ¹ßµ¿ " + random);
+                        DebugX.Log("í™•ë¥  0 ë‚˜ì˜¤ë©´ ì¹´ë“œíš¨ê³¼ ë°œë™ " + random);
                         if (random == 0)
                         {
-                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", 1);
+                            LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", 1);
                             FindObjectOfType<StateEffect_e>().StateEffectOn(2, true, LastTarget);
                             EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Bleed, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                         }
                     }
                     else
                     {
-                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", (int)Player.instance.PlayerGold / damages);
+                        LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", (int)Player.instance.PlayerGold / damages);
                         EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Bleed, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                         FindObjectOfType<StateEffect_e>().StateEffectOn(2, true, LastTarget);
                     }
                     break;
 
-                case 810:   //¼ıÀÚ¸¦ ³Ö¾î n¿¡¼­ ³ÖÀº ¼ıÀÚ¸¦ »«¸¸Å­ Àû¿¡°Ô È­»óÀ» ºÎ¿©ÇÑ´Ù.
+                case 810:   //ìˆ«ìë¥¼ ë„£ì–´ nì—ì„œ ë„£ì€ ìˆ«ìë¥¼ ëº€ë§Œí¼ ì ì—ê²Œ í™”ìƒì„ ë¶€ì—¬í•œë‹¤.
                     TargetEnemy();                    
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("È­»ó", (damages-cardnum[0]));
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("í™”ìƒ", (damages-cardnum[0]));
                     LastTarget.GetComponent<EnemyBase>().Hit();
                     FindObjectOfType<StateEffect_e>().StateEffectOn(1, true, LastTarget);
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Burn, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
 
-                case 811:   //¼ıÀÚ¸¦ ³Ö¾î n¿¡¼­ ³ÖÀº ¼ıÀÚ¸¦ »«¸¸Å­ Àû¿¡°Ô µ¶À» ºÎ¿©ÇÑ´Ù.
+                case 811:   //ìˆ«ìë¥¼ ë„£ì–´ nì—ì„œ ë„£ì€ ìˆ«ìë¥¼ ëº€ë§Œí¼ ì ì—ê²Œ ë…ì„ ë¶€ì—¬í•œë‹¤.
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("µ¶", (damages - cardnum[0]));
-                    if (!LastTarget.GetComponent<EnemyBase>().poison)      //ÀûÀÌ µ¶ÀÌ ¾Æ´Ò ¶§
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë…", (damages - cardnum[0]));
+                    if (!LastTarget.GetComponent<EnemyBase>().poison)      //ì ì´ ë…ì´ ì•„ë‹ ë•Œ
                     {
                         FindObjectOfType<StateEffect_e>().StateEffectOn(0, true, LastTarget);
                     }
@@ -689,81 +689,81 @@ public class combinationskill : MonoBehaviour
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Poison, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
 
-                case 812:   //¼ıÀÚ¸¦ ³Ö¾î n¿¡¼­ ³ÖÀº ¼ıÀÚ¸¦ »«¸¸Å­ Àû¿¡°Ô ¸¶ºñÀ» ºÎ¿©ÇÑ´Ù.
+                case 812:   //ìˆ«ìë¥¼ ë„£ì–´ nì—ì„œ ë„£ì€ ìˆ«ìë¥¼ ëº€ë§Œí¼ ì ì—ê²Œ ë§ˆë¹„ì„ ë¶€ì—¬í•œë‹¤.
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", (damages - cardnum[0]));
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", (damages - cardnum[0]));
                     LastTarget.GetComponent<EnemyBase>().Hit();
                     FindObjectOfType<StateEffect_e>().StateEffectOn(3, true, LastTarget);
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Paralysis, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
 
-                case 813:   //¼ıÀÚ¸¦ ³Ö¾î n¿¡¼­ ³ÖÀº ¼ıÀÚ¸¦ »«¸¸Å­ Àû¿¡°Ô ÃâÇ÷À» ºÎ¿©ÇÑ´Ù.
+                case 813:   //ìˆ«ìë¥¼ ë„£ì–´ nì—ì„œ ë„£ì€ ìˆ«ìë¥¼ ëº€ë§Œí¼ ì ì—ê²Œ ì¶œí˜ˆì„ ë¶€ì—¬í•œë‹¤.
                     TargetEnemy();
-                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", (damages - cardnum[0]));
+                    LastTarget.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", (damages - cardnum[0]));
                     LastTarget.GetComponent<EnemyBase>().Hit();
                     FindObjectOfType<StateEffect_e>().StateEffectOn(2, true, LastTarget);
                     EffectManager.instance.EnemyCommoneEffectOn(LastTarget.name, CommonEffectName.Bleed, LastTarget.GetComponent<EnemyBase>().enemyposion.position);
                     break;
-                case 815:   //¼ıÀÚ¸¦ ³Ö¾î ´©ÀûµÈ µ¶ µ¥¹ÌÁö¸¦ 2¹è·Î ÇÑ´Ù.                   
+                case 815:   //ìˆ«ìë¥¼ ë„£ì–´ ëˆ„ì ëœ ë… ë°ë¯¸ì§€ë¥¼ 2ë°°ë¡œ í•œë‹¤.                   
                     enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
-                        if (target.GetComponent<EnemyBase>().poison)      //ÀûÀÌ µ¶ÀÏ ¶§
+                        if (target.GetComponent<EnemyBase>().poison)      //ì ì´ ë…ì¼ ë•Œ
                         {
-                            target.GetComponent<EnemyBase>().poison_dmg *= 2;   //2¹è
-                            target.GetComponent<EnemyBase>().EnemyStateAdd("µ¶", 0, target.GetComponent<EnemyBase>().poison_dmg);
+                            target.GetComponent<EnemyBase>().poison_dmg *= 2;   //2ë°°
+                            target.GetComponent<EnemyBase>().EnemyStateAdd("ë…", 0, target.GetComponent<EnemyBase>().poison_dmg);
                             EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Poison, target.GetComponent<EnemyBase>().enemyposion.position);
                         }
                     }
                     break;
-                case 816:   //¼ıÀÚ¸¦ ³Ö¾î ´©ÀûµÈ ¸¶ºñ ÅÏ¼ö¸¦ 2¹è·Î ÇÑ´Ù.
+                case 816:   //ìˆ«ìë¥¼ ë„£ì–´ ëˆ„ì ëœ ë§ˆë¹„ í„´ìˆ˜ë¥¼ 2ë°°ë¡œ í•œë‹¤.
                     enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
                         if (target.GetComponent<EnemyBase>().paralysis)
                         {
-                            target.GetComponent<EnemyBase>().EnemyStateAdd("¸¶ºñ", damages, 0, true, false, true);
+                            target.GetComponent<EnemyBase>().EnemyStateAdd("ë§ˆë¹„", damages, 0, true, false, true);
                             EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Paralysis, target.GetComponent<EnemyBase>().enemyposion.position);                            
                         }
                     }
                     break;
-                case 817:   //¼ıÀÚ¸¦ ³Ö¾î È­»óÀÇ ÇÇÇØ·®À» 20À¸·Î Áõ°¡ ½ÃÅ²´Ù.
+                case 817:   //ìˆ«ìë¥¼ ë„£ì–´ í™”ìƒì˜ í”¼í•´ëŸ‰ì„ 20ìœ¼ë¡œ ì¦ê°€ ì‹œí‚¨ë‹¤.
                     enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
-                        if (target.GetComponent<EnemyBase>().burn)      //ÀûÀÌ È­»óÀÏ ¶§
+                        if (target.GetComponent<EnemyBase>().burn)      //ì ì´ í™”ìƒì¼ ë•Œ
                         {
                             Player.instance.PlusStateUp(State.Burn, 1);
                             target.GetComponent<EnemyBase>().burn_dmg = damages;
-                            target.GetComponent<EnemyBase>().EnemyStateAdd("È­»ó", 0, damages);
+                            target.GetComponent<EnemyBase>().EnemyStateAdd("í™”ìƒ", 0, damages);
                             EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Burn, target.GetComponent<EnemyBase>().enemyposion.position);
                             GamePlayBtn.instance.TSF += target.GetComponent<EnemyBase>().RemovePlusBurnDmg;
                         }
                     }
                     break;
-                case 818:   //¼ıÀÚ¸¦ ³Ö¾î 1ÅÏ µ¿¾È »óÃ³ÀÇ È®·üÀ» 100%·Î ÇÑ´Ù.
+                case 818:   //ìˆ«ìë¥¼ ë„£ì–´ 1í„´ ë™ì•ˆ ìƒì²˜ì˜ í™•ë¥ ì„ 100%ë¡œ í•œë‹¤.
                     enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
-                        if (target.GetComponent<EnemyBase>().blood)      //ÀûÀÌ »óÃ³ÀÏ ¶§
+                        if (target.GetComponent<EnemyBase>().blood)      //ì ì´ ìƒì²˜ì¼ ë•Œ
                         {
                             Player.instance.PlusStateUp(State.Blood, 1);
                             Player.instance.PlusBleedPercent = damages;
-                            target.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", 0, target.GetComponent<EnemyBase>().blood_dmg);
+                            target.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", 0, target.GetComponent<EnemyBase>().blood_dmg);
                             EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Bleed, target.GetComponent<EnemyBase>().enemyposion.position);
                             GamePlayBtn.instance.TSF += target.GetComponent<EnemyBase>().RemovePlusBleedPercent;
                         }
                     }
                     break;
-                case 819:   //¼ıÀÚ¸¦ ³Ö¾î »óÃ³ÀÇ ÇÇÇØ·®À» 50À¸·Î Áõ°¡½ÃÅ²´Ù.
+                case 819:   //ìˆ«ìë¥¼ ë„£ì–´ ìƒì²˜ì˜ í”¼í•´ëŸ‰ì„ 50ìœ¼ë¡œ ì¦ê°€ì‹œí‚¨ë‹¤.
                     enemies = GameObject.FindGameObjectsWithTag("Enemy");
                     foreach (GameObject target in enemies)
                     {
-                        if (target.GetComponent<EnemyBase>().blood)      //ÀûÀÌ »óÃ³ÀÏ ¶§
+                        if (target.GetComponent<EnemyBase>().blood)      //ì ì´ ìƒì²˜ì¼ ë•Œ
                         {
                             Player.instance.PlusStateUp(State.Blood, 1);
                             target.GetComponent<EnemyBase>().blood_dmg = damages;
-                            target.GetComponent<EnemyBase>().EnemyStateAdd("»óÃ³", 0, damages);
+                            target.GetComponent<EnemyBase>().EnemyStateAdd("ìƒì²˜", 0, damages);
                             EffectManager.instance.EnemyCommoneEffectOn(target.name, CommonEffectName.Bleed, target.GetComponent<EnemyBase>().enemyposion.position);
                             GamePlayBtn.instance.TSF += target.GetComponent<EnemyBase>().RemovePlusBleedDmg;
                         }
@@ -771,9 +771,9 @@ public class combinationskill : MonoBehaviour
                     break;
                 #endregion
 
-                #region Æ¯¼ö ¹öÇÁ 900~
+                #region íŠ¹ìˆ˜ ë²„í”„ 900~
                 case 903:
-                    //»óÅÂÀÌ»ó ÀüÃ¼ ÇØÁ¦
+                    //ìƒíƒœì´ìƒ ì „ì²´ í•´ì œ
 
                     for (int i = 0; i < 5; i++)
                     {
@@ -792,18 +792,18 @@ public class combinationskill : MonoBehaviour
                     }
                     break;
                 case 904:
-                    // »óÅÂÀÌ»ó ·£´ı 1°³ ÇØÁ¦ 
+                    // ìƒíƒœì´ìƒ ëœë¤ 1ê°œ í•´ì œ 
                     Player.instance.PlayerStateClean();
 
                     break;
-                case 905: //ÇÇ°İ1È¸¹æ¾î
+                case 905: //í”¼ê²©1íšŒë°©ì–´
                     Player.instance.BlockDamage += 1;
 
                     EffectManager.instance.PlayerEffectOn("Invincible", Player.instance.transform.position);
 
-                    Player.instance.PlayerStateAdd("ÇÇ°İ¹«½Ã", Player.instance.BlockDamage);
+                    Player.instance.PlayerStateAdd("í”¼ê²©ë¬´ì‹œ", Player.instance.BlockDamage);
                     break;
-                case 906: //¹İ¹İÈ®·ü·Î Èú ¶Ç´Â ½Çµå
+                case 906: //ë°˜ë°˜í™•ë¥ ë¡œ í ë˜ëŠ” ì‹¤ë“œ
                     hitdamage += cardnum[0];
                     int r = Random.Range(1, 3);
                     if (r == 1) Player.instance.PlayerGetArmor(hitdamage);
@@ -815,9 +815,9 @@ public class combinationskill : MonoBehaviour
 
                     break;
 
-                case 910://Ãß°¡µ¥¹ÌÁö ÀúÀå
+                case 910://ì¶”ê°€ë°ë¯¸ì§€ ì €ì¥
                     companel.plusdamage += cardnum[0];
-                    Player.instance.PlayerStateAdd("¸Ş¾Æ¸®", companel.plusdamage);
+                    Player.instance.PlayerStateAdd("ë©”ì•„ë¦¬", companel.plusdamage);
                     break;
                 case 911:
                     for (int i = 0; i < 5; i++)
@@ -826,7 +826,7 @@ public class combinationskill : MonoBehaviour
                         if (buff.activeSelf)
                         {
                             StateBox box = buff.GetComponent<StateBox>();
-                            if (box.stateName == "ÇÇÇØ·® ¹èÀ²")
+                            if (box.stateName == "í”¼í•´ëŸ‰ ë°°ìœ¨")
                             {
                                 box.ResetBox();
                                 if (box.StackBox.activeSelf)
@@ -843,64 +843,64 @@ public class combinationskill : MonoBehaviour
                     if (companel.damagemulltiple == 1)
                     {
                         companel.damagemulltiple += (cardnum[0] / 2.0f) - 1;
-                        Player.instance.PlayerStateAdd("ÇÇÇØ·® ¹èÀ²", companel.damagemulltiple);
+                        Player.instance.PlayerStateAdd("í”¼í•´ëŸ‰ ë°°ìœ¨", companel.damagemulltiple);
                     }
                     else
                     {
                         companel.damagemulltiple += (cardnum[0] / 2.0f);
-                        Player.instance.PlayerStateAdd("ÇÇÇØ·® ¹èÀ²", companel.damagemulltiple);
+                        Player.instance.PlayerStateAdd("í”¼í•´ëŸ‰ ë°°ìœ¨", companel.damagemulltiple);
                     }
                     break;
 
-                case 912: //5µ¥¹ÌÁö ¹İ»ç µ¥¹ÌÁö ¹öÇÁ
+                case 912: //5ë°ë¯¸ì§€ ë°˜ì‚¬ ë°ë¯¸ì§€ ë²„í”„
                     Player.instance.boolreturnDamage = true;
                     Player.instance.returndamage_buff = Player.instance.stateDB.state_p[20].damage;
-                    Player.instance.PlayerStateAdd("¹İ»ç", 1);
+                    Player.instance.PlayerStateAdd("ë°˜ì‚¬", 1);
                     break;
 
-                case 913:   //1ÅÏµ¿¾È Å¸°ÙÆÃ °¡´É
+                case 913:   //1í„´ë™ì•ˆ íƒ€ê²ŸíŒ… ê°€ëŠ¥
                     Player.instance.gameObject.GetComponent<SelectTarget>().enabled = true;
                     GamePlayBtn.instance.TSF += Player.instance.gameObject.GetComponent<SelectTarget>().RemoveSelectTarget;
                     break;
 
-                case 914:   //¼ıÀÚ¸¦ ³Ö¾î 5~20 »çÀÌÀÇ °ñµå¸¦ È¹µæÇÑ´Ù.                    
+                case 914:   //ìˆ«ìë¥¼ ë„£ì–´ 5~20 ì‚¬ì´ì˜ ê³¨ë“œë¥¼ íšë“í•œë‹¤.                    
                     Player.instance.PlayerGetGold(Random.Range(5,20));
                     break;  
 
-                case 915:   //µÎ ¼ıÀÚ¸¦ ³Ö¾î 10~50 »çÀÌÀÇ °ñµå¸¦ È¹µæÇÑ´Ù.
+                case 915:   //ë‘ ìˆ«ìë¥¼ ë„£ì–´ 10~50 ì‚¬ì´ì˜ ê³¨ë“œë¥¼ íšë“í•œë‹¤.
                     Player.instance.PlayerGetGold(Random.Range(10, 50));
                     break;
 
-                case 916:   //ÀÌ¹ø ÀüÅõ Å¸°ÙÆÃ °¡´É
+                case 916:   //ì´ë²ˆ ì „íˆ¬ íƒ€ê²ŸíŒ… ê°€ëŠ¥
                     Player.instance.gameObject.GetComponent<SelectTarget>().enabled = true;
                     break;
-                case 917:   //5ÀÌÇÏÀÇ ¼ıÀÚ¸¦ ³Ö¾î 1ÅÏ µ¿¾È ³ÖÀº ¼ıÀÚ¸¸Å­ ÇÇÇØ·®À» Áõ°¡½ÃÅ²´Ù.
+                case 917:   //5ì´í•˜ì˜ ìˆ«ìë¥¼ ë„£ì–´ 1í„´ ë™ì•ˆ ë„£ì€ ìˆ«ìë§Œí¼ í”¼í•´ëŸ‰ì„ ì¦ê°€ì‹œí‚¨ë‹¤.
                     Player.instance.Card107 = cardnum[0];
-                    DebugX.Log("Áõ°¡°ª" + Player.instance.Card107);
-                    Player.instance.PlayerStateAdd("ÇÇÇØ·® Áõ°¡", Player.instance.Card107);
+                    DebugX.Log("ì¦ê°€ê°’" + Player.instance.Card107);
+                    Player.instance.PlayerStateAdd("í”¼í•´ëŸ‰ ì¦ê°€", Player.instance.Card107);
                     break;
-                case 918    :   //¼ıÀÚ¸¦ ³Ö¾î 1ÅÏ µ¿¾È ±×¸²ÀÚ ¹öÇÁ¸¦ È¹µæÇÑ´Ù.
+                case 918    :   //ìˆ«ìë¥¼ ë„£ì–´ 1í„´ ë™ì•ˆ ê·¸ë¦¼ì ë²„í”„ë¥¼ íšë“í•œë‹¤.
                     Player.instance.Shadow = true;
-                    Player.instance.PlayerStateAdd("±×¸²ÀÚ", damages);
+                    Player.instance.PlayerStateAdd("ê·¸ë¦¼ì", damages);
                     break;
                 #endregion
 
-                #region µå·Î¿ì 950~
+                #region ë“œë¡œìš° 950~
                 case 950:
-                    //º¹»ç
-                    //split°ø°£
+                    //ë³µì‚¬
+                    //splitê³µê°„
                     hitdamage += cardnum[0];
                     int split1, split2;
 
                     if (cardnum[0] == 1)
                     {
-                        split1 = 1; //³»¸²
-                        split2 = 1; //¹İ¿Ã¸²                                  
+                        split1 = 1; //ë‚´ë¦¼
+                        split2 = 1; //ë°˜ì˜¬ë¦¼                                  
                     }
                     else
                     {
-                        split1 = Mathf.FloorToInt(hitdamage / 2.0f); //³»¸²
-                        split2 = Mathf.CeilToInt(hitdamage / 2.0f); //¹İ¿Ã¸²
+                        split1 = Mathf.FloorToInt(hitdamage / 2.0f); //ë‚´ë¦¼
+                        split2 = Mathf.CeilToInt(hitdamage / 2.0f); //ë°˜ì˜¬ë¦¼
                         DebugX.Log(split1 + " " + split2);
                     }
 
@@ -908,8 +908,8 @@ public class combinationskill : MonoBehaviour
 
                     mycardpanel.GetComponent<mycard>().othercarddraw(split2);
                     break;
-                case 951: //Ã¹¹øÂ°Ä«µå 2°³·Î º¹Á¦
-                    if (cardslot[0].GetComponent<CardDrop>().joker >= 10)   //Á¶Ä¿ ÀÏ °æ¿ì
+                case 951: //ì²«ë²ˆì§¸ì¹´ë“œ 2ê°œë¡œ ë³µì œ
+                    if (cardslot[0].GetComponent<CardDrop>().joker >= 10)   //ì¡°ì»¤ ì¼ ê²½ìš°
                     {
                         mycardpanel.GetComponent<mycard>().othercarddraw(14);
                         mycardpanel.GetComponent<mycard>().othercarddraw(14);
@@ -920,8 +920,8 @@ public class combinationskill : MonoBehaviour
                         mycardpanel.GetComponent<mycard>().othercarddraw(cardnum[0]);
                     }
                     break;
-                case 952: //Ã¹¹øÂ°Ä«µå 3°³·Î º¹Á¦
-                    if (cardslot[0].GetComponent<CardDrop>().joker >= 10)   //Á¶Ä¿ ÀÏ °æ¿ì
+                case 952: //ì²«ë²ˆì§¸ì¹´ë“œ 3ê°œë¡œ ë³µì œ
+                    if (cardslot[0].GetComponent<CardDrop>().joker >= 10)   //ì¡°ì»¤ ì¼ ê²½ìš°
                     {
                         mycardpanel.GetComponent<mycard>().othercarddraw(14);
                         mycardpanel.GetComponent<mycard>().othercarddraw(14);
@@ -937,20 +937,20 @@ public class combinationskill : MonoBehaviour
                 case 953:
                     int num = cardnum[0] * cardnum[1];
                     if (num > 10)
-                    { // 10 ³ÑÀ¸¸é 10ÀÌ¶û ÀÏÀÇÀÚ¸®¼ıÀÚ °¢°¢ÇÏ³ª¾¿ µå·Î¿ì
+                    { // 10 ë„˜ìœ¼ë©´ 10ì´ë‘ ì¼ì˜ìë¦¬ìˆ«ì ê°ê°í•˜ë‚˜ì”© ë“œë¡œìš°
                         mycardpanel.GetComponent<mycard>().othercarddraw(num / 10 * 10);
                         mycardpanel.GetComponent<mycard>().othercarddraw(num % 10);
                     }
-                    else mycardpanel.GetComponent<mycard>().othercarddraw(num);  //10ÀÌÇÏÀÌ¸é ±× ¼ıÀÚ ÇÏ³ª¸¸ µå·Î¿ì
+                    else mycardpanel.GetComponent<mycard>().othercarddraw(num);  //10ì´í•˜ì´ë©´ ê·¸ ìˆ«ì í•˜ë‚˜ë§Œ ë“œë¡œìš°
                     break;
                 case 954:
                     int num1 = cardnum[0] + cardnum[1];
                     if (num1 > 10)
-                    { // 10 ³ÑÀ¸¸é 10ÀÌ¶û ÀÏÀÇÀÚ¸®¼ıÀÚ °¢°¢ÇÏ³ª¾¿ µå·Î¿ì
+                    { // 10 ë„˜ìœ¼ë©´ 10ì´ë‘ ì¼ì˜ìë¦¬ìˆ«ì ê°ê°í•˜ë‚˜ì”© ë“œë¡œìš°
                         mycardpanel.GetComponent<mycard>().othercarddraw(10);
                         mycardpanel.GetComponent<mycard>().othercarddraw(num1 % 10);
                     }
-                    else mycardpanel.GetComponent<mycard>().othercarddraw(num1);  //10ÀÌÇÏÀÌ¸é ±× ¼ıÀÚ ÇÏ³ª¸¸ µå·Î¿ì
+                    else mycardpanel.GetComponent<mycard>().othercarddraw(num1);  //10ì´í•˜ì´ë©´ ê·¸ ìˆ«ì í•˜ë‚˜ë§Œ ë“œë¡œìš°
                     break;
                 case 955:
 
@@ -1026,56 +1026,56 @@ public class combinationskill : MonoBehaviour
                     companel.notusecarddraw(1);
                     break;
 
-                case 961: // ÀÌÀü¿¡ »ç¿ëÇÑ Á¶ÇÕÄ«µå º¹»ç
+                case 961: // ì´ì „ì— ì‚¬ìš©í•œ ì¡°í•©ì¹´ë“œ ë³µì‚¬
                     if (companel.previousCardSerialNum != 0)
                         companel.drawserialone(companel.previousCardSerialNum);
                     break;
 
-                case 962: //¼ıÀÚ¸¦ -1ÇÏ°í HP°¡ 1 °¨¼Ò
+                case 962: //ìˆ«ìë¥¼ -1í•˜ê³  HPê°€ 1 ê°ì†Œ
                     mycardpanel.GetComponent<mycard>().othercarddraw(cardnum[0] - 1);
                     break;
 
-                case 963: //¼ıÀÚ¸¦ +1ÇÏ°í HP°¡ 1°¨¼Ò
+                case 963: //ìˆ«ìë¥¼ +1í•˜ê³  HPê°€ 1ê°ì†Œ
                     mycardpanel.GetComponent<mycard>().othercarddraw(cardnum[0] + 1);
                     break;
-                case 964:   //¼ıÀÚ¸¦ ³Ö¾î 5¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù. ³²Àº ¼ıÀÚ Ä«µå¿¡¼­ ¹«ÀÛÀ§·Î nÀåÀ» »Ì´Â´Ù. ³²Àº ¼ıÀÚ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 964:   //ìˆ«ìë¥¼ ë„£ì–´ 5ë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤. ë‚¨ì€ ìˆ«ì ì¹´ë“œì—ì„œ ë¬´ì‘ìœ„ë¡œ nì¥ì„ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ìˆ«ì ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     hitdamage += 5;
                     mycard.instance.mydeck = mycard.instance.ShuffleList(mycard.instance.mydeck);
                     mycard.instance.normaldrawone(damages);
                     break;
-                case 965:   //¼ıÀÚ¸¦ ³Ö¾î 10¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù. ³²Àº Á¶ÇÕ Ä«µå¿¡¼­ ¹«ÀÛÀ§·Î nÀåÀ» »Ì´Â´Ù. ³²Àº Á¶ÇÕ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 965:   //ìˆ«ìë¥¼ ë„£ì–´ 10ë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤. ë‚¨ì€ ì¡°í•© ì¹´ë“œì—ì„œ ë¬´ì‘ìœ„ë¡œ nì¥ì„ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ì¡°í•© ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     hitdamage += 10;
                     combinationpanel.GetComponent<combinationpanel>().combinationcarddeck = combinationpanel.GetComponent<combinationpanel>().ShuffleList(combinationpanel.GetComponent<combinationpanel>().combinationcarddeck);
                     combinationpanel.GetComponent<combinationpanel>().notusecarddraw(damages);
                     break;
-                case 966:   //¼ıÀÚ¸¦ ³Ö¾î ³²Àº ¼ıÀÚ Ä«µå¿¡¼­ ¹«ÀÛÀ§ nÀå Áß 1ÀåÀ» ¼±ÅÃÇÏ¿© »Ì´Â´Ù. ³²Àº ¼ıÀÚ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 966:   //ìˆ«ìë¥¼ ë„£ì–´ ë‚¨ì€ ìˆ«ì ì¹´ë“œì—ì„œ ë¬´ì‘ìœ„ nì¥ ì¤‘ 1ì¥ì„ ì„ íƒí•˜ì—¬ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ìˆ«ì ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     GameObject.Find("CardCanvas").GetComponent<GamePlayBtn>().discoverpanel.GetComponent<discoverPanel>().discover_num(damages);
                     break;
-                case 967:   //¼ıÀÚ¸¦ ³Ö¾î ³²Àº ¼ıÀÚ¸¸Å­ ¼ıÀÚ¸¦ ´Ù½Ã »Ì´Â´Ù. ³²Àº Á¶ÇÕ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 967:   //ìˆ«ìë¥¼ ë„£ì–´ ë‚¨ì€ ìˆ«ìë§Œí¼ ìˆ«ìë¥¼ ë‹¤ì‹œ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ì¡°í•© ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     num = mycard.instance.MyhandCount();
-                    DebugX.Log("ÇÚµå ¼ıÀÚÄ«µå" + num);
+                    DebugX.Log("í•¸ë“œ ìˆ«ìì¹´ë“œ" + num);
                     mycard.instance.MyhandReSet();
                     mycard.instance.ShuffleList(mycard.instance.mydeck);
                     mycard.instance.normaldrawone(num);
                     mycard.instance.align();
                     break;
-                case 968:   //¼ıÀÚ¸¦ ³Ö¾î ³²Àº Á¶ÇÕ Ä«µå¿¡¼­ ¹«ÀÛÀ§·Î nÀåÀ» »Ì´Â´Ù. ³²Àº Á¶ÇÕ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 968:   //ìˆ«ìë¥¼ ë„£ì–´ ë‚¨ì€ ì¡°í•© ì¹´ë“œì—ì„œ ë¬´ì‘ìœ„ë¡œ nì¥ì„ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ì¡°í•© ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     combinationpanel.GetComponent<combinationpanel>().combinationcarddeck = combinationpanel.GetComponent<combinationpanel>().ShuffleList(combinationpanel.GetComponent<combinationpanel>().combinationcarddeck);
                     combinationpanel.GetComponent<combinationpanel>().notusecarddraw(damages);
                     break;
-                case 969:   //¼ıÀÚ¸¦ ³Ö¾î ´ÙÀ½ ÅÏ¿¡ ³ÖÀº ¼ıÀÚ¸¦ Ãß°¡·Î È¹µæÇÑ´Ù.
+                case 969:   //ìˆ«ìë¥¼ ë„£ì–´ ë‹¤ìŒ í„´ì— ë„£ì€ ìˆ«ìë¥¼ ì¶”ê°€ë¡œ íšë“í•œë‹¤.
                     GamePlayBtn.instance.DrawNumber.Add(cardnum[0]);
                     GamePlayBtn.instance.TSF += GamePlayBtn.instance.CardDraw_number;
                     break;
-                case 970:   //Á¶ÇÕÄ«µå°¡ nÀåÀÌ µÉ¶§±îÁö »Ì´Â´Ù. ³²Àº Á¶ÇÕ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
-                    int handnum=combinationpanel.GetComponent<combinationpanel>().MyhandCount()-1;  //»ç¿ëÇÑ Ä«µå Ä«¿îÆÃ Á¦°Å
+                case 970:   //ì¡°í•©ì¹´ë“œê°€ nì¥ì´ ë ë•Œê¹Œì§€ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ì¡°í•© ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
+                    int handnum=combinationpanel.GetComponent<combinationpanel>().MyhandCount()-1;  //ì‚¬ìš©í•œ ì¹´ë“œ ì¹´ìš´íŒ… ì œê±°
                     if(handnum<5)
                     {
                         combinationpanel.GetComponent<combinationpanel>().combinationcarddeck = combinationpanel.GetComponent<combinationpanel>().ShuffleList(combinationpanel.GetComponent<combinationpanel>().combinationcarddeck);
                         combinationpanel.GetComponent<combinationpanel>().notusecarddraw(5- handnum);
                     }
                     break;
-                case 971:   //¼ıÀÚ¸¦ ³Ö¾î 1¸¸Å­ Àû¿¡°Ô ÇÇÇØ¸¦ ÀÔÈù´Ù. ³²Àº ¼ıÀÚ Ä«µå¿¡¼­ ¹«ÀÛÀ§·Î nÀåÀ» »Ì´Â´Ù. ³²Àº ¼ıÀÚ Ä«µå°¡ ¾øÀ» °æ¿ì »ÌÁö ¾Ê´Â´Ù.
+                case 971:   //ìˆ«ìë¥¼ ë„£ì–´ 1ë§Œí¼ ì ì—ê²Œ í”¼í•´ë¥¼ ì…íŒë‹¤. ë‚¨ì€ ìˆ«ì ì¹´ë“œì—ì„œ ë¬´ì‘ìœ„ë¡œ nì¥ì„ ë½‘ëŠ”ë‹¤. ë‚¨ì€ ìˆ«ì ì¹´ë“œê°€ ì—†ì„ ê²½ìš° ë½‘ì§€ ì•ŠëŠ”ë‹¤.
                     hitdamage += 1;
                     mycard.instance.mydeck = mycard.instance.ShuffleList(mycard.instance.mydeck);
                     mycard.instance.normaldrawone(damages);
@@ -1083,7 +1083,7 @@ public class combinationskill : MonoBehaviour
                     #endregion
             }
             #endregion
-            companel.UpdateUseComCardcount_Front(type);     //´Ü¼ø Ä«µå °¹¼ö¸¸ ¼À / Ä«µå Å¸ÀÔ È¿°ú ÅÍÁö±âÀü / ½ºÅÃ ½×À» ¶§ ¾²´Â ÇÔ¼ö
+            companel.UpdateUseComCardcount_Front(type);     //ë‹¨ìˆœ ì¹´ë“œ ê°¯ìˆ˜ë§Œ ì…ˆ / ì¹´ë“œ íƒ€ì… íš¨ê³¼ í„°ì§€ê¸°ì „ / ìŠ¤íƒ ìŒ“ì„ ë•Œ ì“°ëŠ” í•¨ìˆ˜
 
             if (isSuccess)
             {
@@ -1091,8 +1091,8 @@ public class combinationskill : MonoBehaviour
                 {
                     Player.instance.AddCardCount(serialnumber, Player.CardType.Attack);
 
-                    //µ¥¹ÌÁö ¾ø´Â °ø°İÀÏ °æ¿ì
-                    if (damagerule == 119)  //¹æ¾î¸· »¯±â
+                    //ë°ë¯¸ì§€ ì—†ëŠ” ê³µê²©ì¼ ê²½ìš°
+                    if (damagerule == 119)  //ë°©ì–´ë§‰ ëºê¸°
                     {
                         hitdamage = 0;
                         TargetEnemy();
@@ -1100,7 +1100,7 @@ public class combinationskill : MonoBehaviour
                         LastTarget.GetComponent<EnemyBase>().EnemyArmor = 0;
                         LastTarget.GetComponent<EnemyBase>().EnemyHpBarShow();
                     }
-                    // ¿¬Å¸°ø°İºÎºĞ       ±×¸²ÀÚ ¹öÇÁ ¿¹¿Ü Ã³¸® ÇØÁÖ±â
+                    // ì—°íƒ€ê³µê²©ë¶€ë¶„       ê·¸ë¦¼ì ë²„í”„ ì˜ˆì™¸ ì²˜ë¦¬ í•´ì£¼ê¸°
                     else if (damagerule == 201)
                     {
                         StartCoroutine(DamageEnemy(cardnum[0] / 2.0f, 2)); if (Player.instance.Shadow) { StartCoroutine(DamageEnemy(1, 2, true, true, Player.instance.ShadowDelay)); }
@@ -1153,34 +1153,34 @@ public class combinationskill : MonoBehaviour
 
                     else if (damagerule > 300 && damagerule < 400)
                     {
-                        StartCoroutine(DamageEnemy("ÀüÃ¼°ø°İ"));
-                        if (Player.instance.Shadow) //±×¸²ÀÚ ¹öÇÁ°¡ ÄÑÁ® ÀÖ´Ù¸é
+                        StartCoroutine(DamageEnemy("ì „ì²´ê³µê²©"));
+                        if (Player.instance.Shadow) //ê·¸ë¦¼ì ë²„í”„ê°€ ì¼œì ¸ ìˆë‹¤ë©´
                         {
-                            StartCoroutine(DamageEnemy("ÀüÃ¼°ø°İ", 1, true, true, Player.instance.ShadowDelay));
+                            StartCoroutine(DamageEnemy("ì „ì²´ê³µê²©", 1, true, true, Player.instance.ShadowDelay));
                         }
                     }
                     else
                     {
-                        StartCoroutine(DamageEnemy("´ÜÀÏ°ø°İ"));
+                        StartCoroutine(DamageEnemy("ë‹¨ì¼ê³µê²©"));
 
-                        if (Player.instance.Shadow) //±×¸²ÀÚ ¹öÇÁ°¡ ÄÑÁ® ÀÖ´Ù¸é
+                        if (Player.instance.Shadow) //ê·¸ë¦¼ì ë²„í”„ê°€ ì¼œì ¸ ìˆë‹¤ë©´
                         {
-                            StartCoroutine(DamageEnemy("´ÜÀÏ°ø°İ", 1, true, true, Player.instance.ShadowDelay));
+                            StartCoroutine(DamageEnemy("ë‹¨ì¼ê³µê²©", 1, true, true, Player.instance.ShadowDelay));
                         }
                     }
-                    Player.instance.PlayerStateCheck("¸Ş¾Æ¸®");
-                    Player.instance.PlayerStateCheck("ÇÇÇØ·® ¹èÀ²");
+                    Player.instance.PlayerStateCheck("ë©”ì•„ë¦¬");
+                    Player.instance.PlayerStateCheck("í”¼í•´ëŸ‰ ë°°ìœ¨");
                 }
                 else if (type == "Deffend")
                 {
                     Player.instance.AddCardCount(serialnumber, Player.CardType.Defend);
-                    hitdamage = (int)(hitdamage + 0.5f); //¹İ¿Ã¸²
+                    hitdamage = (int)(hitdamage + 0.5f); //ë°˜ì˜¬ë¦¼
                     Player.instance.PlayerGetArmor(hitdamage);
                 }
                 else if (type == "Heal")
                 {
                     Player.instance.AddCardCount(serialnumber, Player.CardType.Heal);
-                    hitdamage = (int)(hitdamage + 0.5f); //¹İ¿Ã¸²
+                    hitdamage = (int)(hitdamage + 0.5f); //ë°˜ì˜¬ë¦¼
                     Player.instance.HealHP(hitdamage);
                 }
                 else
@@ -1189,8 +1189,8 @@ public class combinationskill : MonoBehaviour
 
                 }
 
-                companel.UpdateUseComCardcount(1); //Á¶ÇÕÄ«µå »ç¿ëÈ½¼ö 1Áõ°¡+
-                companel.previousCardSerialNum = serialnumber; // ÀÌÀü »ç¿ëÇÑ ½Ã¸®¾ó ³Ñ¹ö ±â¾ï
+                companel.UpdateUseComCardcount(1); //ì¡°í•©ì¹´ë“œ ì‚¬ìš©íšŸìˆ˜ 1ì¦ê°€+
+                companel.previousCardSerialNum = serialnumber; // ì´ì „ ì‚¬ìš©í•œ ì‹œë¦¬ì–¼ ë„˜ë²„ ê¸°ì–µ
             }
             else
             {
@@ -1207,14 +1207,14 @@ public class combinationskill : MonoBehaviour
             //this.gameObject.
 
             //Destroy(this.gameObject);
-            //¼Ò¸êÄ«µå¿©ºÎ
+            //ì†Œë©¸ì¹´ë“œì—¬ë¶€
             if (extinction == false)
             {
                 //panel.usemyComcard.Add(panel.myComcard[mydecknumber]);
             }
             else
             {
-                //comSerial¿¡¼­ ÀÌÄ«µå¿Í ³Ñ¹ö°¡ ¸Â´Â Ä«µåÀÇ ½Ã¸®¾ó³Ñ¹ö¸¦ 0À¸·Î
+                //comSerialì—ì„œ ì´ì¹´ë“œì™€ ë„˜ë²„ê°€ ë§ëŠ” ì¹´ë“œì˜ ì‹œë¦¬ì–¼ë„˜ë²„ë¥¼ 0ìœ¼ë¡œ
                 for (int i = 0; i < companel.comSerialnum.Count; i++)
                 {
                     if (companel.comSerialnum[i] == serialnumber)
@@ -1235,11 +1235,11 @@ public class combinationskill : MonoBehaviour
         GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
         int target = Random.Range(0, Enemies.Length);
 
-        //ÃÖÁ¾ ¼±ÅÃµÈ µ¥¹ÌÁö ÀÔÈú ´ë»ó
-        combinationpanel.GetComponent<combinationpanel>().attacktime += 1; //°ø°İÈ½¼ö Ã¼Å©
+        //ìµœì¢… ì„ íƒëœ ë°ë¯¸ì§€ ì…í ëŒ€ìƒ
+        combinationpanel.GetComponent<combinationpanel>().attacktime += 1; //ê³µê²©íšŸìˆ˜ ì²´í¬
 
 
-        //µµ¹ß ¸ó½ºÅÍ Ã£±â
+        //ë„ë°œ ëª¬ìŠ¤í„° ì°¾ê¸°
         float targetHp = 0;
         for (int i = 0; i < Enemies.Length; i++)
         {
@@ -1253,20 +1253,20 @@ public class combinationskill : MonoBehaviour
                 }
             }
         }
-        // Å¸°ÙÀÌ ÁöÁ¤µÇ¾îÀÖÀ» ¶§ Å¸°ÙÇÏ°í ¾Æ´Ï¸é À§¿¡¼­ ¼±º°µÈ°ÍÁß ·£´ı
+        // íƒ€ê²Ÿì´ ì§€ì •ë˜ì–´ìˆì„ ë•Œ íƒ€ê²Ÿí•˜ê³  ì•„ë‹ˆë©´ ìœ„ì—ì„œ ì„ ë³„ëœê²ƒì¤‘ ëœë¤
         if (Player.instance.targetEnemy == null) LastTarget = Enemies[target];
         else LastTarget = Player.instance.targetEnemy;
     }
 
-    //¸ó½ºÅÍ¿¡°Ô µ¥¹ÌÁö¸¦ ÁÖ´Â ÇÔ¼ö
+    //ëª¬ìŠ¤í„°ì—ê²Œ ë°ë¯¸ì§€ë¥¼ ì£¼ëŠ” í•¨ìˆ˜
     public IEnumerator DamageEnemy(string targets, int ChoiceDamage = 0, bool NotChageTarget = false, bool NotAtkCount=false,float AtkDelay = 0)
     {
-        if(AtkDelay != 0)   //µô·¹ÀÌ°¡ ÀÖÀ» °æ¿ì
+        if(AtkDelay != 0)   //ë”œë ˆì´ê°€ ìˆì„ ê²½ìš°
         {
             yield return new WaitForSeconds(AtkDelay);
         }
 
-        if (ChoiceDamage != 0)   //°íÁ¤°ªÀÌ ÀÖÀ» °æ¿ì
+        if (ChoiceDamage != 0)   //ê³ ì •ê°’ì´ ìˆì„ ê²½ìš°
         {
             hitdamage = ChoiceDamage;
         }
@@ -1281,17 +1281,17 @@ public class combinationskill : MonoBehaviour
             Player.instance.PlayerDamagedBlood(Player.instance.stateEffect.BloodDmg);
         }
 
-        ////////////////////////////////////////////////µ¥¹ÌÁö °è»ê/////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////ë°ë¯¸ì§€ ê³„ì‚°/////////////////////////////////////////////////////////////////////////
 
-        if (Player.instance.Item10 == true && !NotAtkCount) //¾ÆÀÌÅÛ  3¹øÂ° °ø°İ µ¥¹ÌÁö1.5¹è ÇÏ´Â°Å
+        if (Player.instance.Item10 == true && !NotAtkCount) //ì•„ì´í…œ  3ë²ˆì§¸ ê³µê²© ë°ë¯¸ì§€1.5ë°° í•˜ëŠ”ê±°
         {
             TopUI.instance.FindItemNum(10, true);
         }
 
 
-        //Ãß°¡ µ¥¹ÌÁö
+        //ì¶”ê°€ ë°ë¯¸ì§€
         float finaldamage = TotalDmgCal(hitdamage);
-        //µ¥¹ÌÁö ¹èÀ²
+        //ë°ë¯¸ì§€ ë°°ìœ¨
         finaldamage *= combinationpanel.GetComponent<combinationpanel>().damagemulltiple;
 
         if(Player.instance.Item52)
@@ -1302,56 +1302,56 @@ public class combinationskill : MonoBehaviour
             }
         }
 
-        if (Player.instance.paralysis) //¸¶ºñ »óÅÂÀÌ¸é ½ÇÇà
+        if (Player.instance.paralysis) //ë§ˆë¹„ ìƒíƒœì´ë©´ ì‹¤í–‰
         {
             finaldamage /= 2;
         }
-        //¹İ¿Ã¸²
+        //ë°˜ì˜¬ë¦¼
         finaldamage = (int)(finaldamage + 0.5f);
 
-        //ÀÌÀü °ø°İ µ¥¹ÌÁö
+        //ì´ì „ ê³µê²© ë°ë¯¸ì§€
         combinationpanel.GetComponent<combinationpanel>().previousDamage = (int)finaldamage;
 
-        finaldamage -= Player.instance.fear; //°øÆ÷¸¸Å­ µ¥¹ÌÁö °¨¼Ò
+        finaldamage -= Player.instance.fear; //ê³µí¬ë§Œí¼ ë°ë¯¸ì§€ ê°ì†Œ
                                              /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        DebugX.Log("°ø°İ ½ÇÇà" + finaldamage);
+        DebugX.Log("ê³µê²© ì‹¤í–‰" + finaldamage);
 
-        if (LastTarget == null)     //Å¸ÄÏÀÌ ¾øÀ» °æ¿ì °ø°İÀ» ¸ØÃã
+        if (LastTarget == null)     //íƒ€ì¼“ì´ ì—†ì„ ê²½ìš° ê³µê²©ì„ ë©ˆì¶¤
         {
-            DebugX.Log("¶ó½ºÆ®Å¸°Ù ¾øÀ½");
+            DebugX.Log("ë¼ìŠ¤íŠ¸íƒ€ê²Ÿ ì—†ìŒ");
         }
         else
         {
-            if (targets == "´ÜÀÏ°ø°İ")
+            if (targets == "ë‹¨ì¼ê³µê²©")
             {
-                DebugX.Log("´ÜÀÏ°ø°İ");
+                DebugX.Log("ë‹¨ì¼ê³µê²©");
 
                 DebugX.Log(isShieldCrack.ToString());
                 if (isShieldCrack)
                 {
-                    DebugX.Log("½¯µå±ğ");
+                    DebugX.Log("ì‰´ë“œê¹");
                     LastTarget.GetComponent<EnemyBase>().EnemyArmor = 0;
                     LastTarget.GetComponent<EnemyBase>().EnemyHpBarShow();
                     yield break;
                 }
                 LastTarget.GetComponent<EnemyBase>().EnemyDamaged(finaldamage);
-                //ÀÌÆåÆ®
+                //ì´í™íŠ¸
                 if (finaldamage <= 30)
                 {
-                    DebugX.Log("¾à°ø°İ ½ÇÇà" + finaldamage);
+                    DebugX.Log("ì•½ê³µê²© ì‹¤í–‰" + finaldamage);
                     EffectManager.instance.PlayerEffectOn("Slash", Player.instance.transform.position);
                 }
                 else if (finaldamage >= 31)
                 {
-                    DebugX.Log("°­°ø°İ ½ÇÇà" + finaldamage);
+                    DebugX.Log("ê°•ê³µê²© ì‹¤í–‰" + finaldamage);
                     EffectManager.instance.PlayerEffectOn("SlashStrong", Player.instance.transform.position);
                 }
 
             }
 
-            else if (targets == "ÀüÃ¼°ø°İ")
+            else if (targets == "ì „ì²´ê³µê²©")
             {
-                DebugX.Log("ÀüÃ¼°ø°İ");
+                DebugX.Log("ì „ì²´ê³µê²©");
 
                 GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -1370,20 +1370,20 @@ public class combinationskill : MonoBehaviour
                 }
             }
 
-            //Å¸°ÙµÈ »ó´ë°¡ Á×¾î¹ö¸®¸é
+            //íƒ€ê²Ÿëœ ìƒëŒ€ê°€ ì£½ì–´ë²„ë¦¬ë©´
             if (LastTarget != null && LastTarget.GetComponent<EnemyBase>().EnemyHp <= 0 && Player.instance.gameObject.GetComponent<SelectTarget>().enabled == true)
             {
-                DebugX.Log("Á×¾úÀ½?)");
+                DebugX.Log("ì£½ì—ˆìŒ?)");
                 LastTarget.tag = "Untagged";
                 Player.instance.GetComponent<SelectTarget>().firstsearchtarget();
             }
         }
-        // µ¥¹ÌÁö ÃÊ±âÈ­
+        // ë°ë¯¸ì§€ ì´ˆê¸°í™”
 
         combinationpanel.GetComponent<combinationpanel>().plusdamage = 0;
         combinationpanel.GetComponent<combinationpanel>().damagemulltiple = 1.0f;
     }
-    public IEnumerator DamageEnemy(float damage, int Attackcount, bool NotChageTarget = false, bool NotAtkCount = false, float AtkDelay = 0)       //¿¬Å¸¿ë µ¥¹ÌÁö ÇÔ¼ö
+    public IEnumerator DamageEnemy(float damage, int Attackcount, bool NotChageTarget = false, bool NotAtkCount = false, float AtkDelay = 0)       //ì—°íƒ€ìš© ë°ë¯¸ì§€ í•¨ìˆ˜
     {
         if(AtkDelay !=0)
         {
@@ -1402,21 +1402,21 @@ public class combinationskill : MonoBehaviour
 
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
-        if (card84) //¸¸¾à 84¹ø Ä«µå¸¦ »ç¿ëÇß´Ù¸é
+        if (card84) //ë§Œì•½ 84ë²ˆ ì¹´ë“œë¥¼ ì‚¬ìš©í–ˆë‹¤ë©´
         {
-            //xÃà ±âÁØÀ¸·Î Àû Á¤·Ä
+            //xì¶• ê¸°ì¤€ìœ¼ë¡œ ì  ì •ë ¬
             Array.Sort(Enemies, (e1, e2) => e1.transform.position.x.CompareTo(e2.transform.position.x));
         }
 
         int target = Random.Range(0, Enemies.Length);
 
         DebugX.Log("target : " + target);
-        //ÃÖÁ¾ ¼±ÅÃµÈ µ¥¹ÌÁö ÀÔÈú ´ë»ó
+        //ìµœì¢… ì„ íƒëœ ë°ë¯¸ì§€ ì…í ëŒ€ìƒ
         //GameObject LastTarget;
 
-        if (!NotChageTarget)    //Å¸°Ù°íÁ¤ÀÌ ¾Æ´Ò¶§
+        if (!NotChageTarget)    //íƒ€ê²Ÿê³ ì •ì´ ì•„ë‹ë•Œ
         {
-            //µµ¹ß ¸ó½ºÅÍ Ã£±â
+            //ë„ë°œ ëª¬ìŠ¤í„° ì°¾ê¸°
             float targetHp = 0;
             for (int i = 0; i < Enemies.Length; i++)
             {
@@ -1430,7 +1430,7 @@ public class combinationskill : MonoBehaviour
                     }
                 }
             }
-            // Å¸°ÙÀÌ ÁöÁ¤µÇ¾îÀÖÀ» ¶§ Å¸°ÙÇÏ°í ¾Æ´Ï¸é À§¿¡¼­ ¼±º°µÈ°ÍÁß ·£´ı
+            // íƒ€ê²Ÿì´ ì§€ì •ë˜ì–´ìˆì„ ë•Œ íƒ€ê²Ÿí•˜ê³  ì•„ë‹ˆë©´ ìœ„ì—ì„œ ì„ ë³„ëœê²ƒì¤‘ ëœë¤
             if (Player.instance.targetEnemy == null)
             {
                 LastTarget = Enemies[target];
@@ -1439,7 +1439,7 @@ public class combinationskill : MonoBehaviour
             {
                 LastTarget = Player.instance.targetEnemy;
 
-                if (card84) //¸¸¾à 84¹ø Ä«µå¸¦ »ç¿ëÇß´Ù¸é
+                if (card84) //ë§Œì•½ 84ë²ˆ ì¹´ë“œë¥¼ ì‚¬ìš©í–ˆë‹¤ë©´
                 {
                     for (int i = 0; i < Enemies.Length; i++)
                     {
@@ -1452,17 +1452,17 @@ public class combinationskill : MonoBehaviour
                 }
             }
 
-            if (card84) //¸¸¾à 84¹ø Ä«µå¸¦ »ç¿ëÇß´Ù¸é
+            if (card84) //ë§Œì•½ 84ë²ˆ ì¹´ë“œë¥¼ ì‚¬ìš©í–ˆë‹¤ë©´
             {
                 LastTarget_before = LastTarget;
-                Card84_Function(target, Enemies);       //Å¸ÄÏ ÁöÁ¤
+                Card84_Function(target, Enemies);       //íƒ€ì¼“ ì§€ì •
             }
         }
-        else    //Å¸°Ù °íÁ¤ÀÎµ¥
+        else    //íƒ€ê²Ÿ ê³ ì •ì¸ë°
         {
-            if(LastTarget_before !=null)        //°í¹«°ø º¯¼ö°¡ ÀÖÀ» ¶§
+            if(LastTarget_before !=null)        //ê³ ë¬´ê³µ ë³€ìˆ˜ê°€ ìˆì„ ë•Œ
             {
-                LastTarget = LastTarget_before; //°í¹«°øÀÌ ¶§¸° Å¸°ÙÀ¸·Î º¯°æ
+                LastTarget = LastTarget_before; //ê³ ë¬´ê³µì´ ë•Œë¦° íƒ€ê²Ÿìœ¼ë¡œ ë³€ê²½
             }
         }
 
@@ -1471,61 +1471,61 @@ public class combinationskill : MonoBehaviour
         {
 
 
-            combinationpanel.GetComponent<combinationpanel>().attacktime += 1; //°ø°İÈ½¼ö Ã¼Å©
+            combinationpanel.GetComponent<combinationpanel>().attacktime += 1; //ê³µê²©íšŸìˆ˜ ì²´í¬
 
 
 
-            ////////////////////////////////////////////////µ¥¹ÌÁö °è»ê/////////////////////////////////////////////////////////////////////////
+            ////////////////////////////////////////////////ë°ë¯¸ì§€ ê³„ì‚°/////////////////////////////////////////////////////////////////////////
 
-            if (Player.instance.Item10 == true && !NotAtkCount) //¾ÆÀÌÅÛ  3¹øÂ° °ø°İ µ¥¹ÌÁö1.5¹è ÇÏ´Â°Å
+            if (Player.instance.Item10 == true && !NotAtkCount) //ì•„ì´í…œ  3ë²ˆì§¸ ê³µê²© ë°ë¯¸ì§€1.5ë°° í•˜ëŠ”ê±°
             {
                 TopUI.instance.FindItemNum(10, true);
             }
 
 
-            //Ãß°¡ µ¥¹ÌÁö
+            //ì¶”ê°€ ë°ë¯¸ì§€
             float finaldamage = TotalDmgCal(damage);
-            //µ¥¹ÌÁö ¹èÀ²
+            //ë°ë¯¸ì§€ ë°°ìœ¨
             finaldamage *= combinationpanel.GetComponent<combinationpanel>().damagemulltiple;
             
-            if (Player.instance.paralysis)  //¸¶ºñ »óÅÂÀÌ¸é ½ÇÇà
+            if (Player.instance.paralysis)  //ë§ˆë¹„ ìƒíƒœì´ë©´ ì‹¤í–‰
             {
                 finaldamage /= 2;
             }
             
-            //¹İ¿Ã¸²
+            //ë°˜ì˜¬ë¦¼
             finaldamage = (int)(finaldamage + 0.5f);
 
-            finaldamage -= Player.instance.fear; //°øÆ÷¸¸Å­ µ¥¹ÌÁö °¨¼Ò
-            ////////////////////////////////////////////////µ¥¹ÌÁö °è»ê/////////////////////////////////////////////////////////////////////////
+            finaldamage -= Player.instance.fear; //ê³µí¬ë§Œí¼ ë°ë¯¸ì§€ ê°ì†Œ
+            ////////////////////////////////////////////////ë°ë¯¸ì§€ ê³„ì‚°/////////////////////////////////////////////////////////////////////////
 
-            /////////////////////////////////////////////////////////////////¿¬¼Ó¶§¸®´Ù°¡ Á×¾î¹ö¸°°æ¿ì¿¡ Ã³¸®
-            if (LastTarget == null) DebugX.Log("¶ó½ºÆ®Å¸°Ù ¾øÀ½");
+            /////////////////////////////////////////////////////////////////ì—°ì†ë•Œë¦¬ë‹¤ê°€ ì£½ì–´ë²„ë¦°ê²½ìš°ì— ì²˜ë¦¬
+            if (LastTarget == null) DebugX.Log("ë¼ìŠ¤íŠ¸íƒ€ê²Ÿ ì—†ìŒ");
             else
             {
                 LastTarget.GetComponent<EnemyBase>().EnemyDamaged(finaldamage);
             }
             //////////////////////////////////////////////////////////////////////////////////////////////////////
             DebugX.Log(damage + " " + Player.instance.power + " " + finaldamage);
-            //ÀÌÀü °ø°İ µ¥¹ÌÁö
+            //ì´ì „ ê³µê²© ë°ë¯¸ì§€
             combinationpanel.GetComponent<combinationpanel>().previousDamage = (int)finaldamage;
             DebugX.Log(combinationpanel.GetComponent<combinationpanel>().previousDamage.ToString());
 
-            //Å¸°ÙµÈ »ó´ë°¡ Á×¾î¹ö¸®¸é
+            //íƒ€ê²Ÿëœ ìƒëŒ€ê°€ ì£½ì–´ë²„ë¦¬ë©´
             if (LastTarget != null && LastTarget.GetComponent<EnemyBase>().EnemyHp <= 0 && Player.instance.gameObject.GetComponent<SelectTarget>().enabled == true)
             {
-                DebugX.Log("Á×¾úÀ½?)");
+                DebugX.Log("ì£½ì—ˆìŒ?)");
                 LastTarget.tag = "Untagged";
                 Player.instance.GetComponent<SelectTarget>().firstsearchtarget();
             }
 
 
 
-            // µ¥¹ÌÁö ÃÊ±âÈ­
+            // ë°ë¯¸ì§€ ì´ˆê¸°í™”
             combinationpanel.GetComponent<combinationpanel>().plusdamage = 0;
             combinationpanel.GetComponent<combinationpanel>().damagemulltiple = 1.0f;
 
-            //84¹ø Ä«µå È¿°ú
+            //84ë²ˆ ì¹´ë“œ íš¨ê³¼
             if(card84)
             {
                 if (card84_target)
@@ -1540,7 +1540,7 @@ public class combinationskill : MonoBehaviour
                     Position = LastTarget.transform.position;
                     damage = card84_dmg;
                 }
-                else    //°ø°İÇÒ ´ë»óÀÌ ¾øÀ¸¸é
+                else    //ê³µê²©í•  ëŒ€ìƒì´ ì—†ìœ¼ë©´
                 {
                     break;
                 }
@@ -1564,23 +1564,23 @@ public class combinationskill : MonoBehaviour
 
         foreach (var e in Enemies)
         {
-            DebugX.Log("Àû ÀÌ¸§" + e.name);
+            DebugX.Log("ì  ì´ë¦„" + e.name);
         }
 
         if (Enemies.Length == 3)
         {
-            if (target == 0)   //Ã³À½ ÀÚ¸®
+            if (target == 0)   //ì²˜ìŒ ìë¦¬
             {
                 card84_target = Enemies[1];
             }
-            else if(target ==1) //µÎ ¹øÂ° ÀÚ¸®
+            else if(target ==1) //ë‘ ë²ˆì§¸ ìë¦¬
             {
                 card84_target = Enemies[2];
             }
         }
         else if (Enemies.Length == 2)
         {
-            if (target == 0)   //Ã³À½ÀÚ¸®
+            if (target == 0)   //ì²˜ìŒìë¦¬
             {
                 card84_target = Enemies[1];
             }
